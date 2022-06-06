@@ -27,7 +27,7 @@ def admin_user():
     from website.models import User
     db.create_all()
     with app.app_context():
-        admin = User(admin=1, username='admin', password='admin123',email_address='admin@example.com', gender='rather not say')
+        admin = User(admin=1, username='admin', password='admin123',email_address='admin@example.com', gender='rather not say', twofa="Enabled")
         if not User.query.filter_by(admin = admin.id).first() and not User.query.filter_by(email_address = admin.email_address).first() and not User.query.filter_by(username = admin.username).first():
             db.session.add(admin)
             db.session.commit()
