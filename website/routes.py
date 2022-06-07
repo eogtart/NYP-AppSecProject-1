@@ -1,5 +1,6 @@
 import logging
 import os
+from tkinter.tix import Tree
 from website import app, bcrypt
 from flask import render_template, request, flash, redirect, url_for, jsonify, Response
 from website.models import User, Partners, Notes, Tickets, Tickets_Response, Item, Booking, Feedback, Events, Logs, \
@@ -2325,27 +2326,39 @@ def landing_page():
     if form.validate_on_submit():
         # if user exist and if password is correct
         attempted_user = User.query.filter_by(username=form.username.data).first()
-        if attempted_user and attempted_user.check_password_correction(attempted_password=form.password.data):
+        if attempted_user:
             if attempted_user.account_availability(attempted_user.status) != 0:
-                # checks username for valid user and checks if password is correct
-                if attempted_user.account_2factor(attempted_user.twofa) == False:
-                # checks for 2 factor authentication
-                    login_user(attempted_user)
-                    # 'login_user' is a built-in function for flask_login
-                    flash(f"Success! You are logged in as: {attempted_user.username}", category='success')
-                    return redirect(url_for('twofa_recommend_page'))
-                elif attempted_user.account_2factor(attempted_user.twofa) == True:
-                    db_attempted_user = shelve.open('website/databases/otp/otp.db', 'c')
-                    try:
-                        db_attempted_user['user'] = form.username.data
-                        db_attempted_user.close()
-                    except Exception as e:
-                        print(f'{e} error has occurred! Database will close!')
-                        db_attempted_user.close()
-                    return redirect(url_for('twofa_verification'))
+                if attempted_user and attempted_user.check_password_correction(attempted_password=form.password.data):
+                    # checks username for valid user and checks if password is correct
+                    if attempted_user.loginAttempts(attempted_user.loginAttempt) == True:
+
+                        if attempted_user.account_2factor(attempted_user.twofa) == False:
+                        # checks for 2 factor authentication
+                            login_user(attempted_user)
+                            # 'login_user' is a built-in function for flask_login
+                            flash(f"Success! You are logged in as: {attempted_user.username}", category='success')
+                            return redirect(url_for('twofa_recommend_page'))
+                        elif attempted_user.account_2factor(attempted_user.twofa) == True:
+                            db_attempted_user = shelve.open('website/databases/otp/otp.db', 'c')
+                            try:
+                                db_attempted_user['user'] = form.username.data
+                                db_attempted_user.close()
+                            except Exception as e:
+                                print(f'{e} error has occurred! Database will close!')
+                                db_attempted_user.close()
+                            return redirect(url_for('twofa_verification'))
+                    else:
+                        attempted_user.status = 'Disabled'
+                        db.session.commit()
+                        flash(f"{attempted_user.username} account has been disabled!"
+                        f" Please contact Customer Support for more information.", category='danger')
+                else:
+                    attempted_user.loginAttempt += 1
+                    db.session.commit()
+                    flash("Username and Password are not matched! Please try again.", category='danger')
             else:
                 flash(f"{attempted_user.username} account has been disabled!"
-                      f" Please contact Customer Support for more information.", category='danger')
+                f" Please contact Customer Support for more information.", category='danger')
         else:
             flash("Username and Password are not matched! Please try again.", category='danger')
 
@@ -2456,9 +2469,11 @@ def twofa_recommend_page():
     if request.method == "GET":
         logging_in_user = User.query.filter_by(id=current_user.id).first()
         if logging_in_user.account_2factor(logging_in_user.twofa) == False:
-            return redirect(url_for("profile_page"))
+            return render_template('twofactor_recommend.html')
         else:
             return redirect(url_for("home_page"))
+    if request.method == "POST":
+        return redirect(url_for("profile_page"))
         
 @app.route('/profile/2faenable', methods=['GET'])
 @login_required
@@ -2586,43 +2601,6 @@ def twofa_verification():
     else:
         flash('Something went wrong!', category='danger')
         return render_template('twofa_verify.html', form=form)
-
-    # if request.method == 'POST':
-    #     user_to_reset = User.query.filter_by(id=current_user.id).first()
-    #     otp = {}
-    #     otp = user_to_reset.password_otp()
-
-    #     db_otp = shelve.open('website/databases/otp/otp.db', 'c')
-    #     try:
-    #         db_otp['otp'] = otp
-    #         db_otp.close()
-    #     except Exception as e:
-    #         print(f'{e} error has occurred! Database will close!')
-    #         db_otp.close()
-    #         return redirect(url_for('twofa_verification'))
-
-    #     user_email = {}
-    #     user_email = user_to_reset.email_address
-
-    #     db_tempemail = shelve.open('website/databases/tempemail/tempemail.db', 'c')
-    #     try:
-    #         db_tempemail['email'] = user_email
-    #         db_tempemail.close()
-    #     except Exception as e:
-    #         print(f'{e} error has occurred! Database will close!')
-    #         db_tempemail.close()
-    #         return redirect(url_for('twofa_verification'))
-
-    #     msg = Message('Swiss 2-Factor Authentication OTP', sender='swissbothelper@gmail.com',
-    #                 recipients=[user_to_reset.email_address])
-    #     msg.body = f"Your one time password is, {otp}"
-    #     mail.send(msg)
-    #     flash('Successfully sent! Please check your inbox for a one time password.', category='success')
-
-    #     return redirect(url_for('twofa_verification_otp'))
-    # else:
-    #     flash('Something went wrong!', category='danger')
-    #     return render_template('twofa_verify.html', form=form)
     
 
 @app.route('/forgot_password', methods=["GET", 'POST'])
@@ -2927,6 +2905,7 @@ def user_management_update(id):
 def user_management_enable(id):
     userID = User.query.filter_by(id=id).first()
     userID.status = 'Enabled'
+    userID.loginAttempt = 0
     flash(f"{userID.username} account has been enabled", category='success')
     db.session.commit()
     return redirect(url_for('user_management'))

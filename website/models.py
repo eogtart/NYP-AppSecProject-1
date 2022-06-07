@@ -41,8 +41,9 @@ class User(db.Model, UserMixin):
     spending = db.Column(db.Integer(), nullable=False, default=0)
 
     # Account status (Adds 'Disabled' or 'Enabled' status column to User Database)
-    status = db.Column(db.Integer(), nullable=False, default='Enabled')
-    twofa = db.Column(db.Integer(), nullable=False, default='Disabled')
+    status = db.Column(db.String(), nullable=False, default='Enabled')
+    twofa = db.Column(db.String(), nullable=False, default='Disabled')
+    loginAttempt = db.Column(db.Integer(), nullable=False, default=0)
 
     @property
     def prettier_budget(self):
@@ -87,6 +88,12 @@ class User(db.Model, UserMixin):
         elif twofa_status == "Enabled":
             return True
             pass
+
+    def loginAttempts(self, attemptNo):
+        if attemptNo > 6:
+            return False
+        elif attemptNo <= 6:
+            return True
 
     # Password Reset Function
     def password_otp(self, size=8, chars=string.ascii_uppercase + string.digits):
