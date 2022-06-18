@@ -9,7 +9,6 @@ from website.forms import RegisterForm, LoginForm, DepositForm, TransferFunds, C
     Restock_Item_Form, Add_To_Cart_Form, Feedback_form, Add_Event, Edit_Cart, password_reset
 from website import db
 from flask_login import login_user, logout_user, login_required, current_user
-from flask_user import roles_required
 from website import admin_user
 import shelve
 from datetime import datetime
