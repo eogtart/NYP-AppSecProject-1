@@ -9,6 +9,7 @@ from website.forms import RegisterForm, LoginForm, DepositForm, TransferFunds, C
     Restock_Item_Form, Add_To_Cart_Form, Feedback_form, Add_Event, Edit_Cart, password_reset
 from website import db
 from flask_login import login_user, logout_user, login_required, current_user
+from flask_user import roles_required
 from website import admin_user
 import shelve
 from datetime import datetime
@@ -311,6 +312,7 @@ def update_gender():
 def update_password():
     update_password_form = Update_Password()
     userID = User.query.filter_by(id=current_user.id).first()
+    saltRounds = 10
     if request.method == 'POST' and update_password_form.validate_on_submit():
         attempted_user = User.query.filter_by(username=current_user.username).first()
         if attempted_user and attempted_user.check_password_correction(
@@ -2688,12 +2690,19 @@ def supplier_page():
 @app.route('/user_management')
 @login_required
 def user_management():
-    users = User.query.all()
-    return render_template('User_Management.html', users=users)
+    userID = User.query.filter_by(id=current_user.id).first()
+    if userID.admin == 1:
+        print("admin")
+        users = User.query.all()
+        return render_template('User_Management.html', users=users)
+    else:
+        print("User")
+        return render_template('home.html', user=userID)
 
 
 @app.route('/user_managementupdate/<int:id>', methods=['POST', 'GET'])
 @login_required
+#admin role required
 def user_management_update(id):
     userID = User.query.filter_by(id=id).first()
     form = Update_User_Admin()
@@ -2717,6 +2726,7 @@ def user_management_update(id):
 
 @app.route('/user_management/enable/<int:id>', methods=['POST'])
 @login_required
+#admin role required
 # Inheritance
 def user_management_enable(id):
     userID = User.query.filter_by(id=id).first()
@@ -2728,6 +2738,7 @@ def user_management_enable(id):
 
 @app.route('/user_management/disable/<int:id>', methods=['POST'])
 @login_required
+#admin role required
 # Inheritance
 def user_management_disable(id):
     # The problem is this, where I cannot find the ID.
