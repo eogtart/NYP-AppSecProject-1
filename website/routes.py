@@ -1862,71 +1862,79 @@ def Add_To_Cart():
 @app.route('/partners')
 @login_required
 def partners_page():
-    partners_dict = {}
-    try:
-        db_shelve = shelve.open('website/databases/partners/partner.db', 'r')
-        partners_dict = db_shelve['PartnerInfo']
-        db_shelve.close()
-    except IOError:
-        print("Error trying to read file")
+    admincheckuserID = User.query.filter_by(id=current_user.id).first()
+    if admincheckuserID.admin ==1:
+        partners_dict = {}
+        try:
+            db_shelve = shelve.open('website/databases/partners/partner.db', 'r')
+            partners_dict = db_shelve['PartnerInfo']
+            db_shelve.close()
+        except IOError:
+            print("Error trying to read file")
 
-    except Exception as e:
-        print(f"An unknown error has occurred,{e}")
+        except Exception as e:
+            print(f"An unknown error has occurred,{e}")
 
-    partners_list = []
-    for key in partners_dict:
-        partner = partners_dict.get(key)
-        partners_list.append(partner)
+        partners_list = []
+        for key in partners_dict:
+            partner = partners_dict.get(key)
+            partners_list.append(partner)
 
-    return render_template('Partner.html', count=len(partners_list), partners=partners_list)
+        return render_template('Partner.html', count=len(partners_list), partners=partners_list)
+    else:
+        return render_template("error404.html")
 
 
 @app.route('/add_partners', methods=['GET', 'POST'])
 @login_required
 def add_partners_page():
-    form = CreatePartnerForm()
-    db_shelve = shelve.open('website/databases/partners/partner.db', 'c')
-    db_shelve_uniqueID = shelve.open('website/databases/partners/partner_uniqueID.db', 'c')
-    partners_dict = {}
-    ids = 0
-    try:
-        if 'PartnerInfo' in db_shelve:
-            partners_dict = db_shelve['PartnerInfo']
-        else:
-            db_shelve['PartnerInfo'] = partners_dict
-        if 'ID' in db_shelve_uniqueID:
-            ids = db_shelve_uniqueID['ID']
-        else:
-            db_shelve_uniqueID['ID'] = ids
-    except:
-        print("Error in retrieving Partner from database")
+    admincheckuserID = User.query.filter_by(id=current_user.id).first()
+    if admincheckuserID.admin ==1:
+        form = CreatePartnerForm()
+        db_shelve = shelve.open('website/databases/partners/partner.db', 'c')
+        db_shelve_uniqueID = shelve.open('website/databases/partners/partner_uniqueID.db', 'c')
+        partners_dict = {}
+        ids = 0
+        try:
+            if 'PartnerInfo' in db_shelve:
+                partners_dict = db_shelve['PartnerInfo']
+            else:
+                db_shelve['PartnerInfo'] = partners_dict
+            if 'ID' in db_shelve_uniqueID:
+                ids = db_shelve_uniqueID['ID']
+            else:
+                db_shelve_uniqueID['ID'] = ids
+        except:
+            print("Error in retrieving Partner from database")
 
-    if request.method == 'POST':
-        if form.validate_on_submit():
-            partner = Partners(name=form.name.data,
-                               location=form.location.data,
-                               email=form.email.data)
-            ids += 1
-            partner.set_id(ids)
-            partners_dict[ids] = partner
-            db_shelve['PartnerInfo'] = partners_dict
-            db_shelve_uniqueID['ID'] = ids
-            flash("Partner Added Successfully", category='success')
-            db_shelve.close()
-            db_shelve_uniqueID.close()
-            return redirect(url_for('partners_page'))
-        else:
-            flash("An Error Occurred trying to submit Form", category='danger')
-            return redirect(url_for('add_partners_page'))
-    if form.errors != {}:  # If there are not errors from the validations
-        errors = []
-        for err_msg in form.errors.values():
-            errors.append(err_msg)
-        err_message = '<br/>'.join([f'({number}){error[0]}' for number, error in enumerate(errors, start=1)])
-        flash(f'{err_message}', category='danger')
+        if request.method == 'POST':
+            if form.validate_on_submit():
+                partner = Partners(name=form.name.data,
+                                   location=form.location.data,
+                                   email=form.email.data)
+                ids += 1
+                partner.set_id(ids)
+                partners_dict[ids] = partner
+                db_shelve['PartnerInfo'] = partners_dict
+                db_shelve_uniqueID['ID'] = ids
+                flash("Partner Added Successfully", category='success')
+                db_shelve.close()
+                db_shelve_uniqueID.close()
+                return redirect(url_for('partners_page'))
+            else:
+                flash("An Error Occurred trying to submit Form", category='danger')
+                return redirect(url_for('add_partners_page'))
+        if form.errors != {}:  # If there are not errors from the validations
+            errors = []
+            for err_msg in form.errors.values():
+                errors.append(err_msg)
+            err_message = '<br/>'.join([f'({number}){error[0]}' for number, error in enumerate(errors, start=1)])
+            flash(f'{err_message}', category='danger')
 
-    if request.method == 'GET':
-        return render_template('AddPartner.html', form=form)
+        if request.method == 'GET':
+            return render_template('AddPartner.html', form=form)
+    else:
+        return render_template('error404.html')
 
 
 @app.route('/deletePartner/<int:id>', methods=['POST'])
@@ -2554,49 +2562,54 @@ def password_reset_page():
 @app.route('/suppliers/create', methods=['GET', 'POST'])
 @login_required
 def create_supplier():
-    from website.models import Suppliers
-    from website.forms import CreateSupplierForm
+    admincheckuserID = User.query.filter_by(id=current_user.id).first()
+    if admincheckuserID.admin ==1:
+        from website.models import Suppliers
+        from website.forms import CreateSupplierForm
 
-    form = CreateSupplierForm()
+        form = CreateSupplierForm()
 
-    if request.method == 'POST':
-        if form.validate_on_submit():
-            create_supplier_form = CreateSupplierForm()
+        if request.method == 'POST':
+            if form.validate_on_submit():
+                create_supplier_form = CreateSupplierForm()
 
-            supplier_dict = {}
-            supplier_db = shelve.open('website/databases/supplier/supplier.db', 'c')
-            supplier_id_db = shelve.open('website/databases/supplier/supplier_id_db', 'c')
-            id = 0
+                supplier_dict = {}
+                supplier_db = shelve.open('website/databases/supplier/supplier.db', 'c')
+                supplier_id_db = shelve.open('website/databases/supplier/supplier_id_db', 'c')
+                id = 0
 
-            try:
                 try:
-                    # if company data in database,
-                    supplier_dict = supplier_db['Suppliers']
-                except Exception as e:
-                    print(f"An unknown error, \"{e}\" has occured!")
+                    try:
+                        # if company data in database,
+                        supplier_dict = supplier_db['Suppliers']
+                    except Exception as e:
+                        print(f"An unknown error, \"{e}\" has occured!")
 
-                if "ID" in supplier_id_db:
-                    id = supplier_id_db["ID"]
+                    if "ID" in supplier_id_db:
+                        id = supplier_id_db["ID"]
 
-                else:
+                    else:
+                        supplier_id_db['ID'] = id
+
+                    suppliers = Suppliers(id, create_supplier_form.company.data, create_supplier_form.remarks.data,
+                                          create_supplier_form.email.data, create_supplier_form.phone.data)
+
+                    id += 1
+                    suppliers.set_supplier_id(id)
+                    supplier_dict[suppliers.get_supplier_id()] = suppliers
+                    supplier_db['Suppliers'] = supplier_dict
                     supplier_id_db['ID'] = id
+                    supplier_db.close()
 
-                suppliers = Suppliers(id, create_supplier_form.company.data, create_supplier_form.remarks.data,
-                                      create_supplier_form.email.data, create_supplier_form.phone.data)
+                except Exception as e:
+                    flash(f"{e} error occurred!", category='danger')
+                    supplier_db.close()
 
-                id += 1
-                suppliers.set_supplier_id(id)
-                supplier_dict[suppliers.get_supplier_id()] = suppliers
-                supplier_db['Suppliers'] = supplier_dict
-                supplier_id_db['ID'] = id
-                supplier_db.close()
+            return redirect(url_for('supplier_page'))
+        return render_template("CreateSupplier.html", form=form)
+    else:
+        return render_template("error404.html")
 
-            except Exception as e:
-                flash(f"{e} error occurred!", category='danger')
-                supplier_db.close()
-
-        return redirect(url_for('supplier_page'))
-    return render_template("CreateSupplier.html", form=form)
 
 
 @app.route('/suppliersedit/<int:id>', methods=['GET', 'POST'])
@@ -2669,59 +2682,69 @@ def supplier_delete(id):
 @app.route('/suppliers')
 @login_required
 def supplier_page():
-    supplier_dict = {}
-    try:
-        supplier_db = shelve.open('website/databases/supplier/supplier.db', 'r')
-        supplier_dict = supplier_db['Suppliers']
-        supplier_db.close()
-    except IOError:
-        print("Failed to read file")
-    except Exception as e:
-        print(f"An unknown error has occurred, {e}")
+    admincheckuserID = User.query.filter_by(id=current_user.id).first()
+    if admincheckuserID.admin ==1:
+        supplier_dict = {}
+        try:
+            supplier_db = shelve.open('website/databases/supplier/supplier.db', 'r')
+            supplier_dict = supplier_db['Suppliers']
+            supplier_db.close()
+        except IOError:
+            print("Failed to read file")
+        except Exception as e:
+            print(f"An unknown error has occurred, {e}")
 
-    supplier_list = []
-    for key in supplier_dict:
-        supplier = supplier_dict.get(key)
-        supplier_list.append(supplier)
+        supplier_list = []
+        for key in supplier_dict:
+            supplier = supplier_dict.get(key)
+            supplier_list.append(supplier)
 
-    return render_template('Supplier.html', count=len(supplier_list), supplier_list=supplier_list)
+        return render_template('Supplier.html', count=len(supplier_list), supplier_list=supplier_list)
+    else:
+        return render_template("error404.html")
 
 
 @app.route('/user_management')
 @login_required
+#admin required
 def user_management():
-    userID = User.query.filter_by(id=current_user.id).first()
-    if userID.admin == 1:
+    admincheckuserID = User.query.filter_by(id=current_user.id).first()
+    if admincheckuserID.admin == 1:
         print("admin")
         users = User.query.all()
         return render_template('User_Management.html', users=users)
     else:
         print("User")
-        return render_template('home.html', user=userID)
+        render_template('error404.html')
+
 
 
 @app.route('/user_managementupdate/<int:id>', methods=['POST', 'GET'])
 @login_required
-#admin role required
+#admin required
 def user_management_update(id):
     userID = User.query.filter_by(id=id).first()
-    form = Update_User_Admin()
+    admincheckuserID = User.query.filter_by(id=current_user.id).first()
+    if admincheckuserID.admin == 1:
+        form = Update_User_Admin()
 
-    if request.method == 'POST' and form.validate_on_submit:
-        # NOTE THAT FORM DOES NOT VALIDATE ON SUBMIT!
-        # Also note that below does not work
-        userID.username = form.username.data
-        userID.email_address = form.email_address.data
-        db.session.commit()
-        print("User's Particulars updated to database successfully!")
+        if request.method == 'POST' and form.validate_on_submit:
+            # NOTE THAT FORM DOES NOT VALIDATE ON SUBMIT!
+            # Also note that below does not work
+            userID.username = form.username.data
+            userID.email_address = form.email_address.data
+            db.session.commit()
+            print("User's Particulars updated to database successfully!")
+        else:
+            print("Some error occurred!")
+
+        if request.method == 'GET':
+            return render_template('Update_User_Management.html', form=form, user=userID)
+
+        print(form.errors)
+        return redirect(url_for('user_management'))
     else:
-        print("Some error occurred!")
-
-    if request.method == 'GET':
-        return render_template('Update_User_Management.html', form=form, user=userID)
-
-    print(form.errors)
-    return redirect(url_for('user_management'))
+        return render_template('error404.html')
 
 
 @app.route('/user_management/enable/<int:id>', methods=['POST'])
@@ -2730,10 +2753,14 @@ def user_management_update(id):
 # Inheritance
 def user_management_enable(id):
     userID = User.query.filter_by(id=id).first()
-    userID.status = 'Enabled'
-    flash(f"{userID.username} account has been enabled", category='success')
-    db.session.commit()
-    return redirect(url_for('user_management'))
+    admincheckuserID = User.query.filter_by(id=current_user.id).first()
+    if admincheckuserID.admin == 1:
+        userID.status = 'Enabled'
+        flash(f"{userID.username} account has been enabled", category='success')
+        db.session.commit()
+        return redirect(url_for('user_management'))
+    else:
+        return render_template('error404.html')
 
 
 @app.route('/user_management/disable/<int:id>', methods=['POST'])
@@ -2743,97 +2770,115 @@ def user_management_enable(id):
 def user_management_disable(id):
     # The problem is this, where I cannot find the ID.
     userID = User.query.filter_by(id=id).first()
-    userID.status = 'Disabled'
-    flash(f'{userID.username} account has been disabled', category='danger')
-    db.session.commit()
-    return redirect(url_for('user_management'))
+    admincheckuserID = User.query.filter_by(id=current_user.id).first()
+    if admincheckuserID.admin == 1:
+        userID.status = 'Disabled'
+        flash(f'{userID.username} account has been disabled', category='danger')
+        db.session.commit()
+        return redirect(url_for('user_management'))
+    else:
+        return render_template('error404.html')
+
 
 
 # Samuel
 @app.route('/Events', methods=['GET', 'POST'])
 @login_required
 def Events_Page():
-    Event_Form = Add_Event()
-    event_database = shelve.open('website/databases/Events/event.db', 'c')
-    event_dict = {}
+    admincheckuserID = User.query.filter_by(id=current_user.id).first()
+    if admincheckuserID.admin == 1:
 
-    try:
-        if "EventInfo" not in event_database:
-            event_database["EventInfo"] = event_dict
+        Event_Form = Add_Event()
+        event_database = shelve.open('website/databases/Events/event.db', 'c')
+        event_dict = {}
+
+        try:
+            if "EventInfo" not in event_database:
+                event_database["EventInfo"] = event_dict
+            else:
+                event_dict = event_database["EventInfo"]
+        except IOError:
+            flash("An Error Has Occurred Trying to Read The Database", category="error")
+        except Exception as e:
+            flash(f"An Unknown Error has occurred, {e}")
         else:
-            event_dict = event_database["EventInfo"]
-    except IOError:
-        flash("An Error Has Occurred Trying to Read The Database", category="error")
-    except Exception as e:
-        flash(f"An Unknown Error has occurred, {e}")
-    else:
-        if request.method == "POST":
-            new_event = Events(
-                id=str(uuid4()),
-                description=Event_Form.description.data,
-                title=Event_Form.title.data,
-                date_added=datetime.now().strftime("%d/%m/%y"),
-                time_added=datetime.now().strftime("%I:%M:%S:%p"),
-                updated_date=datetime.now().strftime("%d/%m/%y"),
-                updated_time=datetime.now().strftime("%I:%M:%S:%p")
-            )
-            event_dict[new_event.get_id()] = new_event
-            event_database["EventInfo"] = event_dict
-            event_database.close()
-            flash("New Event Added", category='success')
+            if request.method == "POST":
+                new_event = Events(
+                    id=str(uuid4()),
+                    description=Event_Form.description.data,
+                    title=Event_Form.title.data,
+                    date_added=datetime.now().strftime("%d/%m/%y"),
+                    time_added=datetime.now().strftime("%I:%M:%S:%p"),
+                    updated_date=datetime.now().strftime("%d/%m/%y"),
+                    updated_time=datetime.now().strftime("%I:%M:%S:%p")
+                )
+                event_dict[new_event.get_id()] = new_event
+                event_database["EventInfo"] = event_dict
+                event_database.close()
+                flash("New Event Added", category='success')
 
-    return render_template('events.html', form=Event_Form, events=event_dict)
+        return render_template('events.html', form=Event_Form, events=event_dict)
+    else:
+        return render_template("error404.html")
 
 
 @app.route("/deleteEvents", methods=["GET", "POST"])
 @login_required
 def deleteEvents():
-    event_database = shelve.open('website/databases/Events/event.db', 'w')
-    event_dict = {}
-    try:
-        if "EventInfo" not in event_database:
-            event_database["EventInfo"] = event_dict
+    admincheckuserID = User.query.filter_by(id=current_user.id).first()
+    if admincheckuserID.admin ==1:
+        event_database = shelve.open('website/databases/Events/event.db', 'w')
+        event_dict = {}
+        try:
+            if "EventInfo" not in event_database:
+                event_database["EventInfo"] = event_dict
+            else:
+                event_dict = event_database["EventInfo"]
+        except KeyError:
+            flash("No such note.", category="error")
+        except Exception as e:
+            flash(f"An Unknown Error has occurred, {e}")
         else:
-            event_dict = event_database["EventInfo"]
-    except KeyError:
-        flash("No such note.", category="error")
-    except Exception as e:
-        flash(f"An Unknown Error has occurred, {e}")
+            print("event dictionary")
+            print(event_dict)
+            del event_dict[str(request.form.get('uuid'))]
+            event_database["EventInfo"] = event_dict
+            event_database.close()
+            flash("Event Deleted", category="success")
+        return redirect(url_for("Events_Page"))
     else:
-        print("event dictionary")
-        print(event_dict)
-        del event_dict[str(request.form.get('uuid'))]
-        event_database["EventInfo"] = event_dict
-        event_database.close()
-        flash("Event Deleted", category="success")
-    return redirect(url_for("Events_Page"))
+        return render_template("error404.html")
 
 
 @app.route('/updateEvents', methods=["GET", "POST"])
 @login_required
 def updateEvents():
-    # update_events_form = Update_Events()
-    event_database = shelve.open('website/databases/Events/event.db', 'w')
-    event_dict = {}
-    try:
-        if "EventInfo" not in event_database:
-            event_database["EventInfo"] = event_dict
+    admincheckuserID = User.query.filter_by(id=current_user.id).first()
+    if admincheckuserID.admin ==1:
+        # update_events_form = Update_Events()
+        event_database = shelve.open('website/databases/Events/event.db', 'w')
+        event_dict = {}
+        try:
+            if "EventInfo" not in event_database:
+                event_database["EventInfo"] = event_dict
+            else:
+                event_dict = event_database["EventInfo"]
+        except KeyError:
+            flash("No such note.", category="danger")
+        except Exception as e:
+            flash(f"An Unknown Error has occurred, {e}", category="danger")
         else:
-            event_dict = event_database["EventInfo"]
-    except KeyError:
-        flash("No such note.", category="danger")
-    except Exception as e:
-        flash(f"An Unknown Error has occurred, {e}", category="danger")
+            current_event = event_dict[str(request.form.get('uuid'))]
+            current_event.set_title(request.form.get('title'))
+            current_event.set_description(request.form.get('description'))
+            current_event.set_updated_date(datetime.now().strftime("%d/%m/%y "))
+            current_event.set_updated_time(datetime.now().strftime("%I:%M:%S:%p"))
+            event_database["EventInfo"] = event_dict
+            flash('Event Updated', category='success')
+            event_database.close()
+        return redirect(url_for("Events_Page"))
     else:
-        current_event = event_dict[str(request.form.get('uuid'))]
-        current_event.set_title(request.form.get('title'))
-        current_event.set_description(request.form.get('description'))
-        current_event.set_updated_date(datetime.now().strftime("%d/%m/%y "))
-        current_event.set_updated_time(datetime.now().strftime("%I:%M:%S:%p"))
-        event_database["EventInfo"] = event_dict
-        flash('Event Updated', category='success')
-        event_database.close()
-    return redirect(url_for("Events_Page"))
+        return render_template("error404.html")
 
 
 @app.route('/Current_Events', methods=['GET', 'POST'])
@@ -2928,28 +2973,32 @@ def ticket_page():
 @app.route('/ticket_requests', methods=['GET', 'POST'])
 @login_required
 def ticket_requests_page():
-    ticket_reply_form = Ticket_Reply_Form()
-    tickets = {}
-    count = 0
-    try:
-        ticket_database = shelve.open('website/databases/Ticket/ticket.db', 'r')
-        ticket_database_uniqueID = shelve.open('website/databases/Ticket/ticket_uniqueID.db', 'r')
-        if 'TicketInfo' in ticket_database:
-            tickets = ticket_database['TicketInfo']
-        else:
-            ticket_database['TicketInfo'] = tickets
+    admincheckuserID = User.query.filter_by(id=current_user.id).first()
+    if admincheckuserID.admin ==1:
+        ticket_reply_form = Ticket_Reply_Form()
+        tickets = {}
+        count = 0
+        try:
+            ticket_database = shelve.open('website/databases/Ticket/ticket.db', 'r')
+            ticket_database_uniqueID = shelve.open('website/databases/Ticket/ticket_uniqueID.db', 'r')
+            if 'TicketInfo' in ticket_database:
+                tickets = ticket_database['TicketInfo']
+            else:
+                ticket_database['TicketInfo'] = tickets
 
-        if 'ID' in ticket_database_uniqueID:
-            count = ticket_database_uniqueID['ID']
-        else:
-            ticket_database_uniqueID['ID'] = count
+            if 'ID' in ticket_database_uniqueID:
+                count = ticket_database_uniqueID['ID']
+            else:
+                ticket_database_uniqueID['ID'] = count
 
-    except IOError:
-        print("An Error Has Occurred Trying to Read The Database")
-    except Exception as e:
-        print(f"An Unknown Error has occurred, {e}")
+        except IOError:
+            print("An Error Has Occurred Trying to Read The Database")
+        except Exception as e:
+            print(f"An Unknown Error has occurred, {e}")
 
-    return render_template('ticketRequest.html', tickets=tickets, ticker_response=ticket_reply_form)
+        return render_template('ticketRequest.html', tickets=tickets, ticker_response=ticket_reply_form)
+    else:
+        return render_template("error404.html")
 
 
 @app.route('/ticket_history', methods=['GET', 'POST'])
@@ -3275,45 +3324,48 @@ def delete_messages_page(id):
 @app.route('/Feedback_Form', methods=['GET', 'POST'])
 @login_required
 def Feedback_Page():
-    feedback_form = Feedback_form()
-    feedback_dict = {}
-    feedback_database = shelve.open('website/databases/Feedbacks/Feedback.db', 'c')
-    # feedback_database_uniqueID = shelve.open('website/databases/Feedbacks/Feedback_uniqueID.db', 'c')
-    try:
-        if 'feedbackinfo' in feedback_database:
-            feedback_dict = feedback_database['feedbackinfo']
-        else:
+    userID = User.query.filter_by(id=current_user.id).first()
+    if userID.admin == 1:
+        feedback_form = Feedback_form()
+        feedback_dict = {}
+        feedback_database = shelve.open('website/databases/Feedbacks/Feedback.db', 'c')
+        # feedback_database_uniqueID = shelve.open('website/databases/Feedbacks/Feedback_uniqueID.db', 'c')
+        try:
+            if 'feedbackinfo' in feedback_database:
+                feedback_dict = feedback_database['feedbackinfo']
+            else:
+                feedback_database['feedbackinfo'] = feedback_dict
+
+        except IOError:
+            print("An Error Has Occurred Trying to Read The Database")
+        except Exception as e:
+            print(f"An Unknown Error has occurred, {e}")
+
+        if request.method == 'POST':
+            id = uuid4()
+            feedback = Feedback(
+                id=str(id),
+                description=feedback_form.description.data,
+                time_added=datetime.now().strftime("%d/%m/%y %I:%M:%S:%p"),
+                time_updated=datetime.now().strftime("%d/%m/%y %I:%M:%S:%p"),
+                rating=int(request.form.get('rate')),
+                favourite=feedback_form.favourite.data,
+                least_favourite=feedback_form.least_favourite.data,
+                improvement=feedback_form.improvement.data,
+                title=feedback_form.title.data,
+                sender=current_user.username,
+                sender_id=current_user.id
+            )
+            feedback_dict[str(id)] = feedback
             feedback_database['feedbackinfo'] = feedback_dict
+            feedback_database.close()
+            print("Feedback Dictionary")
+            print(feedback_dict)
+            flash("Feedback Submitted, Thank you very much!", category='success')
 
-    except IOError:
-        print("An Error Has Occurred Trying to Read The Database")
-    except Exception as e:
-        print(f"An Unknown Error has occurred, {e}")
-
-    if request.method == 'POST':
-        id = uuid4()
-        feedback = Feedback(
-            id=str(id),
-            description=feedback_form.description.data,
-            time_added=datetime.now().strftime("%d/%m/%y %I:%M:%S:%p"),
-            time_updated=datetime.now().strftime("%d/%m/%y %I:%M:%S:%p"),
-            rating=int(request.form.get('rate')),
-            favourite=feedback_form.favourite.data,
-            least_favourite=feedback_form.least_favourite.data,
-            improvement=feedback_form.improvement.data,
-            title=feedback_form.title.data,
-            sender=current_user.username,
-            sender_id=current_user.id
-        )
-        feedback_dict[str(id)] = feedback
-        feedback_database['feedbackinfo'] = feedback_dict
-        feedback_database.close()
-        print("Feedback Dictionary")
-        print(feedback_dict)
-        flash("Feedback Submitted, Thank you very much!", category='success')
-
-    return render_template("feedbackform.html", form=feedback_form)
-
+        return render_template("feedbackform.html", form=feedback_form)
+    else:
+        return redirect(url_for('error404.html'))
 
 @app.route('/Feedback_Page', methods=['GET', 'POST'])
 @login_required
