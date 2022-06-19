@@ -2892,12 +2892,10 @@ def supplier_page():
 def user_management():
     admincheckuserID = User.query.filter_by(id=current_user.id).first()
     if admincheckuserID.admin == 1:
-        print("admin")
         users = User.query.all()
         return render_template('User_Management.html', users=users)
     else:
-        print("User")
-        render_template('error404.html')
+        return render_template('error404.html')
 
 
 
