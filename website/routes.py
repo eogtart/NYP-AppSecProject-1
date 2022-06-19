@@ -22,6 +22,8 @@ from flask_mail import Mail, Message
 # from email.mime.text import MIMEText
 import qrcode
 import io, base64, PIL
+from random import random, uniform
+from time import sleep
 from werkzeug.utils import secure_filename
 
 # To ensure file name is parsed
@@ -2324,18 +2326,13 @@ def landing_page():
     # giving an error of Invalid salt Value error
     form = LoginForm()
     if form.validate_on_submit():
-        # if user exist and if password is correct
         attempted_user = User.query.filter_by(username=form.username.data).first()
         if attempted_user:
             if attempted_user.account_availability(attempted_user.status) != 0:
                 if attempted_user and attempted_user.check_password_correction(attempted_password=form.password.data):
-                    # checks username for valid user and checks if password is correct
                     if attempted_user.loginAttempts(attempted_user.loginAttempt) == True:
-
                         if attempted_user.account_2factor(attempted_user.twofa) == False:
-                        # checks for 2 factor authentication
                             login_user(attempted_user)
-                            # 'login_user' is a built-in function for flask_login
                             flash(f"Success! You are logged in as: {attempted_user.username}", category='success')
                             return redirect(url_for('twofa_recommend_page'))
                         elif attempted_user.account_2factor(attempted_user.twofa) == True:
@@ -2353,6 +2350,7 @@ def landing_page():
                         flash(f"{attempted_user.username} account has been disabled!"
                         f" Please contact Customer Support for more information.", category='danger')
                 else:
+                    sleep(uniform(1.2,2.2))
                     attempted_user.loginAttempt += 1
                     db.session.commit()
                     flash("Username and Password are not matched! Please try again.", category='danger')
@@ -2360,6 +2358,7 @@ def landing_page():
                 flash(f"{attempted_user.username} account has been disabled!"
                 f" Please contact Customer Support for more information.", category='danger')
         else:
+            sleep(uniform(2,2.5))
             flash("Username and Password are not matched! Please try again.", category='danger')
 
     return render_template('Landingbase.html', form=form)
