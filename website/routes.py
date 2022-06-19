@@ -2655,6 +2655,7 @@ def update_supplier(id):
 
 @app.route('/suppliers/delete/<int:id>', methods=['POST'])
 @login_required
+#admin functions
 def supplier_delete(id):
     admincheckuserID = User.query.filter_by(id=current_user.id).first()
     if admincheckuserID.admin ==1:
