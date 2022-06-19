@@ -2613,7 +2613,7 @@ def create_supplier():
 
 @app.route('/suppliersedit/<int:id>', methods=['GET', 'POST'])
 @login_required
-#admin required
+#admin role required
 def update_supplier(id):
     admincheckuserID = User.query.filter_by(id=current_user.id).first()
     if admincheckuserID.admin ==1:
