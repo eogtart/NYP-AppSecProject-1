@@ -4,7 +4,7 @@
 
 <br>
 
- # Quick Instructions to using
+ # Quick Instructions to downloading
 
  >- Download as ZIP file and place it into your system directory where your PATH can reach.
  >
@@ -13,13 +13,9 @@
  >
  > *Ensure that your python virtual environment is properly set up prior to installation.
 
-<br>
-
  >- Unzip the folder and cd into the folder.
 >
  >- Do `pip install -r requirements.txt` to install the required libraries.
-
-<br>
 
  >- In the same directory, do `python run.py`.
  >- In a supported browser (Eg. Chrome), enter http://localhost:5000/ in the URL.
