@@ -2459,11 +2459,14 @@ def dashboard_page():
 
 @app.route('/data/spending-profit-balance')
 def budget_data():
-    balance = '{0:.2f}'.format(current_user.budget)
-    spending = '{0:.2f}'.format(current_user.spending)
-    profit = '{0:.2f}'.format(current_user.profits)
-    budget_data = {"Balance": balance, "Spending": spending, "Profit": profit}
-    return jsonify(budget_data)
+    if current_user:
+        balance = '{0:.2f}'.format(current_user.budget)
+        spending = '{0:.2f}'.format(current_user.spending)
+        profit = '{0:.2f}'.format(current_user.profits)
+        budget_data = {"Balance": balance, "Spending": spending, "Profit": profit}
+        return jsonify(budget_data)
+    else:
+        return render_template("error404.html")
 
 
 # @app.route('/charts')
