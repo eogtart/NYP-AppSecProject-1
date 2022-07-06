@@ -19,3 +19,6 @@
 
  >- In the same directory, do `python run.py`.
  >- In a supported browser (Eg. Chrome), enter http://localhost:5000/ in the URL.
+
+
+Do note that the application does not work well if the flask mail details are not properly input.
