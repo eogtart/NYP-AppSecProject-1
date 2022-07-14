@@ -6,7 +6,7 @@ import random
 import string
 from uuid import uuid4
 import shelve
-from sqlalchemy import func
+from sqlalchemy import func, null
 
 
 # Benjamin
@@ -41,7 +41,9 @@ class User(db.Model, UserMixin):
     spending = db.Column(db.Integer(), nullable=False, default=0)
 
     # Account status (Adds 'Disabled' or 'Enabled' status column to User Database)
-    status = db.Column(db.Integer(), nullable=False, default='Enabled')
+    status = db.Column(db.String(), nullable=False, default='Enabled')
+    twofa = db.Column(db.String(), nullable=False, default='Disabled')
+    loginAttempt = db.Column(db.Integer(), nullable=False, default=0)
 
     @property
     def prettier_budget(self):
@@ -75,6 +77,23 @@ class User(db.Model, UserMixin):
     def account_availability(self, status):
         if status == "Disabled":
             return 0
+    
+    # Defines 
+
+    def account_2factor(self, twofa_status):
+        if twofa_status == "Disabled":
+            # Bring them to webpage to ask if they want to enable 2fa
+            # If no 2 factor, true to going into a website.
+            return False
+        elif twofa_status == "Enabled":
+            return True
+            pass
+
+    def loginAttempts(self, attemptNo):
+        if attemptNo > 6:
+            return False
+        elif attemptNo <= 6:
+            return True
 
     # Password Reset Function
     def password_otp(self, size=8, chars=string.ascii_uppercase + string.digits):

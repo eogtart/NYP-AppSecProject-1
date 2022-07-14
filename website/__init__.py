@@ -1,8 +1,10 @@
+from datetime import timedelta
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
-from os import path
+from flask_paranoid import Paranoid
+from os import path, urandom
 
 
 def create_database(app):
@@ -11,12 +13,24 @@ def create_database(app):
         db.create_all(app=app)
         print('Created Database! ')
 
-
 app = Flask(__name__)
+
+# User is marked as logged out automatically when existing session suddenly gets hijacked.
+# Prevents Session Hijacking.
+paranoid = Paranoid(app)
+paranoid.redirect_view = '/'
+
 DB_NAME = 'database.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-# create location/path for database
-app.config['SECRET_KEY']= '8fc3212d5891a594defe7d20'
+app.config['SECRET_KEY']= '5468576D597133743677397A24432646294A404E635266556A586E3272347537'
+
+# Session Timeout
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=5)
+
+# Set stronger cookie.
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+
 db = SQLAlchemy(app)
 
 # enables the database
@@ -27,7 +41,7 @@ def admin_user():
     from website.models import User
     db.create_all()
     with app.app_context():
-        admin = User(admin=1, username='admin', password='admin123',email_address='admin@example.com', gender='rather not say')
+        admin = User(admin=1, username='admin', password='admin123',email_address='admin@example.com', gender='rather not say', twofa="Disabled")
         if not User.query.filter_by(admin = admin.id).first() and not User.query.filter_by(email_address = admin.email_address).first() and not User.query.filter_by(username = admin.username).first():
             db.session.add(admin)
             db.session.commit()

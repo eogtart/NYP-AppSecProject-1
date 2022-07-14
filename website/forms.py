@@ -248,6 +248,11 @@ class password_reset(FlaskForm):
     new_password = PasswordField(label='New Password:', validators=[Length(min=6), DataRequired()])
 
 
+class twofa_verify(FlaskForm):
+    otp = StringField(label='One time password:', validators=[Length(min=8, max=8), DataRequired()])
+    submit = SubmitField(label='Submit OTP')
+
+
 # Samuel
 class Add_Event(FlaskForm):
     description = TextAreaField(label='Description', validators=[Length(min=1, max=150), DataRequired()])
