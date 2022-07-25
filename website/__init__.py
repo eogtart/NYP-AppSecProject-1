@@ -1,5 +1,6 @@
 from datetime import timedelta
 from flask import Flask
+from flask_wtf.csrf import CSRFProtect
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
@@ -12,6 +13,7 @@ def create_database(app):
         # if database.db does not exist in this path it creates a database
         db.create_all(app=app)
         print('Created Database! ')
+
 
 app = Flask(__name__)
 
@@ -30,6 +32,7 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=5)
 # Set stronger cookie.
 app.config['SESSION_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
 db = SQLAlchemy(app)
 

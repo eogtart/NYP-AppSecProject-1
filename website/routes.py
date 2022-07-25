@@ -45,6 +45,7 @@ mail = Mail(app)
 db_tempemail = shelve.open('website/databases/tempemail/tempemail.db', 'c')
 db_tempemail['email'] = None
 db_tempemail.close()
+
 login_free_pages = ['landing_page', 'register_page', 'forgot_password_page', 'twofa_verification', 'forgot_password_page_otp', 'password_reset_page']
 
 # def session_expired_warning(f):
@@ -54,6 +55,9 @@ login_free_pages = ['landing_page', 'register_page', 'forgot_password_page', 'tw
 #            flash("Your session has expired, please login again.", category="danger")
 #        return f(*args, **kwargs)
 #    return decorator
+
+
+login_free_pages = ['landing_page', 'register_page', 'forgot_password_page', 'twofa_verification', 'forgot_password_page_otp', 'password_reset_page']
 
 @app.before_request
 def before_request():
