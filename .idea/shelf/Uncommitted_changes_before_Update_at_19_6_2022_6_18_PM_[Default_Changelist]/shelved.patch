@@ -1,0 +1,364 @@
+Index: website/databases/Owned_Items/ownedItems.db.bak
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'1', (5632, 1341)\r\n'2', (2048, 908)\r\n'3', (4096, 1344)\r\n'4', (3584, 6)\r\n'5', (7168, 6)\r\n'6', (7680, 6)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/website/databases/Owned_Items/ownedItems.db.bak b/website/databases/Owned_Items/ownedItems.db.bak
+--- a/website/databases/Owned_Items/ownedItems.db.bak	(revision 563dca0a402228a25aab6014cb4f0e5f43e657ca)
++++ b/website/databases/Owned_Items/ownedItems.db.bak	(date 1655522560804)
+@@ -4,3 +4,4 @@
+ '4', (3584, 6)
+ '5', (7168, 6)
+ '6', (7680, 6)
++'7', (8192, 6)
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"9c9b168e-d74a-4e0b-be2b-2d4c981a0022\" name=\"Default Changelist\" comment=\"\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"25BfuHNQRJst6eXMwgqbiurlMXj\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/../../../Data Structures &amp; Algorithms/Tutorial\" />\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"run\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"App_Dev Integrated Project\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/run.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Python.run\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"9c9b168e-d74a-4e0b-be2b-2d4c981a0022\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1645005621252</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1645005621252</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 563dca0a402228a25aab6014cb4f0e5f43e657ca)
++++ b/.idea/workspace.xml	(date 1655633709697)
+@@ -1,7 +1,35 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="9c9b168e-d74a-4e0b-be2b-2d4c981a0022" name="Default Changelist" comment="" />
++    <list default="true" id="9c9b168e-d74a-4e0b-be2b-2d4c981a0022" name="Default Changelist" comment="Completed role based for all admin panel functions">
++      <change beforePath="$PROJECT_DIR$/.idea/App_Dev Integrated Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/App_Dev Integrated Project.iml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/website/database.db" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/databases/Messages/messages.db.bak" beforeDir="false" afterPath="$PROJECT_DIR$/website/databases/Messages/messages.db.bak" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/databases/Messages/messages.db.dat" beforeDir="false" afterPath="$PROJECT_DIR$/website/databases/Messages/messages.db.dat" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/databases/Messages/messages.db.dir" beforeDir="false" afterPath="$PROJECT_DIR$/website/databases/Messages/messages.db.dir" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/databases/Owned_Items/ownedItems.db.bak" beforeDir="false" afterPath="$PROJECT_DIR$/website/databases/Owned_Items/ownedItems.db.bak" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/databases/Owned_Items/ownedItems.db.dat" beforeDir="false" afterPath="$PROJECT_DIR$/website/databases/Owned_Items/ownedItems.db.dat" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/databases/Owned_Items/ownedItems.db.dir" beforeDir="false" afterPath="$PROJECT_DIR$/website/databases/Owned_Items/ownedItems.db.dir" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/databases/SalesLogs/sales.db.bak" beforeDir="false" afterPath="$PROJECT_DIR$/website/databases/SalesLogs/sales.db.bak" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/databases/SalesLogs/sales.db.dat" beforeDir="false" afterPath="$PROJECT_DIR$/website/databases/SalesLogs/sales.db.dat" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/databases/SalesLogs/sales.db.dir" beforeDir="false" afterPath="$PROJECT_DIR$/website/databases/SalesLogs/sales.db.dir" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/databases/SalesLogs/salescount.db.bak" beforeDir="false" afterPath="$PROJECT_DIR$/website/databases/SalesLogs/salescount.db.bak" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/databases/SalesLogs/salescount.db.dat" beforeDir="false" afterPath="$PROJECT_DIR$/website/databases/SalesLogs/salescount.db.dat" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/databases/SalesLogs/salescount.db.dir" beforeDir="false" afterPath="$PROJECT_DIR$/website/databases/SalesLogs/salescount.db.dir" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/databases/TransactionLogs/transactionlogs.db.bak" beforeDir="false" afterPath="$PROJECT_DIR$/website/databases/TransactionLogs/transactionlogs.db.bak" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/databases/TransactionLogs/transactionlogs.db.dat" beforeDir="false" afterPath="$PROJECT_DIR$/website/databases/TransactionLogs/transactionlogs.db.dat" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/databases/TransactionLogs/transactionlogs.db.dir" beforeDir="false" afterPath="$PROJECT_DIR$/website/databases/TransactionLogs/transactionlogs.db.dir" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/databases/shoppingcart/cart.db.bak" beforeDir="false" afterPath="$PROJECT_DIR$/website/databases/shoppingcart/cart.db.bak" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/databases/shoppingcart/cart.db.dat" beforeDir="false" afterPath="$PROJECT_DIR$/website/databases/shoppingcart/cart.db.dat" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/databases/shoppingcart/cart.db.dir" beforeDir="false" afterPath="$PROJECT_DIR$/website/databases/shoppingcart/cart.db.dir" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/databases/supplier/supplier.db.bak" beforeDir="false" afterPath="$PROJECT_DIR$/website/databases/supplier/supplier.db.bak" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/databases/supplier/supplier.db.dat" beforeDir="false" afterPath="$PROJECT_DIR$/website/databases/supplier/supplier.db.dat" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/databases/supplier/supplier.db.dir" beforeDir="false" afterPath="$PROJECT_DIR$/website/databases/supplier/supplier.db.dir" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/databases/supplier/supplier_id_db.dat" beforeDir="false" afterPath="$PROJECT_DIR$/website/databases/supplier/supplier_id_db.dat" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/website/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/routes.py" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -9,17 +37,21 @@
+   </component>
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++  </component>
++  <component name="MarkdownSettingsMigration">
++    <option name="stateVersion" value="1" />
+   </component>
+   <component name="ProjectId" id="25BfuHNQRJst6eXMwgqbiurlMXj" />
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">
+-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Data Structures &amp; Algorithms/Tutorial" />
+-  </component>
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
++  }
++}</component>
+   <component name="RunManager">
+     <configuration name="run" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+       <module name="App_Dev Integrated Project" />
+@@ -57,6 +89,44 @@
+       <option name="presentableId" value="Default" />
+       <updated>1645005621252</updated>
+     </task>
++    <task id="LOCAL-00001" summary="Added role-based authentication for user_management">
++      <created>1655542144562</created>
++      <option name="number" value="00001" />
++      <option name="presentableId" value="LOCAL-00001" />
++      <option name="project" value="LOCAL" />
++      <updated>1655542144562</updated>
++    </task>
++    <task id="LOCAL-00002" summary="Completed role based for all admin panel functions">
++      <created>1655575033496</created>
++      <option name="number" value="00002" />
++      <option name="presentableId" value="LOCAL-00002" />
++      <option name="project" value="LOCAL" />
++      <updated>1655575033496</updated>
++    </task>
++    <task id="LOCAL-00003" summary="Completed role based for all admin panel functions">
++      <created>1655575467724</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1655575467724</updated>
++    </task>
++    <option name="localTasksCounter" value="4" />
+     <servers />
+   </component>
++  <component name="Vcs.Log.Tabs.Properties">
++    <option name="TAB_STATES">
++      <map>
++        <entry key="MAIN">
++          <value>
++            <State />
++          </value>
++        </entry>
++      </map>
++    </option>
++  </component>
++  <component name="VcsManagerConfiguration">
++    <MESSAGE value="Added role-based authentication for user_management" />
++    <MESSAGE value="Completed role based for all admin panel functions" />
++    <option name="LAST_COMMIT_MESSAGE" value="Completed role based for all admin panel functions" />
++  </component>
+ </project>
+\ No newline at end of file
+Index: website/databases/Messages/messages.db.dir
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'1', (0, 6)\r\n'default', (512, 6)\r\n'2', (1024, 6)\r\n'3', (1536, 6)\r\n'4', (2048, 6)\r\n'5', (2560, 6)\r\n'6', (3072, 6)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/website/databases/Messages/messages.db.dir b/website/databases/Messages/messages.db.dir
+--- a/website/databases/Messages/messages.db.dir	(revision 563dca0a402228a25aab6014cb4f0e5f43e657ca)
++++ b/website/databases/Messages/messages.db.dir	(date 1655522560571)
+@@ -5,3 +5,4 @@
+ '4', (2048, 6)
+ '5', (2560, 6)
+ '6', (3072, 6)
++'7', (3584, 6)
+Index: website/databases/Messages/messages.db.bak
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'1', (0, 6)\r\n'default', (512, 6)\r\n'2', (1024, 6)\r\n'3', (1536, 6)\r\n'4', (2048, 6)\r\n'5', (2560, 6)\r\n'6', (3072, 6)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/website/databases/Messages/messages.db.bak b/website/databases/Messages/messages.db.bak
+--- a/website/databases/Messages/messages.db.bak	(revision 563dca0a402228a25aab6014cb4f0e5f43e657ca)
++++ b/website/databases/Messages/messages.db.bak	(date 1655522560569)
+@@ -5,3 +5,4 @@
+ '4', (2048, 6)
+ '5', (2560, 6)
+ '6', (3072, 6)
++'7', (3584, 6)
+Index: website/databases/SalesLogs/salescount.db.dir
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'1', (0, 5)\r\n'2', (512, 5)\r\n'3', (1024, 5)\r\n'4', (1536, 5)\r\n'5', (2048, 5)\r\n'6', (2560, 5)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/website/databases/SalesLogs/salescount.db.dir b/website/databases/SalesLogs/salescount.db.dir
+--- a/website/databases/SalesLogs/salescount.db.dir	(revision 563dca0a402228a25aab6014cb4f0e5f43e657ca)
++++ b/website/databases/SalesLogs/salescount.db.dir	(date 1655522560836)
+@@ -4,3 +4,4 @@
+ '4', (1536, 5)
+ '5', (2048, 5)
+ '6', (2560, 5)
++'7', (3072, 5)
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectRootManager\" version=\"2\" project-jdk-name=\"Python 3.8 (IT1966-05 Group 5)\" project-jdk-type=\"Python SDK\" />\r\n  <component name=\"PyCharmProfessionalAdvertiser\">\r\n    <option name=\"shown\" value=\"true\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 563dca0a402228a25aab6014cb4f0e5f43e657ca)
++++ b/.idea/misc.xml	(date 1655045717243)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.8 (IT1966-05 Group 5)" project-jdk-type="Python SDK" />
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.8 (NYP-AppSecProject)" project-jdk-type="Python SDK" />
+   <component name="PyCharmProfessionalAdvertiser">
+     <option name="shown" value="true" />
+   </component>
+Index: website/databases/SalesLogs/salescount.db.bak
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'1', (0, 5)\r\n'2', (512, 5)\r\n'3', (1024, 5)\r\n'4', (1536, 5)\r\n'5', (2048, 5)\r\n'6', (2560, 5)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/website/databases/SalesLogs/salescount.db.bak b/website/databases/SalesLogs/salescount.db.bak
+--- a/website/databases/SalesLogs/salescount.db.bak	(revision 563dca0a402228a25aab6014cb4f0e5f43e657ca)
++++ b/website/databases/SalesLogs/salescount.db.bak	(date 1655522560834)
+@@ -4,3 +4,4 @@
+ '4', (1536, 5)
+ '5', (2048, 5)
+ '6', (2560, 5)
++'7', (3072, 5)
+Index: .idea/App_Dev Integrated Project.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"PYTHON_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\">\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <excludeFolder url=\"file://$MODULE_DIR$/venv\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/App_Dev Integrated Project.iml b/.idea/App_Dev Integrated Project.iml
+--- a/.idea/App_Dev Integrated Project.iml	(revision 563dca0a402228a25aab6014cb4f0e5f43e657ca)
++++ b/.idea/App_Dev Integrated Project.iml	(date 1655045717232)
+@@ -4,7 +4,7 @@
+     <content url="file://$MODULE_DIR$">
+       <excludeFolder url="file://$MODULE_DIR$/venv" />
+     </content>
+-    <orderEntry type="inheritedJdk" />
++    <orderEntry type="jdk" jdkName="Python 3.8 (NYP-AppSecProject)" jdkType="Python SDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+ </module>
+\ No newline at end of file
+Index: website/databases/SalesLogs/sales.db.dir
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'1', (3072, 743)\r\n'2', (2048, 978)\r\n'3', (1024, 275)\r\n'4', (1536, 6)\r\n'5', (4096, 6)\r\n'6', (4608, 6)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/website/databases/SalesLogs/sales.db.dir b/website/databases/SalesLogs/sales.db.dir
+--- a/website/databases/SalesLogs/sales.db.dir	(revision 563dca0a402228a25aab6014cb4f0e5f43e657ca)
++++ b/website/databases/SalesLogs/sales.db.dir	(date 1655522560827)
+@@ -4,3 +4,4 @@
+ '4', (1536, 6)
+ '5', (4096, 6)
+ '6', (4608, 6)
++'7', (5120, 6)
+Index: website/databases/SalesLogs/sales.db.bak
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'1', (3072, 743)\r\n'2', (2048, 978)\r\n'3', (1024, 275)\r\n'4', (1536, 6)\r\n'5', (4096, 6)\r\n'6', (4608, 6)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/website/databases/SalesLogs/sales.db.bak b/website/databases/SalesLogs/sales.db.bak
+--- a/website/databases/SalesLogs/sales.db.bak	(revision 563dca0a402228a25aab6014cb4f0e5f43e657ca)
++++ b/website/databases/SalesLogs/sales.db.bak	(date 1655522560825)
+@@ -4,3 +4,4 @@
+ '4', (1536, 6)
+ '5', (4096, 6)
+ '6', (4608, 6)
++'7', (5120, 6)
+Index: website/databases/supplier/supplier.db.dir
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'Suppliers', (0, 6)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/website/databases/supplier/supplier.db.dir b/website/databases/supplier/supplier.db.dir
+--- a/website/databases/supplier/supplier.db.dir	(revision 563dca0a402228a25aab6014cb4f0e5f43e657ca)
++++ b/website/databases/supplier/supplier.db.dir	(date 1655632992178)
+@@ -1,1 +1,1 @@
+-'Suppliers', (0, 6)
++'Suppliers', (0, 222)
+Index: website/databases/supplier/supplier.db.bak
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'Suppliers', (0, 6)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/website/databases/supplier/supplier.db.bak b/website/databases/supplier/supplier.db.bak
+--- a/website/databases/supplier/supplier.db.bak	(revision 563dca0a402228a25aab6014cb4f0e5f43e657ca)
++++ b/website/databases/supplier/supplier.db.bak	(date 1655632992176)
+@@ -1,1 +1,1 @@
+-'Suppliers', (0, 6)
++'Suppliers', (0, 222)
+Index: website/databases/TransactionLogs/transactionlogs.db.dir
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'1', (6656, 1326)\r\n'2', (4096, 1337)\r\n'3', (5632, 523)\r\n'4', (3584, 6)\r\n'5', (8192, 6)\r\n'6', (8704, 6)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/website/databases/TransactionLogs/transactionlogs.db.dir b/website/databases/TransactionLogs/transactionlogs.db.dir
+--- a/website/databases/TransactionLogs/transactionlogs.db.dir	(revision 563dca0a402228a25aab6014cb4f0e5f43e657ca)
++++ b/website/databases/TransactionLogs/transactionlogs.db.dir	(date 1655522560827)
+@@ -4,3 +4,4 @@
+ '4', (3584, 6)
+ '5', (8192, 6)
+ '6', (8704, 6)
++'7', (9216, 6)
+Index: website/databases/TransactionLogs/transactionlogs.db.bak
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'1', (6656, 1326)\r\n'2', (4096, 1337)\r\n'3', (5632, 523)\r\n'4', (3584, 6)\r\n'5', (8192, 6)\r\n'6', (8704, 6)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/website/databases/TransactionLogs/transactionlogs.db.bak b/website/databases/TransactionLogs/transactionlogs.db.bak
+--- a/website/databases/TransactionLogs/transactionlogs.db.bak	(revision 563dca0a402228a25aab6014cb4f0e5f43e657ca)
++++ b/website/databases/TransactionLogs/transactionlogs.db.bak	(date 1655522560825)
+@@ -4,3 +4,4 @@
+ '4', (3584, 6)
+ '5', (8192, 6)
+ '6', (8704, 6)
++'7', (9216, 6)
+Index: website/databases/shoppingcart/cart.db.dir
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'1', (9216, 6)\r\n'default', (512, 6)\r\n'2', (8192, 649)\r\n'3', (6656, 6)\r\n'4', (5120, 6)\r\n'5', (10752, 6)\r\n'6', (11264, 6)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/website/databases/shoppingcart/cart.db.dir b/website/databases/shoppingcart/cart.db.dir
+--- a/website/databases/shoppingcart/cart.db.dir	(revision 563dca0a402228a25aab6014cb4f0e5f43e657ca)
++++ b/website/databases/shoppingcart/cart.db.dir	(date 1655522560566)
+@@ -5,3 +5,4 @@
+ '4', (5120, 6)
+ '5', (10752, 6)
+ '6', (11264, 6)
++'7', (11776, 6)
+Index: website/databases/shoppingcart/cart.db.bak
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'1', (9216, 6)\r\n'default', (512, 6)\r\n'2', (8192, 649)\r\n'3', (6656, 6)\r\n'4', (5120, 6)\r\n'5', (10752, 6)\r\n'6', (11264, 6)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/website/databases/shoppingcart/cart.db.bak b/website/databases/shoppingcart/cart.db.bak
+--- a/website/databases/shoppingcart/cart.db.bak	(revision 563dca0a402228a25aab6014cb4f0e5f43e657ca)
++++ b/website/databases/shoppingcart/cart.db.bak	(date 1655522560565)
+@@ -5,3 +5,4 @@
+ '4', (5120, 6)
+ '5', (10752, 6)
+ '6', (11264, 6)
++'7', (11776, 6)
+Index: website/databases/Owned_Items/ownedItems.db.dir
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'1', (5632, 1341)\r\n'2', (2048, 908)\r\n'3', (4096, 1344)\r\n'4', (3584, 6)\r\n'5', (7168, 6)\r\n'6', (7680, 6)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/website/databases/Owned_Items/ownedItems.db.dir b/website/databases/Owned_Items/ownedItems.db.dir
+--- a/website/databases/Owned_Items/ownedItems.db.dir	(revision 563dca0a402228a25aab6014cb4f0e5f43e657ca)
++++ b/website/databases/Owned_Items/ownedItems.db.dir	(date 1655522560807)
+@@ -4,3 +4,4 @@
+ '4', (3584, 6)
+ '5', (7168, 6)
+ '6', (7680, 6)
++'7', (8192, 6)

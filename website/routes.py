@@ -2807,70 +2807,78 @@ def create_supplier():
 
 @app.route('/suppliersedit/<int:id>', methods=['GET', 'POST'])
 @login_required
+#admin role required
 def update_supplier(id):
-    form = UpdateSupplierForm()
+    admincheckuserID = User.query.filter_by(id=current_user.id).first()
+    if admincheckuserID.admin ==1:
+        form = UpdateSupplierForm()
 
-    if request.method == "POST" and form.validate_on_submit():
+        if request.method == "POST" and form.validate_on_submit():
 
-        supplier_dict = {}
-        supplier_db = shelve.open('website/databases/supplier/supplier.db', 'c')
-        supplier_dict = supplier_db["Suppliers"]
+            supplier_dict = {}
+            supplier_db = shelve.open('website/databases/supplier/supplier.db', 'c')
+            supplier_dict = supplier_db["Suppliers"]
 
-        for key in supplier_dict:
-            print(supplier_dict[key])
+            for key in supplier_dict:
+                print(supplier_dict[key])
 
-        supplier = supplier_dict.get(id)
-        supplier.set_supplier_name(form.company.data)
-        supplier.set_supplier_remarks(form.remarks.data)
-        supplier.set_email(form.email.data)
-        supplier.set_phone_number(form.email.data)
+            supplier = supplier_dict.get(id)
+            supplier.set_supplier_name(form.company.data)
+            supplier.set_supplier_remarks(form.remarks.data)
+            supplier.set_email(form.email.data)
+            supplier.set_phone_number(form.email.data)
 
-        supplier_db['Suppliers'] = supplier_dict
-        supplier_db.close()
+            supplier_db['Suppliers'] = supplier_dict
+            supplier_db.close()
 
-        return redirect(url_for('supplier_page'))
+            return redirect(url_for('supplier_page'))
+        else:
+            supplier_dict = {}
+            supplier_db = shelve.open('website/databases/supplier/supplier.db', 'c')
+            supplier_dict = supplier_db['Suppliers']
+            supplier_db.close()
+
+            supplier = supplier_dict.get(id)
+            form.company.data = supplier.get_supplier_name()
+            form.remarks.data = supplier.get_supplier_remarks()
+            form.email.data = supplier.get_email()
+            form.phone.data = supplier.get_phone_number()
+
+        return render_template('updateSupplier.html', form=form)
     else:
-        supplier_dict = {}
-        supplier_db = shelve.open('website/databases/supplier/supplier.db', 'c')
-        supplier_dict = supplier_db['Suppliers']
-        supplier_db.close()
-
-        supplier = supplier_dict.get(id)
-        form.company.data = supplier.get_supplier_name()
-        form.remarks.data = supplier.get_supplier_remarks()
-        form.email.data = supplier.get_email()
-        form.phone.data = supplier.get_phone_number()
-
-    return render_template('updateSupplier.html', form=form)
-
+        return render_template("error404.html")
 
 @app.route('/suppliers/delete/<int:id>', methods=['POST'])
 @login_required
+#admin functions
 def supplier_delete(id):
-    try:
-        supplier_dict = {}
-        supplier_db = shelve.open('website/databases/supplier/supplier.db', 'c')
-        supplier_dict = supplier_db['Suppliers']
+    admincheckuserID = User.query.filter_by(id=current_user.id).first()
+    if admincheckuserID.admin ==1:
+        try:
+            supplier_dict = {}
+            supplier_db = shelve.open('website/databases/supplier/supplier.db', 'c')
+            supplier_dict = supplier_db['Suppliers']
 
-        current_id = supplier_dict.get(id)
-        supplier_dict.pop(id)
-        supplier_db['Suppliers'] = supplier_dict
+            current_id = supplier_dict.get(id)
+            supplier_dict.pop(id)
+            supplier_db['Suppliers'] = supplier_dict
 
-        if current_id not in supplier_db['Suppliers']:
-            flash("Deletion Successful!", category="success")
-        else:
-            flash("Deletion unsuccessful!", category='danger')
+            if current_id not in supplier_db['Suppliers']:
+                flash("Deletion Successful!", category="success")
+            else:
+                flash("Deletion unsuccessful!", category='danger')
 
-        supplier_db.close()
+            supplier_db.close()
 
-    except IOError:
-        flash("Something went wrong with the database!", category='danger')
+        except IOError:
+            flash("Something went wrong with the database!", category='danger')
 
-    # except Exception as e:
-    #     flash(f"{e} went wrongly!")
+        # except Exception as e:
+        #     flash(f"{e} went wrongly!")
 
-    return redirect(url_for('supplier_page'))
-
+        return redirect(url_for('supplier_page'))
+    else:
+        return render_template("error404.html")
 
 @app.route('/suppliers')
 @login_required

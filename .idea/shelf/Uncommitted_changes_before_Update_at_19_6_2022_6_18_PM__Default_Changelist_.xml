@@ -1,0 +1,49 @@
+<changelist name="Uncommitted_changes_before_Update_at_19_6_2022_6_18_PM_[Default_Changelist]" date="1655633941162" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2022_6_18_PM_[Default_Changelist]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 19/6/2022 6:18 PM [Default Changelist]" />
+  <binary>
+    <option name="BEFORE_PATH" value="website/database.db" />
+    <option name="AFTER_PATH" value="website/database.db" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2022_6_18_PM_[Default_Changelist]/database.db" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="website/databases/Owned_Items/ownedItems.db.dat" />
+    <option name="AFTER_PATH" value="website/databases/Owned_Items/ownedItems.db.dat" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2022_6_18_PM_[Default_Changelist]/ownedItems.db.dat" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="website/databases/SalesLogs/sales.db.dat" />
+    <option name="AFTER_PATH" value="website/databases/SalesLogs/sales.db.dat" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2022_6_18_PM_[Default_Changelist]/sales.db.dat" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="website/databases/shoppingcart/cart.db.dat" />
+    <option name="AFTER_PATH" value="website/databases/shoppingcart/cart.db.dat" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2022_6_18_PM_[Default_Changelist]/cart.db.dat" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="website/databases/supplier/supplier.db.dat" />
+    <option name="AFTER_PATH" value="website/databases/supplier/supplier.db.dat" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2022_6_18_PM_[Default_Changelist]/supplier.db.dat" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="website/databases/supplier/supplier_id_db.dat" />
+    <option name="AFTER_PATH" value="website/databases/supplier/supplier_id_db.dat" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2022_6_18_PM_[Default_Changelist]/supplier_id_db.dat" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="website/databases/TransactionLogs/transactionlogs.db.dat" />
+    <option name="AFTER_PATH" value="website/databases/TransactionLogs/transactionlogs.db.dat" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2022_6_18_PM_[Default_Changelist]/transactionlogs.db.dat" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="website/databases/Messages/messages.db.dat" />
+    <option name="AFTER_PATH" value="website/databases/Messages/messages.db.dat" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2022_6_18_PM_[Default_Changelist]/messages.db.dat" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="website/databases/SalesLogs/salescount.db.dat" />
+    <option name="AFTER_PATH" value="website/databases/SalesLogs/salescount.db.dat" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2022_6_18_PM_[Default_Changelist]/salescount.db.dat" />
+  </binary>
+</changelist>
