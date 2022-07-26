@@ -40,6 +40,21 @@ db_tempemail.close()
 
 login_free_pages = ['landing_page', 'register_page', 'forgot_password_page', 'twofa_verification', 'forgot_password_page_otp', 'password_reset_page']
 
+<<<<<<< HEAD
+# def session_expired_warning(f):
+#    @wraps(f)
+#    def decorator(*args, **kwargs):
+#        if session.permanent != True:
+#            flash("Your session has expired, please login again.", category="danger")
+#        return f(*args, **kwargs)
+#    return decorator
+
+
+login_free_pages = ['landing_page', 'register_page', 'forgot_password_page', 'twofa_verification', 'forgot_password_page_otp', 'password_reset_page']
+
+
+=======
+>>>>>>> 33f1a42c6e09bfd529128be5c4de2552206faa72
 @app.before_request
 def before_request():
     if session.permanent != True and request.endpoint not in login_free_pages:
