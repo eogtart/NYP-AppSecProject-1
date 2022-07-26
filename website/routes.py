@@ -26,10 +26,6 @@ from werkzeug.utils import secure_filename
 from functools import wraps
 import os
 
-# To ensure file name is parsed
-
-# Note that for otp expiry, need to fiddle with js
-
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'swissbothelper@gmail.com'
@@ -38,17 +34,13 @@ app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_USE_TLS'] = False
 mail = Mail(app)
 
-# Do this instead.
-# app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
-# app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
-
-
 db_tempemail = shelve.open('website/databases/tempemail/tempemail.db', 'c')
 db_tempemail['email'] = None
 db_tempemail.close()
 
 login_free_pages = ['landing_page', 'register_page', 'forgot_password_page', 'twofa_verification', 'forgot_password_page_otp', 'password_reset_page']
 
+<<<<<<< HEAD
 # def session_expired_warning(f):
 #    @wraps(f)
 #    def decorator(*args, **kwargs):
@@ -61,6 +53,8 @@ login_free_pages = ['landing_page', 'register_page', 'forgot_password_page', 'tw
 login_free_pages = ['landing_page', 'register_page', 'forgot_password_page', 'twofa_verification', 'forgot_password_page_otp', 'password_reset_page']
 
 
+=======
+>>>>>>> 33f1a42c6e09bfd529128be5c4de2552206faa72
 @app.before_request
 def before_request():
     if session.permanent != True and request.endpoint not in login_free_pages:
@@ -2672,18 +2666,6 @@ def forgot_password_page():
                           recipients=[form.email_address.data])
             msg.body = f"Your one time password is, {otp}"
             mail.send(msg)
-
-            # port_number = 1234
-            # msg = MIMEMultipart()
-            # mailserver = smtplib.SMTP_SSL('localhost',port_number)
-            # mailserver.login("RealSwissBot@protonmail.com", "Pi!12345")
-            # msg['From'] = 'RealSwissBot@protonmail.com'
-            # msg['To'] = user_to_reset.email_address
-            # msg['Subject'] = 'Swiss 2-Factor Authentication OTP'
-            # message = f"Your one time password is, {otp}"
-            # msg.attach(MIMEText(message))
-            # mailserver.sendmail('RealSwissBot@protonmail.com',user_to_reset.email_address,msg.as_string())
-            # mailserver.quit()
 
             flash('Successfully sent! Please check your inbox for a one time password.', category='success')
 
