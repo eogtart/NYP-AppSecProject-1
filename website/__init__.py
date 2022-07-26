@@ -8,9 +8,7 @@ from flask_paranoid import Paranoid
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from os import path, urandom
-import logging
 
-csrf = CSRFProtect()
 
 def create_database(app):
     if not path.exists('website/' + DB_NAME):
@@ -18,15 +16,8 @@ def create_database(app):
         db.create_all(app=app)
         print('Created Database! ')
 
-# Some logging I guess
-logging.basicConfig(filename='record.log', level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
 
 app = Flask(__name__)
-
-# csrf protection
-csrf.init_app(app)
-
-
 
 # User is marked as logged out automatically when existing session suddenly gets hijacked.
 # Prevents Session Hijacking.
@@ -43,6 +34,7 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=5)
 # Set stronger cookie.
 app.config['SESSION_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
 #CSRF Protection
 csrf = CSRFProtect(app)
