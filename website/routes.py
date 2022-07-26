@@ -1,8 +1,9 @@
 import logging
 import os
 from tkinter.tix import Tree
-from website import app, bcrypt
+from website import app, bcrypt, limiter
 from flask import render_template, request, flash, redirect, url_for, jsonify, Response, session
+from flask_limiter import Limiter
 from website.models import User, Partners, Notes, Tickets, Tickets_Response, Item, Booking, Feedback, Events, Logs, \
     TransactionLogs, SalesLogs, Img
 from website.forms import RegisterForm, LoginForm, DepositForm, TransferFunds, CreatePartnerForm, UpdatePartnerForm, \
@@ -59,6 +60,7 @@ login_free_pages = ['landing_page', 'register_page', 'forgot_password_page', 'tw
 
 login_free_pages = ['landing_page', 'register_page', 'forgot_password_page', 'twofa_verification', 'forgot_password_page_otp', 'password_reset_page']
 
+
 @app.before_request
 def before_request():
     if session.permanent != True and request.endpoint not in login_free_pages:
@@ -69,6 +71,9 @@ def before_request():
 def page_not_found(e):
     return render_template('error404.html'), 404
 
+@app.errorhandler(429)
+def exceedratelimit(e):
+    return render_template('error429.html'), 429
 
 @app.context_processor
 def cart_database():
@@ -469,6 +474,7 @@ def sales_data():
 
 @app.route('/data/transactions')
 @login_required
+@limiter.limit("1/second", override_defaults=False)
 def transaction_data():
     dates = []
     transactions = []
@@ -2007,6 +2013,7 @@ def update_partner(id):
 
 @app.route('/transfer_funds')
 @login_required
+@limiter.limit("1/second", override_defaults=False)
 def transfer_funds_page():
     users = User.query.all()
     return render_template('TransferFunds.html', users=users)
@@ -2014,6 +2021,7 @@ def transfer_funds_page():
 
 @app.route('/transfer_funds_user/<int:id>', methods=['POST'])
 @login_required
+@limiter.limit("1/second", override_defaults=False)
 def transfer_funds_user_page(id):
     userID = User.query.filter_by(id=id).first()
     username = userID.username
@@ -2143,6 +2151,7 @@ def transfer_funds_user_page(id):
 
 @app.route('/deposit', methods=['GET', 'POST'])
 @login_required
+@limiter.limit("1/second", override_defaults=False)
 def deposit():
     db.create_all()
     form = DepositForm()
@@ -2346,6 +2355,8 @@ def updateNotes():
 # Ming Wei
 @app.route('/', methods=["GET", "POST"])
 @app.route('/landing', methods=["GET", "POST"])
+@limiter.limit("1/second", override_defaults=False)
+#limiter set to refrain users from sending too many requests
 def landing_page():
     admin_user()
 
@@ -2907,6 +2918,7 @@ def supplier_page():
 
 @app.route('/user_management')
 @login_required
+@limiter.exempt
 #admin required
 def user_management():
     admincheckuserID = User.query.filter_by(id=current_user.id).first()
@@ -2920,6 +2932,7 @@ def user_management():
 
 @app.route('/user_managementupdate/<int:id>', methods=['POST', 'GET'])
 @login_required
+@limiter.exempt
 #admin required
 def user_management_update(id):
     userID = User.query.filter_by(id=id).first()
@@ -2948,6 +2961,7 @@ def user_management_update(id):
 
 @app.route('/user_management/enable/<int:id>', methods=['POST'])
 @login_required
+@limiter.exempt
 #admin role required
 # Inheritance
 def user_management_enable(id):
@@ -2965,6 +2979,7 @@ def user_management_enable(id):
 
 @app.route('/user_management/disable/<int:id>', methods=['POST'])
 @login_required
+@limiter.exempt
 #admin role required
 # Inheritance
 def user_management_disable(id):
@@ -2984,6 +2999,7 @@ def user_management_disable(id):
 # Samuel
 @app.route('/Events', methods=['GET', 'POST'])
 @login_required
+@limiter.exempt
 def Events_Page():
     admincheckuserID = User.query.filter_by(id=current_user.id).first()
     if admincheckuserID.admin == 1:
@@ -3024,6 +3040,7 @@ def Events_Page():
 
 @app.route("/deleteEvents", methods=["GET", "POST"])
 @login_required
+@limiter.exempt
 def deleteEvents():
     admincheckuserID = User.query.filter_by(id=current_user.id).first()
     if admincheckuserID.admin ==1:
@@ -3052,6 +3069,7 @@ def deleteEvents():
 
 @app.route('/updateEvents', methods=["GET", "POST"])
 @login_required
+@limiter.exempt
 def updateEvents():
     admincheckuserID = User.query.filter_by(id=current_user.id).first()
     if admincheckuserID.admin ==1:
@@ -3172,6 +3190,7 @@ def ticket_page():
 
 @app.route('/ticket_requests', methods=['GET', 'POST'])
 @login_required
+@limiter.exempt
 def ticket_requests_page():
     admincheckuserID = User.query.filter_by(id=current_user.id).first()
     if admincheckuserID.admin ==1:

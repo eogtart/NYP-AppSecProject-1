@@ -5,6 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 from flask_paranoid import Paranoid
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 from os import path, urandom
 
 
@@ -37,12 +39,17 @@ app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 #CSRF Protection
 csrf = CSRFProtect(app)
 
+#Rate limiting, limiting the requests sent from client
+limiter = Limiter(app, key_func=get_remote_address,  default_limits=["500 per day"])
+limiter.init_app(app)
+
 db = SQLAlchemy(app)
 
 # enables the database
 create_database(app)
 bcrypt = Bcrypt(app)
 # hashes the passwords 'utf-8' is used check 'models.py'
+
 def admin_user():
     from website.models import User
     db.create_all()
@@ -57,6 +64,5 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'landing_page'
 login_manager.login_message_category = 'info'
 # makes the message flashed blue when user is not authorised/logged in.
-
 
 from website import routes
