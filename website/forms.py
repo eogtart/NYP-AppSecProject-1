@@ -6,7 +6,8 @@ from website.models import User
 
 
 # from datetime import datetime
-
+#custom validator to check content of pw
+#e.g. presence of special characters etc
 # Benjamin
 class RegisterForm(FlaskForm):
     # The Validator library allows you to create certain functions

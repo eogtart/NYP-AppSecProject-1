@@ -146,6 +146,7 @@ def money_management():
 @login_required
 def home_page():
     userID = User.query.filter_by(id=current_user.id).first()
+    print(userID.password_hash)
     admin_user()
     return render_template('home.html', user=userID)
 
