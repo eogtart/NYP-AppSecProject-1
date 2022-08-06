@@ -37,7 +37,7 @@ app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
 #CSRF Protection
-csrf = CSRFProtect(app)
+# csrf = CSRFProtect(app)
 
 #Rate limiting, limiting the requests sent from client
 limiter = Limiter(app, key_func=get_remote_address,  default_limits=["500 per day"])
