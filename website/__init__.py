@@ -21,8 +21,8 @@ logging.basicConfig(filename='record.log', level=logging.DEBUG, format=f'%(ascti
 
 app = Flask(__name__)
 
-# csrf protection
-csrf.init_app(app)
+# csrf protection, Use only when HTTPS Enabled
+# csrf.init_app(app)
 
 
 
@@ -42,8 +42,8 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=5)
 app.config['SESSION_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_HTTPONLY'] = True
 
-#CSRF Protection
-csrf = CSRFProtect(app)
+#CSRF Protection, Use only when HTTPS is enabled.
+# csrf = CSRFProtect(app)
 
 db = SQLAlchemy(app)
 
