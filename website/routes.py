@@ -9,7 +9,9 @@ from website.models import User, Partners, Notes, Tickets, Tickets_Response, Ite
 from website.forms import RegisterForm, LoginForm, DepositForm, TransferFunds, CreatePartnerForm, UpdatePartnerForm, \
     Add_Notes, Update_Notes, Update_User, Update_Username, Update_Email, Update_Gender, Update_Password, Ticket_Form, \
     Ticket_Reply_Form, UpdateSupplierForm, Add_Item_Form, Purchase_Form, Wish_Form, Update_User_Admin, Booking_form, \
-    Restock_Item_Form, Add_To_Cart_Form, Feedback_form, Add_Event, Edit_Cart, password_reset, twofa_verify
+    Restock_Item_Form, Add_To_Cart_Form, Feedback_form, Appointment_Form, Add_Event, Edit_Cart, password_reset, twofa_verify, \
+    Message_form, Reciept_form, Ticket_History_Form
+    
 from website import db
 from flask_login import login_user, logout_user, login_required, current_user
 from website import admin_user
@@ -28,10 +30,6 @@ import secure
 from flask_csp.csp import csp_header
 import os
 
-# To ensure file name is parsed
-
-# Note that for otp expiry, need to fiddle with js
-
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'swissbothelper@gmail.com'
@@ -40,28 +38,11 @@ app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_USE_TLS'] = False
 mail = Mail(app)
 
-# Do this instead.
-# app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
-# app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
-
-
 db_tempemail = shelve.open('website/databases/tempemail/tempemail.db', 'c')
 db_tempemail['email'] = None
 db_tempemail.close()
 
 login_free_pages = ['landing_page', 'register_page', 'forgot_password_page', 'twofa_verification', 'forgot_password_page_otp', 'password_reset_page']
-
-# def session_expired_warning(f):
-#    @wraps(f)
-#    def decorator(*args, **kwargs):
-#        if session.permanent != True:
-#            flash("Your session has expired, please login again.", category="danger")
-#        return f(*args, **kwargs)
-#    return decorator
-
-
-login_free_pages = ['landing_page', 'register_page', 'forgot_password_page', 'twofa_verification', 'forgot_password_page_otp', 'password_reset_page']
-
 
 @app.before_request
 def before_request():
@@ -552,6 +533,7 @@ def transaction_data():
 @login_required
 @csp_header()
 def appointment():
+    appt_form = Appointment_Form()
     bookings_dict = {}
     count = 0
     try:
@@ -572,7 +554,7 @@ def appointment():
     except Exception as e:
         print(f"An Unknown Error has occurred, {e}")
 
-    return render_template('appointment.html', bookings=bookings_dict)
+    return render_template('appointment.html', form=appt_form, bookings=bookings_dict)
 
 
 @app.route('/Delete_Appointment/<int:id>', methods=['POST'])
@@ -716,7 +698,7 @@ def Shopping_Cart():
             total += Cart_Dict[i].get_total_cost()
         print('Cart Dictionary')
         print(Cart_Dict)
-    return render_template('ShoppingCart.html', cart_items=Cart_Dict, total=total)
+    return render_template('ShoppingCart.html', cart_items=Cart_Dict, total=total, form=purchase_form)
 
 
 @app.route('/edit_shopping_cart', methods=['GET', 'POST'])
@@ -1038,86 +1020,11 @@ def remove_from_cart():
     return redirect(url_for('Shopping_Cart'))
 
 
-# @app.route('/removefromcart_edit', methods=['GET', 'POST'])
-# @login_required
-# @csp_header()
-# def remove_from_cart_edit():
-#     purchase_form = Purchase_Form()
-#     Cart_Dict = {}
-#     Items_Dict = {}
-#     Products = {}
-#     try:
-#         Shopping_Cart_Database = shelve.open('website/databases/shoppingcart/cart.db', 'w')
-#         Item_Database = shelve.open('website/databases/items/items.db', 'w')
-#         products_database = shelve.open('website/databases/products/products.db', 'w')
-#
-#         if str(request.form.get('uuid3')) in products_database:
-#             Products = products_database[str(request.form.get('uuid3'))]
-#         else:
-#             products_database[str(request.form.get('uuid3'))] = Products
-#
-#         if str(current_user.id) in Shopping_Cart_Database:
-#             Cart_Dict = Shopping_Cart_Database[str(current_user.id)]
-#             print(Shopping_Cart_Database[str(current_user.id)])
-#
-#         else:
-#             Shopping_Cart_Database[str(current_user.id)] = Cart_Dict
-#
-#         if 'ItemInfo' in Item_Database:
-#             Items_Dict = Item_Database['ItemInfo']
-#         else:
-#             Item_Database['ItemInfo'] = Items_Dict
-#
-#     except IOError:
-#         print("Unable to Read File")
-#
-#     except Exception as e:
-#         print(f"An unknown error has occurred,{e}")
-#
-#     else:
-#         UserID = User.query.filter_by(id=current_user.id).first()
-#         name = Cart_Dict[str(request.form.get('uuid'))].get_name()
-#         cart_qty = Cart_Dict[str(request.form.get('uuid'))].get_qty_purchased()
-#         new_qty = Items_Dict[str(request.form.get('uuid2'))].get_quantity() + cart_qty
-#         # remove item from cart
-#         del Cart_Dict[str(request.form.get('uuid'))]
-#         Shopping_Cart_Database[str(current_user.id)] = Cart_Dict
-#
-#         # Update Market base new Quantity
-#         Items_Dict[str(request.form.get('uuid2'))].set_quantity(new_qty)
-#         Item_Database['ItemInfo'] = Items_Dict
-#
-#         # Update Owner of Item new Quantity after removing from cart
-#         Products[str(request.form.get('uuid2'))].set_quantity(new_qty)
-#         products_database[str(request.form.get('uuid3'))] = Products
-#
-#         # update cart counter
-#         UserID.shoppingCartCount -= 1
-#         db.session.commit()
-#
-#         Shopping_Cart_Database.close()
-#         Item_Database.close()
-#         products_database.close()
-#         flash(f"{name} removed from cart", category='success')
-#     return redirect(url_for('Edit_Shopping_Cart'))
-
-# @app.route('/generate_qrcode', methods=['POST'])
-# @csp_header()
-# def generate_qrcode():
-#     buffer = BytesIO()
-#     data = request.form.get('data')
-#
-#     img = qrcode.make(data)
-#     img.save(buffer)
-#     buffer.seek(0)
-#
-#     response = send_file(buffer, mimetype='image/png')
-#     return response
-
 @app.route('/receipt', methods=['POST', 'GET'])
 @login_required
 @csp_header()
 def Receipt():
+    form = Reciept_form()
     def createQR(*args: Item):
         return qrcode.make('Receipt:\n{}\nTotal price:${}'.format('\n'.join(
             [i.get_name() + ',Qty: ' + str(i.get_qty_purchased()) + ',Cost: $' + str(i.get_total_cost()) for i in
@@ -1163,7 +1070,7 @@ def Receipt():
     current_day = datetime.now().strftime("%d")
     expected_delivery_date = datetime.now().strftime(f"{int(current_day) + 2}/%m/%Y")
 
-    return render_template('Receipt.html', cart_items=Cart_Dict, total=total, order_date=order_date,
+    return render_template('Receipt.html', cart_items=Cart_Dict, form=form, total=total, order_date=order_date,
                            expected_delivery_date=expected_delivery_date,
                            qr_code=toB64String((createQR(*Cart_Dict.values()))))
 
@@ -1974,7 +1881,6 @@ def partners_page():
 
 @app.route('/add_partners', methods=['GET', 'POST'])
 @login_required
-@csp_header()
 def add_partners_page():
     admincheckuserID = User.query.filter_by(id=current_user.id).first()
     if admincheckuserID.admin ==1:
@@ -2072,8 +1978,9 @@ def update_partner(id):
 @limiter.limit("1/second", override_defaults=False)
 @csp_header()
 def transfer_funds_page():
+    form = Ticket_History_Form()
     users = User.query.all()
-    return render_template('TransferFunds.html', users=users)
+    return render_template('TransferFunds.html', users=users, form=form)
 
 
 @app.route('/transfer_funds_user/<int:id>', methods=['POST'])
@@ -2413,7 +2320,7 @@ def updateNotes():
             notes_database[str(current_user.id)] = user_notes
             flash('Note Updated', category='success')
             notes_database.close()
-        return redirect(url_for("notes"))
+        return redirect(url_for("notes", form=update_notes_form))
 
 
 # Ming Wei
@@ -2746,18 +2653,6 @@ def forgot_password_page():
             msg.body = f"Your one time password is, {otp}"
             mail.send(msg)
 
-            # port_number = 1234
-            # msg = MIMEMultipart()
-            # mailserver = smtplib.SMTP_SSL('localhost',port_number)
-            # mailserver.login("RealSwissBot@protonmail.com", "Pi!12345")
-            # msg['From'] = 'RealSwissBot@protonmail.com'
-            # msg['To'] = user_to_reset.email_address
-            # msg['Subject'] = 'Swiss 2-Factor Authentication OTP'
-            # message = f"Your one time password is, {otp}"
-            # msg.attach(MIMEText(message))
-            # mailserver.sendmail('RealSwissBot@protonmail.com',user_to_reset.email_address,msg.as_string())
-            # mailserver.quit()
-
             flash('Successfully sent! Please check your inbox for a one time password.', category='success')
 
             return redirect(url_for('forgot_password_page_otp'))
@@ -3001,10 +2896,11 @@ def supplier_page():
 @csp_header()
 #admin required
 def user_management():
+    form = Ticket_History_Form()
     admincheckuserID = User.query.filter_by(id=current_user.id).first()
     if admincheckuserID.admin == 1:
         users = User.query.all()
-        return render_template('User_Management.html', users=users)
+        return render_template('User_Management.html', users=users, form=form)
     else:
         return render_template('error404.html')
 
@@ -3313,6 +3209,7 @@ def ticket_requests_page():
 @login_required
 @csp_header()
 def ticket_history():
+    form = Ticket_History_Form()
     count = 0
     ticket_history = {}
     try:
@@ -3340,13 +3237,14 @@ def ticket_history():
     except Exception as e:
         print(f"An Unknown Error has occurred, {e}")
 
-    return render_template('TicketHistory.html', tickets=ticket_history)
+    return render_template('TicketHistory.html', tickets=ticket_history, form=form)
 
 
 @app.route('/delete_ticket_history/<int:id>', methods=['GET', 'POST'])
 @login_required
 @csp_header()
 def delete_ticket_history(id):
+    form = Ticket_History_Form()
     count = 0
     ticket_history = {}
     try:
@@ -3380,7 +3278,7 @@ def delete_ticket_history(id):
         flash('Ticket Deleted', category='success')
         ticket_history_database.close()
         ticket_database_uniqueID.close()
-    return redirect(url_for("ticket_history"))
+    return redirect(url_for("ticket_history", form=form))
 
 
 @app.route('/Booking', methods=['GET', 'POST'])
@@ -3565,6 +3463,7 @@ def ticket_reply(id):
 @csp_header()
 def messages_page():
     userID = User.query.filter_by(id=current_user.id).first()
+    form = Message_form()
     tickets_response_dict = {}
     response_count = 0
     try:
@@ -3594,7 +3493,7 @@ def messages_page():
     print(tickets_response_dict)
     print(response_count)
 
-    return render_template('messages.html', tickets_response=tickets_response_dict)
+    return render_template('messages.html', tickets_response=tickets_response_dict, form=form)
 
 
 @app.route('/delete_messages/<int:id>', methods=['GET', 'POST'])
