@@ -17,6 +17,7 @@
             <div class="col-12 shadow p-3 mb-5 bg-primary rounded d-inline-block w-100", style="color:black; background-color: azure!important;">
 
                 <form action="{{url_for('deleteEvents')}}" class="" method="POST">
+                  {{ form.hidden_tag() }}
                     <input type="hidden" name="uuid" value="{{events[i].get_id()}}">
                     <button type="submit" class="close" data-dismiss="modal" aria-label="Close" style="color:grey">
                     <span aria-hidden="true">&times;</span>
@@ -28,6 +29,7 @@
                 <p class=""><b>Created On: {{events[i].get_date_added()}} {{events[i].get_time_added()}}</b></p>
                 <p class=""><p><b>Last Updated On: {{events[i].get_update_date()}} {{events[i].get_updated_time()}}</b></p>
                 <form action="{{url_for('deleteEvents')}}" class="d-inline-block" method="POST">
+                  {{ form.hidden_tag() }}
                     <input type="hidden" name="uuid" value="{{events[i].get_id()}}">
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
@@ -59,6 +61,7 @@
           </button>
         </div>
         <form method="POST">
+          {{ form.hidden_tag() }}
         <div class="modal-body">
                 {{ form.title.label() }}
                 {{ form.title(class='form-control form-control-user', placeholder='Enter Title') }}
@@ -87,6 +90,7 @@
           </button>
         </div>
         <form action="{{url_for('updateEvents')}}" class="d-inline-block" method="POST">
+          {{ form.hidden_tag() }}
         <div class="modal-body">
             <input type="hidden" name="uuid" value="{{ events[i].get_id() }}">
                 {{ form.title.label() }}

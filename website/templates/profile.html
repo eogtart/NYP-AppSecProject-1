@@ -145,15 +145,9 @@
                 {% if UserID.twofa == 'Disabled'%}
                     <br>
                     <a class="btn btn-success" href="{{url_for('twofa_enable')}}" method="POST">Enable 2FA</a>
-                    <!-- <form action="{{url_for('twofa_enable')}}" method="POST">
-                        <input type="submit" value="Enable 2FA" class="btn btn-outline btn-success">
-                    </form> -->
                 {% elif UserID.twofa == 'Enabled'%}
                     <br>
                     <a class="btn btn-danger" href="{{url_for('twofa_disable')}}" method="POST">Disable 2FA</a>
-                    <!-- <form action="{{url_for('twofa_disable')}}" method="POST">
-                        <input type="submit" value="Disable 2FA" class="btn btn-outline btn-danger">
-                    </form> -->
                 {% endif %}
                 <br>
                 <br>

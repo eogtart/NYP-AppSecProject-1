@@ -53,6 +53,7 @@
 
 <div class="card-body border-top">
     <form method="POST" action="{{ url_for('Shopping_Cart') }}">
+        {{ edit_cart_form.hidden_tag() }}
     <button type="submit" class="btn btn-primary float-md-right"> Back To Cart <i class="fa fa-chevron-right"></i> </button>
     </form>
     <a href="{{ url_for('market_page') }}" class="btn btn-light"> <i class="fa fa-chevron-left"></i> Continue shopping </a>
@@ -68,6 +69,7 @@
         <div class="card mb-3">
             <div class="card-body">
             <form>
+                {{ edit_cart_form.hidden_tag() }}
                 <div class="form-group">
                     <label>Have coupon?</label>
                     <div class="input-group">
@@ -150,6 +152,7 @@
                     </button>
                 </div>
                 <form action="{{ url_for('Edit_Shopping_Cart_Item') }}" method="POST">
+                    {{ edit_cart_form.hidden_tag() }}
                 <div class="modal-body">
                     {{ edit_cart_form.quantity.label() }}
                     {{ edit_cart_form.quantity(class='form-control form-control-user', placeholder='Enter New Quantity') }}
