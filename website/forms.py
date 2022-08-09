@@ -3,10 +3,12 @@ from wtforms import StringField, PasswordField, SubmitField, IntegerField, DateF
     SelectField, FloatField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError, NumberRange
 from website.models import User
-
+import re
+from string import ascii_lowercase,ascii_uppercase,digits
 
 # from datetime import datetime
-
+#custom validator to check content of pw
+#e.g. presence of special characters etc
 # Benjamin
 class RegisterForm(FlaskForm):
     # The Validator library allows you to create certain functions
@@ -16,6 +18,30 @@ class RegisterForm(FlaskForm):
     # starting with the prefix validate and check if there is even a field
     # with that given name. Once everything is checked out
     # flaskform knows it needs to validate that username
+    def validate_password1(self, password_to_check):
+        upper = False
+        lower = False
+        digit = False
+        special = False
+        password = password_to_check.data
+        specialchar = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
+        if re.search(r'[A-Z]', password):
+            upper = True
+        if re.search(r'[a-z]', password):
+            lower = True
+        if re.search(r'\d', password):
+            digit = True
+        if specialchar.search(password) != None:
+            special = True
+        strength = upper + lower + digit + special
+        print("upper: ", upper)
+        print("lower", lower)
+        print("digit", digit)
+        print("special", special)
+        print(strength)
+        if strength < 4:
+            raise ValidationError('Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 digit and 1 special character!')
+
     def validate_username(self, username_to_check):
         user = User.query.filter_by(username=username_to_check.data).first()
         # if this returns an object
@@ -141,6 +167,24 @@ class Update_Gender(FlaskForm):
 
 
 class Update_Password(FlaskForm):
+    def validate_new_password(self, password_to_check):
+        upper = False
+        lower = False
+        digit = False
+        special = False
+        password = password_to_check.data
+        specialchar = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
+        if re.search(r'[A-Z]', password):
+            upper = True
+        if re.search(r'[a-z]', password):
+            lower = True
+        if re.search(r'\d', password):
+            digit = True
+        if specialchar.search(password) != None:
+            special = True
+        strength = upper + lower + digit + special
+        if strength < 4:
+            raise ValidationError('Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 digit and 1 special character!')
     current_password = PasswordField(label='Current Password:', validators=[Length(min=6), DataRequired()])
     new_password = PasswordField(label='New Password:', validators=[Length(min=6), DataRequired()])
     submit = SubmitField(label='Done')
