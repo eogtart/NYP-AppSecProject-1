@@ -62,9 +62,9 @@
                     <div class="d-flex flex-column justify-content-end align-items-end">
 
                         <form method="POST" action="{{ url_for('Purchase_Item') }}">
+                            {{ form.hidden_tag() }}
                         <button type="submit" href="#" class="btn btn-primary float-md-right" {% if cart_items|length == 0 %} disabled {% endif %}>{% if cart_items|length == 0 %}Your Cart is Empty {% else %} Confirm Order {% endif %} <i class="fa fa-chevron-right"></i> </button>
                         </form>
-
                     </div>
 
                 </div>

@@ -11,19 +11,6 @@
 <section class="section-intro padding-y">
 
 <div class="container">
-<!--    <form>-->
-
-<!--        <div class="input-group">-->
-<!--            <input type="text" class="form-control bg-light border-1 small" placeholder="Search for..."-->
-<!--                aria-label="Search" aria-describedby="basic-addon2">-->
-<!--            <div class="input-group-append">-->
-<!--                <button class="btn btn-primary" type="button">-->
-<!--                    <i class="fas fa-search fa-sm"></i>-->
-<!--                </button>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--    </form>-->
     <br>
 <div id="carousel1_indicator" class="slider-home-banner carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
@@ -148,11 +135,13 @@
                                 {% if items[i].get_owner() != current_user.username %}
                                 {% if items[i].get_id() not in wish_items %}
                                     <form action="{{ url_for('wish') }}" method="POST" style="margin-top: 15px;">
+                                        {{ purchase_form.hidden_tag() }}
                                         <input id="uuid" name="uuid" type="hidden" value="{{items[i].get_id()}}">
                                         <button class="btn btn-outline btn-danger" type="submit" ><i class="far fa-heart"></i></button>
                                     </form>
                                 {% else %}
                                     <form action="{{ url_for('delete_wish') }}" method="POST" style="margin-top: 15px;">
+                                        {{ purchase_form.hidden_tag() }}
                                         <input id="uuid" name="uuid" type="hidden" value="{{items[i].get_id()}}">
                                         <button class="btn btn-outline btn-danger" type="submit" ><i class="fas fa-heart"></i></button>
                                     </form>
@@ -203,11 +192,13 @@
                                 {% if items[i].get_owner() != current_user.username %}
                                 {% if items[i].get_id() not in wish_items %}
                                     <form action="{{ url_for('wish') }}" method="POST" style="margin-top: 15px;">
+                                        {{ purchase_form.hidden_tag() }}
                                         <input id="uuid" name="uuid" type="hidden" value="{{items[i].get_id()}}">
                                         <button class="btn btn-outline btn-danger" type="submit" ><i class="far fa-heart"></i></button>
                                     </form>
                                 {% else %}
                                     <form action="{{ url_for('delete_wish') }}" method="POST" style="margin-top: 15px;">
+                                        {{ purchase_form.hidden_tag() }}
                                         <input id="uuid" name="uuid" type="hidden" value="{{items[i].get_id()}}">
                                         <button class="btn btn-outline btn-danger" type="submit" ><i class="fas fa-heart"></i></button>
                                     </form>
@@ -276,43 +267,33 @@
                     </button>
                 </div>
                 <form action="{{ url_for('Add_To_Cart') }}" method="POST">
-                <div class="modal-body">
-                    <img class="card-img-top" style="max-height:300px" src="{{url_for('get_img' , id = items[i].get_image())}}" alt="Item Image" />
-                    <hr>
-                    <p>Barcode: {{items[i].get_id()}}</p>
-                    <p>Name: {{items[i].get_name()}}</p>
-                    <p>Description: {{items[i].get_description()}}</p>
-                    <p>Price: ${{ "{:.2f}".format(items[i].get_price()) }}</p>
-                    <p>Items in Stock: {{items[i].get_quantity()}}</p>
-                    <p>Owner: {{items[i].get_owner()}}</p>
-                    <hr>
+                    {{ purchase_form.hidden_tag() }}
+                    <div class="modal-body">
+                        <img class="card-img-top" style="max-height:300px" src="{{url_for('get_img' , id = items[i].get_image())}}" alt="Item Image" />
+                        <hr>
+                        <p>Barcode: {{items[i].get_id()}}</p>
+                        <p>Name: {{items[i].get_name()}}</p>
+                        <p>Description: {{items[i].get_description()}}</p>
+                        <p>Price: ${{ "{:.2f}".format(items[i].get_price()) }}</p>
+                        <p>Items in Stock: {{items[i].get_quantity()}}</p>
+                        <p>Owner: {{items[i].get_owner()}}</p>
+                        <hr>
 
-                    {{ purchase_form.quantity.label() }}
-                    {{ purchase_form.quantity(class='form-control form-control-user', placeholder='Enter Quantity') }}
-
-                  </div>
-
-                   <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <input id="uuid" name="uuid" type="hidden" value="{{items[i].get_id()}}">
-                    <input type="hidden" name="uuid2" value="{{items[i].get_owner_id()}}">
-                    <button class="btn btn-success" type="submit">Add to Cart</button>
+                        {{ purchase_form.quantity.label() }}
+                        {{ purchase_form.quantity(class='form-control form-control-user', placeholder='Enter Quantity') }}
 
                     </div>
-                </div>
-                </form>
 
-            </div>
-        </div>
-    </div>
-</div>
-{% endfor %}
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <input id="uuid" name="uuid" type="hidden" value="{{items[i].get_id()}}">
+                        <input type="hidden" name="uuid2" value="{{items[i].get_owner_id()}}">
+                        <button class="btn btn-success" type="submit">Add to Cart</button>
 
-<!-- <div class="row mt-4">
-     <br>
-    <div class="container-fluid" style="margin-top: 30px;">
-        <div class="text-white bg-dark text-white shadow-lg " style="padding: 35px;">
-          <h1 class="h3 mb-2 " style=" color:white;">Our Current Events</h1>
+                        </div>
+                    </div>
+      </div>
+="h3 mb-2 " style=" color:white;">Our Current Events</h1>
           <p class="mb-4">Simply Our Current Events here.</p>
     </div>
         <br>

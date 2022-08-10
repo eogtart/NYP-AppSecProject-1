@@ -63,6 +63,7 @@
           <div class="card-body">
           <h4 class="card-title mb-4">Send Us Some Feedback</h4>
           <form method="POST">
+            {{ form.hidden_tag() }}
             <div class="form-group" >
             {{ form.title.label() }}
             {{ form.title(class='form-control form-control-user', placeholder='Enter Title') }}

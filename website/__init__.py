@@ -19,6 +19,12 @@ def create_database(app):
 
 app = Flask(__name__)
 
+# csrf protection, Use only when HTTPS Enabled
+# csrf = CSRFProtect(app)
+# csrf.init_app(app)
+
+
+
 # User is marked as logged out automatically when existing session suddenly gets hijacked.
 # Prevents Session Hijacking.
 paranoid = Paranoid(app)
@@ -36,8 +42,6 @@ app.config['SESSION_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
-#CSRF Protection
-# csrf = CSRFProtect(app)
 
 #Rate limiting, limiting the requests sent from client
 limiter = Limiter(app, key_func=get_remote_address,  default_limits=["500 per day"])

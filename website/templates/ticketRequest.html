@@ -38,6 +38,7 @@
     <p">Status: <var style="color:red;">{{ tickets[i].get_pending_status() }}</var></p>
     {% endif %}
     <form action="{{url_for('delete_ticket_request',id=i)}}" class="d-inline-block" method="POST">
+        {{ ticker_response.hidden_tag() }}
         <button type="submit" class="btn btn-danger">Delete</button>
     </form>&nbsp;
         {% if tickets[i].get_pending_status() == 'Pending' %}
@@ -62,6 +63,7 @@
                 </div>
                 <div class="modal-body">
                     <form method="POST" action="{{url_for('ticket_reply', id=tickets[i].get_owner_id() )}}">
+                    {{ ticker_response.hidden_tag() }}
                     {{ ticker_response.title.label() }}
                     {{ ticker_response.title(class='form-control form-control-user', placeholder='Enter Title') }}
                     {{ ticker_response.description.label() }}
