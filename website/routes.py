@@ -1,5 +1,7 @@
+import logging
+import os
 from tkinter.tix import Tree
-from website import app, bcrypt, limiter, recaptcha
+from website import app, bcrypt, limiter
 from flask import render_template, request, flash, redirect, url_for, jsonify, Response, session
 from flask_limiter import Limiter
 from website.models import User, Partners, Notes, Tickets, Tickets_Response, Item, Booking, Feedback, Events, Logs, \
@@ -7,9 +9,7 @@ from website.models import User, Partners, Notes, Tickets, Tickets_Response, Ite
 from website.forms import RegisterForm, LoginForm, DepositForm, TransferFunds, CreatePartnerForm, UpdatePartnerForm, \
     Add_Notes, Update_Notes, Update_User, Update_Username, Update_Email, Update_Gender, Update_Password, Ticket_Form, \
     Ticket_Reply_Form, UpdateSupplierForm, Add_Item_Form, Purchase_Form, Wish_Form, Update_User_Admin, Booking_form, \
-    Restock_Item_Form, Add_To_Cart_Form, Feedback_form, Appointment_Form, Add_Event, Edit_Cart, password_reset, twofa_verify, \
-    Message_form, Reciept_form, Ticket_History_Form
-    
+    Restock_Item_Form, Add_To_Cart_Form, Feedback_form, Add_Event, Edit_Cart, password_reset, twofa_verify
 from website import db
 from flask_login import login_user, logout_user, login_required, current_user
 from website import admin_user
@@ -28,6 +28,10 @@ import secure
 from flask_csp.csp import csp_header
 import os
 
+# To ensure file name is parsed
+
+# Note that for otp expiry, need to fiddle with js
+
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'swissbothelper@gmail.com'
@@ -36,24 +40,41 @@ app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_USE_TLS'] = False
 mail = Mail(app)
 
+# Do this instead.
+# app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+# app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+
+
 db_tempemail = shelve.open('website/databases/tempemail/tempemail.db', 'c')
 db_tempemail['email'] = None
 db_tempemail.close()
 
 login_free_pages = ['landing_page', 'register_page', 'forgot_password_page', 'twofa_verification', 'forgot_password_page_otp', 'password_reset_page']
 
-# @app.before_request
-# def before_request():
-#     if session.permanent != True and request.endpoint not in login_free_pages:
-#         flash("Your session has expired, please login again.", category="danger")
+# def session_expired_warning(f):
+#    @wraps(f)
+#    def decorator(*args, **kwargs):
+#        if session.permanent != True:
+#            flash("Your session has expired, please login again.", category="danger")
+#        return f(*args, **kwargs)
+#    return decorator
 
-# @app.after_request
-# def set_secure_headers(response):
-#     # enable browser security policies
-#     csp = secure.ContentSecurityPolicy()
-#     secure_headers = secure.Secure(csp = csp)
-#     secure_headers.framework.flask(response)
-#     return response
+
+login_free_pages = ['landing_page', 'register_page', 'forgot_password_page', 'twofa_verification', 'forgot_password_page_otp', 'password_reset_page']
+
+
+@app.before_request
+def before_request():
+    if session.permanent != True and request.endpoint not in login_free_pages:
+        flash("Your session has expired, please login again.", category="danger")
+
+@app.after_request
+def set_secure_headers(response):
+    # enable browser security policies
+    csp = secure.ContentSecurityPolicy()
+    secure_headers = secure.Secure(csp = csp)
+    secure_headers.framework.flask(response)
+    return response
 
 # For Error Handling when user enters invalid url address
 @app.errorhandler(404)
@@ -142,23 +163,23 @@ def csp_report():
 
 @app.route('/moneymanagement')
 @login_required
-# @csp_header()
+@csp_header()
 def money_management():
     return render_template('trans_or_dep.html')
 
 
 @app.route('/home', methods=['GET', 'POST'])
 @login_required
+@csp_header()
 def home_page():
     userID = User.query.filter_by(id=current_user.id).first()
-    print(userID.password_hash)
     admin_user()
     return render_template('home.html', user=userID)
 
 
 @app.route('/profile', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def profile_page():
     Owned_Items_Dict = {}
     Wish_Dict = {}
@@ -249,7 +270,7 @@ def profile_page():
 
 @app.route('/deleteProfile')
 @login_required
-# @csp_header()
+@csp_header()
 def delete_profile():
     db.create_all()
     userID = User.query.filter_by(id=current_user.id).first()
@@ -261,7 +282,7 @@ def delete_profile():
 
 
 @app.route("/updateUser", methods=['GET', 'POST'])
-# @csp_header()
+@csp_header()
 def update_user():
     update_user_form = Update_User()
     if request.method == 'POST' and update_user_form.validate_on_submit():
@@ -288,7 +309,7 @@ def update_user():
 
 
 @app.route("/updateUsername", methods=['GET', 'POST'])
-# @csp_header()
+@csp_header()
 def update_username():
     update_username_form = Update_Username()
     if request.method == 'POST' and update_username_form.validate_on_submit():
@@ -307,7 +328,7 @@ def update_username():
 
 
 @app.route("/updateEmail", methods=['GET', 'POST'])
-# @csp_header()
+@csp_header()
 def update_email():
     update_email_form = Update_Email()
     if request.method == 'POST' and update_email_form.validate_on_submit():
@@ -326,7 +347,7 @@ def update_email():
 
 
 @app.route("/updateGender", methods=['GET', 'POST'])
-# @csp_header()
+@csp_header()
 def update_gender():
     update_gender_form = Update_Gender()
     if request.method == 'POST' and update_gender_form.validate_on_submit():
@@ -345,7 +366,7 @@ def update_gender():
 
 
 @app.route("/updatePassword", methods=['GET', 'POST'])
-# @csp_header()
+@csp_header()
 def update_password():
     update_password_form = Update_Password()
     userID = User.query.filter_by(id=current_user.id).first()
@@ -372,7 +393,7 @@ def update_password():
 
 @app.route('/PastOrders')
 @login_required
-# @csp_header()
+@csp_header()
 def past_orders():
     Owned_Items_Dict = {}
     try:
@@ -396,7 +417,7 @@ def past_orders():
 
 
 @app.route('/data/pastorders')
-# @csp_header()
+@csp_header()
 def past_orders_data():
     Owned_Items_Dict = {}
     dates = []
@@ -435,7 +456,7 @@ def past_orders_data():
 
 @app.route('/data/sales')
 @login_required
-# @csp_header()
+@csp_header()
 def sales_data():
     dates = []
     transactions = []
@@ -482,7 +503,7 @@ def sales_data():
 @app.route('/data/transactions')
 @login_required
 @limiter.limit("1/second", override_defaults=False)
-# @csp_header()
+@csp_header()
 def transaction_data():
     dates = []
     transactions = []
@@ -528,9 +549,8 @@ def transaction_data():
 
 @app.route('/Appointment')
 @login_required
-# @csp_header()
+@csp_header()
 def appointment():
-    appt_form = Appointment_Form()
     bookings_dict = {}
     count = 0
     try:
@@ -551,12 +571,12 @@ def appointment():
     except Exception as e:
         print(f"An Unknown Error has occurred, {e}")
 
-    return render_template('appointment.html', form=appt_form, bookings=bookings_dict)
+    return render_template('appointment.html', bookings=bookings_dict)
 
 
 @app.route('/Delete_Appointment/<int:id>', methods=['POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def delete_appointment(id):
     bookings_dict = {}
     count = 0
@@ -590,7 +610,7 @@ def delete_appointment(id):
 
 @app.route('/markets', methods=['POST', "GET"])
 @login_required
-# @csp_header()
+@csp_header()
 def market_page():
     purchase_form = Purchase_Form()
     Items_Dict = {}
@@ -657,7 +677,7 @@ def market_page():
 
 
 @app.route('/image/<int:id>')
-# @csp_header()
+@csp_header()
 def get_img(id):
     img = Img.query.filter_by(id=id).first()
     if not img:
@@ -668,7 +688,7 @@ def get_img(id):
 
 @app.route('/shopping_cart', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def Shopping_Cart():
     purchase_form = Purchase_Form()
     Cart_Dict = {}
@@ -695,12 +715,12 @@ def Shopping_Cart():
             total += Cart_Dict[i].get_total_cost()
         print('Cart Dictionary')
         print(Cart_Dict)
-    return render_template('ShoppingCart.html', cart_items=Cart_Dict, total=total, form=purchase_form)
+    return render_template('ShoppingCart.html', cart_items=Cart_Dict, total=total)
 
 
 @app.route('/edit_shopping_cart', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def Edit_Shopping_Cart():
     # uuid is Cart_Dict Key
     # uuid2 is Shopping Cart Item ID
@@ -736,7 +756,7 @@ def Edit_Shopping_Cart():
 
 @app.route('/edit_shopping_cart_item', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def Edit_Shopping_Cart_Item():
     # uuid is Cart_Dict Key
     # uuid2 is Shopping Cart Item ID
@@ -917,7 +937,7 @@ def Edit_Shopping_Cart_Item():
 
 @app.route('/removefromcart', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def remove_from_cart():
     purchase_form = Purchase_Form()
     Cart_Dict = {}
@@ -1017,11 +1037,86 @@ def remove_from_cart():
     return redirect(url_for('Shopping_Cart'))
 
 
+# @app.route('/removefromcart_edit', methods=['GET', 'POST'])
+# @login_required
+# @csp_header()
+# def remove_from_cart_edit():
+#     purchase_form = Purchase_Form()
+#     Cart_Dict = {}
+#     Items_Dict = {}
+#     Products = {}
+#     try:
+#         Shopping_Cart_Database = shelve.open('website/databases/shoppingcart/cart.db', 'w')
+#         Item_Database = shelve.open('website/databases/items/items.db', 'w')
+#         products_database = shelve.open('website/databases/products/products.db', 'w')
+#
+#         if str(request.form.get('uuid3')) in products_database:
+#             Products = products_database[str(request.form.get('uuid3'))]
+#         else:
+#             products_database[str(request.form.get('uuid3'))] = Products
+#
+#         if str(current_user.id) in Shopping_Cart_Database:
+#             Cart_Dict = Shopping_Cart_Database[str(current_user.id)]
+#             print(Shopping_Cart_Database[str(current_user.id)])
+#
+#         else:
+#             Shopping_Cart_Database[str(current_user.id)] = Cart_Dict
+#
+#         if 'ItemInfo' in Item_Database:
+#             Items_Dict = Item_Database['ItemInfo']
+#         else:
+#             Item_Database['ItemInfo'] = Items_Dict
+#
+#     except IOError:
+#         print("Unable to Read File")
+#
+#     except Exception as e:
+#         print(f"An unknown error has occurred,{e}")
+#
+#     else:
+#         UserID = User.query.filter_by(id=current_user.id).first()
+#         name = Cart_Dict[str(request.form.get('uuid'))].get_name()
+#         cart_qty = Cart_Dict[str(request.form.get('uuid'))].get_qty_purchased()
+#         new_qty = Items_Dict[str(request.form.get('uuid2'))].get_quantity() + cart_qty
+#         # remove item from cart
+#         del Cart_Dict[str(request.form.get('uuid'))]
+#         Shopping_Cart_Database[str(current_user.id)] = Cart_Dict
+#
+#         # Update Market base new Quantity
+#         Items_Dict[str(request.form.get('uuid2'))].set_quantity(new_qty)
+#         Item_Database['ItemInfo'] = Items_Dict
+#
+#         # Update Owner of Item new Quantity after removing from cart
+#         Products[str(request.form.get('uuid2'))].set_quantity(new_qty)
+#         products_database[str(request.form.get('uuid3'))] = Products
+#
+#         # update cart counter
+#         UserID.shoppingCartCount -= 1
+#         db.session.commit()
+#
+#         Shopping_Cart_Database.close()
+#         Item_Database.close()
+#         products_database.close()
+#         flash(f"{name} removed from cart", category='success')
+#     return redirect(url_for('Edit_Shopping_Cart'))
+
+# @app.route('/generate_qrcode', methods=['POST'])
+# @csp_header()
+# def generate_qrcode():
+#     buffer = BytesIO()
+#     data = request.form.get('data')
+#
+#     img = qrcode.make(data)
+#     img.save(buffer)
+#     buffer.seek(0)
+#
+#     response = send_file(buffer, mimetype='image/png')
+#     return response
+
 @app.route('/receipt', methods=['POST', 'GET'])
 @login_required
-# @csp_header()
+@csp_header()
 def Receipt():
-    form = Reciept_form()
     def createQR(*args: Item):
         return qrcode.make('Receipt:\n{}\nTotal price:${}'.format('\n'.join(
             [i.get_name() + ',Qty: ' + str(i.get_qty_purchased()) + ',Cost: $' + str(i.get_total_cost()) for i in
@@ -1067,14 +1162,14 @@ def Receipt():
     current_day = datetime.now().strftime("%d")
     expected_delivery_date = datetime.now().strftime(f"{int(current_day) + 2}/%m/%Y")
 
-    return render_template('Receipt.html', cart_items=Cart_Dict, form=form, total=total, order_date=order_date,
+    return render_template('Receipt.html', cart_items=Cart_Dict, total=total, order_date=order_date,
                            expected_delivery_date=expected_delivery_date,
                            qr_code=toB64String((createQR(*Cart_Dict.values()))))
 
 
 @app.route('/InventoryManagement', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def Inventory_Management():
     Restock_Form = Restock_Item_Form()
     Products = {}
@@ -1104,7 +1199,7 @@ def Inventory_Management():
 
 @app.route('/RestockItem', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def Restock_Item():
     Restock_Form = Restock_Item_Form()
     Products = {}
@@ -1146,7 +1241,7 @@ def Restock_Item():
 
 @app.route('/DisableProduct', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def Disable_Product():
     DisabledProducts_Dict = {}
     Items_Dict = {}
@@ -1186,7 +1281,7 @@ def Disable_Product():
 
 @app.route('/EnableProduct', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def Enable_Product():
     DisabledProducts_Dict = {}
     Items_Dict = {}
@@ -1224,7 +1319,7 @@ def Enable_Product():
 
 @app.route('/Wish', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def wish():
     wish_form = Wish_Form()
     Items_Dict = {}
@@ -1309,7 +1404,7 @@ def wish():
 
 @app.route('/DeleteWish', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def delete_wish():
     wish_form = Wish_Form()
     Wish_Dict = {}
@@ -1373,7 +1468,7 @@ def delete_wish():
 
 @app.route('/WishList')
 @login_required
-# @csp_header()
+@csp_header()
 def wish_list():
     Items_Dict = {}
     Wish_Dict = {}
@@ -1405,7 +1500,7 @@ def wish_list():
 
 @app.route('/AddItemForm', methods=['POST', 'GET'])
 @login_required
-# @csp_header()
+@csp_header()
 def Add_Item():
     add_item_form = Add_Item_Form()
     your_products_dict = {}
@@ -1473,7 +1568,7 @@ def Add_Item():
 
 @app.route('/UpdateItemForm', methods=['POST', 'GET'])
 @login_required
-# @csp_header()
+@csp_header()
 def Update_Item_Form():
     add_item_form = Add_Item_Form()
     return render_template('UpdateItem.html', add_item_form=add_item_form)
@@ -1481,7 +1576,7 @@ def Update_Item_Form():
 
 @app.route('/PurchaseItem', methods=['POST', 'GET'])
 @login_required
-# @csp_header()
+@csp_header()
 def Purchase_Item():
     purchase_item_form = Purchase_Form()
     Items_Dict = {}
@@ -1726,7 +1821,7 @@ def Purchase_Item():
 
 @app.route('/AddToCart', methods=['POST', 'GET'])
 @login_required
-# @csp_header()
+@csp_header()
 def Add_To_Cart():
     # uuid is Item ID
     # uuid2 is Seller ID
@@ -1851,7 +1946,7 @@ def Add_To_Cart():
 
 @app.route('/partners')
 @login_required
-# @csp_header()
+@csp_header()
 def partners_page():
     admincheckuserID = User.query.filter_by(id=current_user.id).first()
     if admincheckuserID.admin ==1:
@@ -1878,6 +1973,7 @@ def partners_page():
 
 @app.route('/add_partners', methods=['GET', 'POST'])
 @login_required
+@csp_header()
 def add_partners_page():
     admincheckuserID = User.query.filter_by(id=current_user.id).first()
     if admincheckuserID.admin ==1:
@@ -1929,7 +2025,7 @@ def add_partners_page():
 
 
 @app.route('/deletePartner/<int:id>', methods=['POST'])
-# @csp_header()
+@csp_header()
 def delete_partner(id):
     partner_dict = {}
     db_shelve = shelve.open('website/databases/partners/partner.db', 'w')
@@ -1942,7 +2038,7 @@ def delete_partner(id):
 
 
 @app.route('/updatePartner/<int:id>', methods=['POST'])
-# @csp_header()
+@csp_header()
 def update_partner(id):
     form = UpdatePartnerForm()
     if request.method == 'POST' and form.validate_on_submit():
@@ -1973,17 +2069,16 @@ def update_partner(id):
 @app.route('/transfer_funds')
 @login_required
 @limiter.limit("1/second", override_defaults=False)
-# @csp_header()
+@csp_header()
 def transfer_funds_page():
-    form = Ticket_History_Form()
     users = User.query.all()
-    return render_template('TransferFunds.html', users=users, form=form)
+    return render_template('TransferFunds.html', users=users)
 
 
 @app.route('/transfer_funds_user/<int:id>', methods=['POST'])
 @login_required
 @limiter.limit("1/second", override_defaults=False)
-# @csp_header()
+@csp_header()
 def transfer_funds_user_page(id):
     userID = User.query.filter_by(id=id).first()
     username = userID.username
@@ -2114,7 +2209,7 @@ def transfer_funds_user_page(id):
 @app.route('/deposit', methods=['GET', 'POST'])
 @login_required
 @limiter.limit("1/second", override_defaults=False)
-# @csp_header()
+@csp_header()
 def deposit():
     db.create_all()
     form = DepositForm()
@@ -2193,7 +2288,7 @@ def deposit():
 
 
 @app.route('/register', methods=['GET', 'POST'])
-# @csp_header()
+@csp_header()
 def register_page():
     db.create_all()
     form = RegisterForm()
@@ -2222,7 +2317,7 @@ def register_page():
 
 @app.route('/logout')
 @login_required
-# @csp_header()
+@csp_header()
 def logout_page():
     logout_user()
     # to log out the current logged in user
@@ -2235,7 +2330,7 @@ def logout_page():
 
 @app.route("/notes", methods=["GET", "POST"])
 @login_required
-# @csp_header()
+@csp_header()
 def notes():
     add_notes_form = Add_Notes()
     notes_database = shelve.open('website/databases/Notes/note.db', 'c')
@@ -2270,7 +2365,7 @@ def notes():
 
 @app.route("/deleteNotes", methods=["GET", "POST"])
 @login_required
-# @csp_header()
+@csp_header()
 def deleteNotes():
     if request.method == "POST":
         notes_database = shelve.open('website/databases/Notes/note.db', 'w')
@@ -2294,7 +2389,7 @@ def deleteNotes():
 
 @app.route('/updateNotes', methods=["GET", "POST"])
 @login_required
-# @csp_header()
+@csp_header()
 def updateNotes():
     if request.method == 'POST':
         update_notes_form = Update_Notes()
@@ -2317,14 +2412,14 @@ def updateNotes():
             notes_database[str(current_user.id)] = user_notes
             flash('Note Updated', category='success')
             notes_database.close()
-        return redirect(url_for("notes", form=update_notes_form))
+        return redirect(url_for("notes"))
 
 
 # Ming Wei
 @app.route('/', methods=["GET", "POST"])
 @app.route('/landing', methods=["GET", "POST"])
 @limiter.limit("1/second", override_defaults=False)
-# @csp_header()
+@csp_header()
 #limiter set to refrain users from sending too many requests
 def landing_page():
     admin_user()
@@ -2369,19 +2464,19 @@ def landing_page():
         else:
             sleep(uniform(2,2.5))
             flash("Username and Password are not matched! Please try again.", category='danger')
-    print(form.errors)
+
     return render_template('Landingbase.html', form=form)
 
 
 @app.route('/about_us', methods=['GET', 'POST'])
-# @csp_header()
+@csp_header()
 def about_us_page():
     return render_template('aboutUs.html')
 
 
 @app.route('/dashboard')
 @login_required
-# @csp_header()
+@csp_header()
 def dashboard_page():
     Owned_Items_Dict = {}
     logs_dict = {}
@@ -2460,7 +2555,7 @@ def dashboard_page():
 
 
 @app.route('/data/spending-profit-balance')
-# @csp_header()
+@csp_header()
 def budget_data():
     if current_user:
         balance = '{0:.2f}'.format(current_user.budget)
@@ -2479,7 +2574,7 @@ def budget_data():
 
 @app.route('/2fa_recommend', methods=["GET", "POST"])
 @login_required
-# @csp_header()
+@csp_header()
 def twofa_recommend_page():
     if request.method == "GET":
         logging_in_user = User.query.filter_by(id=current_user.id).first()
@@ -2492,7 +2587,7 @@ def twofa_recommend_page():
 
 @app.route('/profile/2faenable', methods=['GET'])
 @login_required
-# @csp_header()
+@csp_header()
 def twofa_enable():
     userID = User.query.filter_by(id=current_user.id).first()
     userID.twofa = 'Enabled'
@@ -2502,7 +2597,7 @@ def twofa_enable():
 
 @app.route('/profile/2fadisable', methods=['GET'])
 @login_required
-# @csp_header()
+@csp_header()
 def twofa_disable():
     userID = User.query.filter_by(id=current_user.id).first()
     userID.twofa = 'Disabled'
@@ -2511,7 +2606,7 @@ def twofa_disable():
     return redirect(url_for('profile_page'))
 
 @app.route('/twofa_verify', methods=['POST', 'GET'])
-# csp_header()
+@csp_header()
 def twofa_verification():
     if request.method == "GET":
         form = twofa_verify()
@@ -2610,7 +2705,7 @@ def twofa_verification():
 
 
 @app.route('/forgot_password', methods=["GET", 'POST'])
-# @csp_header()
+@csp_header()
 def forgot_password_page():
     if request.method == "GET":
         form = password_reset()
@@ -2650,6 +2745,18 @@ def forgot_password_page():
             msg.body = f"Your one time password is, {otp}"
             mail.send(msg)
 
+            # port_number = 1234
+            # msg = MIMEMultipart()
+            # mailserver = smtplib.SMTP_SSL('localhost',port_number)
+            # mailserver.login("RealSwissBot@protonmail.com", "Pi!12345")
+            # msg['From'] = 'RealSwissBot@protonmail.com'
+            # msg['To'] = user_to_reset.email_address
+            # msg['Subject'] = 'Swiss 2-Factor Authentication OTP'
+            # message = f"Your one time password is, {otp}"
+            # msg.attach(MIMEText(message))
+            # mailserver.sendmail('RealSwissBot@protonmail.com',user_to_reset.email_address,msg.as_string())
+            # mailserver.quit()
+
             flash('Successfully sent! Please check your inbox for a one time password.', category='success')
 
             return redirect(url_for('forgot_password_page_otp'))
@@ -2662,7 +2769,7 @@ def forgot_password_page():
 
 # Do need to add in routing validation where you cannot directly access the route
 @app.route('/forgot_password/otp', methods=['GET', 'POST'])
-# csp_header()
+@csp_header()
 def forgot_password_page_otp():
     form = password_reset()
 
@@ -2698,7 +2805,7 @@ def forgot_password_page_otp():
 
 
 @app.route('/password_reset', methods=['GET', 'POST'])
-# @csp_header()
+@csp_header()
 def password_reset_page():
     form = password_reset()
 
@@ -2732,7 +2839,7 @@ def password_reset_page():
 
 @app.route('/suppliers/create', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def create_supplier():
     admincheckuserID = User.query.filter_by(id=current_user.id).first()
     if admincheckuserID.admin ==1:
@@ -2786,7 +2893,7 @@ def create_supplier():
 
 @app.route('/suppliersedit/<int:id>', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 #admin role required
 def update_supplier(id):
     admincheckuserID = User.query.filter_by(id=current_user.id).first()
@@ -2830,7 +2937,7 @@ def update_supplier(id):
 
 @app.route('/suppliers/delete/<int:id>', methods=['POST'])
 @login_required
-# @csp_header()
+@csp_header()
 #admin functions
 def supplier_delete(id):
     admincheckuserID = User.query.filter_by(id=current_user.id).first()
@@ -2863,7 +2970,7 @@ def supplier_delete(id):
 
 @app.route('/suppliers')
 @login_required
-# @csp_header()
+@csp_header()
 def supplier_page():
     admincheckuserID = User.query.filter_by(id=current_user.id).first()
     if admincheckuserID.admin ==1:
@@ -2890,14 +2997,13 @@ def supplier_page():
 @app.route('/user_management')
 @login_required
 @limiter.exempt
-# @csp_header()
+@csp_header()
 #admin required
 def user_management():
-    form = Ticket_History_Form()
     admincheckuserID = User.query.filter_by(id=current_user.id).first()
     if admincheckuserID.admin == 1:
         users = User.query.all()
-        return render_template('User_Management.html', users=users, form=form)
+        return render_template('User_Management.html', users=users)
     else:
         return render_template('error404.html')
 
@@ -2906,7 +3012,7 @@ def user_management():
 @app.route('/user_managementupdate/<int:id>', methods=['POST', 'GET'])
 @login_required
 @limiter.exempt
-# @csp_header()
+@csp_header()
 #admin required
 def user_management_update(id):
     userID = User.query.filter_by(id=id).first()
@@ -2936,7 +3042,7 @@ def user_management_update(id):
 @app.route('/user_management/enable/<int:id>', methods=['POST'])
 @login_required
 @limiter.exempt
-# @csp_header()
+@csp_header()
 #admin role required
 # Inheritance
 def user_management_enable(id):
@@ -2955,7 +3061,7 @@ def user_management_enable(id):
 @app.route('/user_management/disable/<int:id>', methods=['POST'])
 @login_required
 @limiter.exempt
-# @csp_header()
+@csp_header()
 #admin role required
 # Inheritance
 def user_management_disable(id):
@@ -2976,7 +3082,7 @@ def user_management_disable(id):
 @app.route('/Events', methods=['GET', 'POST'])
 @login_required
 @limiter.exempt
-# @csp_header()
+@csp_header()
 def Events_Page():
     admincheckuserID = User.query.filter_by(id=current_user.id).first()
     if admincheckuserID.admin == 1:
@@ -3018,7 +3124,7 @@ def Events_Page():
 @app.route("/deleteEvents", methods=["GET", "POST"])
 @login_required
 @limiter.exempt
-# @csp_header()
+@csp_header()
 def deleteEvents():
     admincheckuserID = User.query.filter_by(id=current_user.id).first()
     if admincheckuserID.admin ==1:
@@ -3048,7 +3154,7 @@ def deleteEvents():
 @app.route('/updateEvents', methods=["GET", "POST"])
 @login_required
 @limiter.exempt
-# @csp_header()
+@csp_header()
 def updateEvents():
     admincheckuserID = User.query.filter_by(id=current_user.id).first()
     if admincheckuserID.admin ==1:
@@ -3080,7 +3186,7 @@ def updateEvents():
 
 @app.route('/Current_Events', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def Current_Events_Page():
     event_database = shelve.open('website/databases/Events/event.db', 'c')
     event_dict = {}
@@ -3101,7 +3207,7 @@ def Current_Events_Page():
 # Daniel
 @app.route('/tickets', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def ticket_page():
     ticket_form = Ticket_Form()
     tickets = {}
@@ -3172,7 +3278,7 @@ def ticket_page():
 @app.route('/ticket_requests', methods=['GET', 'POST'])
 @login_required
 @limiter.exempt
-# @csp_header()
+@csp_header()
 def ticket_requests_page():
     admincheckuserID = User.query.filter_by(id=current_user.id).first()
     if admincheckuserID.admin ==1:
@@ -3204,9 +3310,8 @@ def ticket_requests_page():
 
 @app.route('/ticket_history', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def ticket_history():
-    form = Ticket_History_Form()
     count = 0
     ticket_history = {}
     try:
@@ -3234,14 +3339,13 @@ def ticket_history():
     except Exception as e:
         print(f"An Unknown Error has occurred, {e}")
 
-    return render_template('TicketHistory.html', tickets=ticket_history, form=form)
+    return render_template('TicketHistory.html', tickets=ticket_history)
 
 
 @app.route('/delete_ticket_history/<int:id>', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def delete_ticket_history(id):
-    form = Ticket_History_Form()
     count = 0
     ticket_history = {}
     try:
@@ -3275,12 +3379,12 @@ def delete_ticket_history(id):
         flash('Ticket Deleted', category='success')
         ticket_history_database.close()
         ticket_database_uniqueID.close()
-    return redirect(url_for("ticket_history", form=form))
+    return redirect(url_for("ticket_history"))
 
 
 @app.route('/Booking', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def Booking_Page():
     form = Booking_form()
     booking_database = shelve.open('website/databases/Bookings/Booking.db', 'c')
@@ -3326,7 +3430,7 @@ def Booking_Page():
 
 @app.route('/delete_ticket/<int:id>', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def delete_ticket_request(id):
     tickets = {}
     count = 0
@@ -3359,7 +3463,7 @@ def delete_ticket_request(id):
 
 @app.route('/ticket_reply/<int:id>', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def ticket_reply(id):
     ticket_reply_form = Ticket_Reply_Form()
     tickets = {}
@@ -3457,10 +3561,9 @@ def ticket_reply(id):
 
 @app.route('/messages', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def messages_page():
     userID = User.query.filter_by(id=current_user.id).first()
-    form = Message_form()
     tickets_response_dict = {}
     response_count = 0
     try:
@@ -3490,12 +3593,12 @@ def messages_page():
     print(tickets_response_dict)
     print(response_count)
 
-    return render_template('messages.html', tickets_response=tickets_response_dict, form=form)
+    return render_template('messages.html', tickets_response=tickets_response_dict)
 
 
 @app.route('/delete_messages/<int:id>', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def delete_messages_page(id):
     userID = User.query.filter_by(id=current_user.id).first()
     tickets_response_dict = {}
@@ -3534,7 +3637,7 @@ def delete_messages_page(id):
 
 @app.route('/Feedback_Form', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def Feedback_Page():
     userID = User.query.filter_by(id=current_user.id).first()
     if userID.admin == 1:
@@ -3581,7 +3684,7 @@ def Feedback_Page():
 
 @app.route('/Feedback_Page', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def Feedbacks():
     feedback_dict = {}
     star_sum = 0
@@ -3618,7 +3721,7 @@ def Feedbacks():
 
 @app.route('/delete_feedback', methods=['GET', 'POST'])
 @login_required
-# @csp_header()
+@csp_header()
 def delete_feedback():
     feedback_database = shelve.open('website/databases/Feedbacks/Feedback.db', 'w')
     # feedback_database_uniqueID = shelve.open('website/databases/Feedbacks/Feedback_uniqueID.db', 'w')
