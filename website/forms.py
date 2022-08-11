@@ -1,5 +1,5 @@
 from telnetlib import SB
-from flask_wtf import FlaskForm
+from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import StringField, PasswordField, SubmitField, IntegerField, DateField, EmailField, TextAreaField, \
     SelectField, FloatField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError, NumberRange
@@ -44,8 +44,8 @@ class RegisterForm(FlaskForm):
 
 class LoginForm(FlaskForm):
     username = StringField(label='User Name:', validators=[DataRequired()])
-    # email_address = StringField(label='Email:', validators=[Email(), DataRequired()])
     password = PasswordField(label='Password: ', validators=[DataRequired()])
+    recaptcha = RecaptchaField()
     submit = SubmitField(label="Sign in")
 
 
@@ -221,6 +221,8 @@ class Reciept_form(FlaskForm):
 
 class Ticket_History_Form(FlaskForm):
     submit = SubmitField(label='Delete')
+
+
 
 
 # Ming Wei

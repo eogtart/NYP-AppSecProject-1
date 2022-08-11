@@ -7,8 +7,9 @@ from flask_bcrypt import Bcrypt
 from flask_paranoid import Paranoid
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from flask_recaptcha import ReCaptcha
 from os import path, urandom
-
+import logging
 
 def create_database(app):
     if not path.exists('website/' + DB_NAME):
@@ -17,13 +18,20 @@ def create_database(app):
         print('Created Database! ')
 
 
+# Some logging I guess
+logging.getLogger("werkzeug").setLevel('WARNING')
+logging.basicConfig(filename='record.log', level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
+
+
 app = Flask(__name__)
+
+app.config['RECAPTCHA_PUBLIC_KEY'] = '6LcAbWchAAAAAMbS7JaIydkj2vWeXLGCzA8V27gR'
+app.config['RECAPTCHA_PRIVATE_KEY'] = '6LcAbWchAAAAACbre01_DW8CbZnP41SmCTS_u2jM'
+recaptcha = ReCaptcha(app)
 
 # csrf protection, Use only when HTTPS Enabled
 # csrf = CSRFProtect(app)
 # csrf.init_app(app)
-
-
 
 # User is marked as logged out automatically when existing session suddenly gets hijacked.
 # Prevents Session Hijacking.
