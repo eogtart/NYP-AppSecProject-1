@@ -1,6 +1,5 @@
-import logging
-import os
 from tkinter.tix import Tree
+from tkinter.ttk import Style
 from website import app, bcrypt, limiter
 from flask import render_template, request, flash, redirect, url_for, jsonify, Response, session
 from flask_limiter import Limiter
@@ -9,7 +8,9 @@ from website.models import User, Partners, Notes, Tickets, Tickets_Response, Ite
 from website.forms import RegisterForm, LoginForm, DepositForm, TransferFunds, CreatePartnerForm, UpdatePartnerForm, \
     Add_Notes, Update_Notes, Update_User, Update_Username, Update_Email, Update_Gender, Update_Password, Ticket_Form, \
     Ticket_Reply_Form, UpdateSupplierForm, Add_Item_Form, Purchase_Form, Wish_Form, Update_User_Admin, Booking_form, \
-    Restock_Item_Form, Add_To_Cart_Form, Feedback_form, Add_Event, Edit_Cart, password_reset, twofa_verify
+    Restock_Item_Form, Add_To_Cart_Form, Feedback_form, Appointment_Form, Add_Event, Edit_Cart, password_reset, twofa_verify, \
+    Message_form, Reciept_form, Ticket_History_Form
+    
 from website import db
 from flask_login import login_user, logout_user, login_required, current_user
 from website import admin_user
@@ -28,10 +29,6 @@ import secure
 from flask_csp.csp import csp_header
 import os
 
-# To ensure file name is parsed
-
-# Note that for otp expiry, need to fiddle with js
-
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'swissbothelper@gmail.com'
@@ -40,18 +37,23 @@ app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_USE_TLS'] = False
 mail = Mail(app)
 
-
 db_tempemail = shelve.open('website/databases/tempemail/tempemail.db', 'c')
 db_tempemail['email'] = None
 db_tempemail.close()
 
-
 login_free_pages = ['landing_page', 'register_page', 'forgot_password_page', 'twofa_verification', 'forgot_password_page_otp', 'password_reset_page']
+
 
 @app.after_request
 def set_secure_headers(response):
     # enable browser security policies
-    csp = secure.ContentSecurityPolicy()
+    csp = secure.ContentSecurityPolicy().script_src(
+     "https://kit.fontawesome.com/",
+     "https://www.gstatic.com/",
+     "https://static.dialogflow.com/",
+     "http://127.0.0.1:5000/", 
+     "https://www.google.com/recaptcha/api.js",)
+
     secure_headers = secure.Secure(csp = csp)
     secure_headers.framework.flask(response)
     return response
@@ -70,11 +72,9 @@ def cart_database():
     Cart_Dict = {}
     Shopping_Cart_Database = shelve.open('website/databases/shoppingcart/cart.db', 'c')
     try:
-        print(current_user)
         # Shopping Cart Database
         if str(current_user.id) in Shopping_Cart_Database:
             Cart_Dict = Shopping_Cart_Database[str(current_user.id)]
-            print(Shopping_Cart_Database[str(current_user.id)])
 
         else:
             Shopping_Cart_Database[str(current_user.id)] = Cart_Dict
@@ -150,7 +150,6 @@ def money_management():
 
 @app.route('/home', methods=['GET', 'POST'])
 @login_required
-@csp_header()
 def home_page():
     userID = User.query.filter_by(id=current_user.id).first()
     admin_user()
@@ -219,15 +218,11 @@ def profile_page():
         print(f"An unknown error has occurred,{e}")
 
     Selling_Items = []
-    print(Items_Dict)
     for i in Items_Dict:
         Item = Items_Dict.get(i)
         if Item.get_owner_id() == current_user.id:
-            print('hello')
             Selling_Items.append(Item)
 
-    print(Wish_Dict)
-    print(Selling_Items)
     update_username_form = Update_Username()
     update_email_form = Update_Email()
     update_gender_form = Update_Gender()
@@ -391,7 +386,6 @@ def past_orders():
 
     except Exception as e:
         print(f"An unknown error has occurred,{e}")
-    print(Owned_Items_Dict)
 
     return render_template('PastOrders.html', items=Owned_Items_Dict)
 
@@ -427,7 +421,6 @@ def past_orders_data():
     df = df.groupby("dates")["qty"].sum().reset_index()
     dates = df["dates"].tolist()
     qty_purchased = df["qty"].tolist()
-    print("Head")
 
     past_orders_dict['Dates'] = dates
     past_orders_dict['Qty'] = qty_purchased
@@ -473,7 +466,6 @@ def sales_data():
     df = df.groupby("dates")["trans"].sum().reset_index()
     dates = df["dates"].tolist()
     transactions = df["trans"].tolist()
-    print("Head")
 
     new_sales_dict['Dates'] = dates
     new_sales_dict['Trans'] = transactions
@@ -520,7 +512,6 @@ def transaction_data():
     df = df.groupby("dates")["log"].sum().reset_index()
     dates = df["dates"].tolist()
     transactions = df["log"].tolist()
-    print("Head")
 
     new_transactions_dict['Dates'] = dates
     new_transactions_dict['Logs'] = transactions
@@ -531,6 +522,7 @@ def transaction_data():
 @login_required
 @csp_header()
 def appointment():
+    appt_form = Appointment_Form()
     bookings_dict = {}
     count = 0
     try:
@@ -551,7 +543,7 @@ def appointment():
     except Exception as e:
         print(f"An Unknown Error has occurred, {e}")
 
-    return render_template('appointment.html', bookings=bookings_dict)
+    return render_template('appointment.html', form=appt_form, bookings=bookings_dict)
 
 
 @app.route('/Delete_Appointment/<int:id>', methods=['POST'])
@@ -646,11 +638,6 @@ def market_page():
     except Exception as e:
         print(f"An unknown error has occurred,{e}")
 
-    print("Market Database")
-    print(Items_Dict)
-    print("Disabled Products")
-    print(DisabledProducts_Dict)
-
 
     return render_template('market.html', items=Items_Dict, wish_items=Wish_Dict, purchase_form=purchase_form,
                            event_items=event_dict, search=search, DisabledProducts=DisabledProducts_Dict)
@@ -693,9 +680,8 @@ def Shopping_Cart():
         total = 0
         for i in Cart_Dict:
             total += Cart_Dict[i].get_total_cost()
-        print('Cart Dictionary')
-        print(Cart_Dict)
-    return render_template('ShoppingCart.html', cart_items=Cart_Dict, total=total)
+
+    return render_template('ShoppingCart.html', cart_items=Cart_Dict, total=total, form=purchase_form)
 
 
 @app.route('/edit_shopping_cart', methods=['GET', 'POST'])
@@ -800,31 +786,21 @@ def Edit_Shopping_Cart_Item():
     else:
         UserID = User.query.filter_by(id=current_user.id).first()
 
-        print(UserID)
         if request.method == 'POST':
-            print("Hello")
             cart_item = Cart_Dict[str(request.form.get('uuid'))]
-            print(cart_item.get_qty_purchased())
-            print(Edit_Cart_Form.quantity.data)
-            print(cart_item)
             if Edit_Cart_Form.quantity.data != None:
                 if cart_item.get_quantity() > 0:
                     if Edit_Cart_Form.quantity.data <= cart_item.get_quantity():
                         total = cart_item.get_price() * Edit_Cart_Form.quantity.data
                         item_quantity = Items_Dict[str(request.form.get('uuid2'))].get_quantity()
                         cart_item_quantity = Cart_Dict[str(request.form.get('uuid'))].get_qty_purchased()
-                        print(cart_item_quantity)
                         if cart_item_quantity < Edit_Cart_Form.quantity.data:
                             # Minus Quantity of Item
                             new_item_quantity = item_quantity - (Edit_Cart_Form.quantity.data - cart_item_quantity)
-                            print('minus')
-                            print(new_item_quantity)
                         else:
                             # Adds Quantity of Item
                             new_item_quantity = item_quantity + (cart_item_quantity - Edit_Cart_Form.quantity.data)
-                            print('add')
-                            print(new_item_quantity)
-                        print(new_item_quantity)
+
                         Items_Dict[str(request.form.get('uuid2'))].set_quantity(new_item_quantity)
                         Products_dict[str(request.form.get('uuid2'))].set_quantity(new_item_quantity)
                         Item_Database['ItemInfo'] = Items_Dict
@@ -832,9 +808,7 @@ def Edit_Shopping_Cart_Item():
                         # Set New Quantity Purchased Of Item Added to Cart
                         cart_item.set_qty_purchased(Edit_Cart_Form.quantity.data)
                         cart_item.set_total_cost(total)
-                        print("Cart items")
-                        print(Cart_Dict)
-                        print(Shopping_Cart_Database[str(current_user.id)])
+                        
                         Shopping_Cart_Database[str(current_user.id)] = Cart_Dict
                         flash(f"{cart_item.get_name()} Quantity Changed Successfully", category='success')
                         Item_Database.close()
@@ -864,18 +838,14 @@ def Edit_Shopping_Cart_Item():
                         total = cart_item.get_price() * Edit_Cart_Form.quantity.data
                         item_quantity = Items_Dict[str(request.form.get('uuid2'))].get_quantity()
                         cart_item_quantity = Cart_Dict[str(request.form.get('uuid'))].get_qty_purchased()
-                        print(cart_item_quantity)
+
                         if cart_item_quantity < Edit_Cart_Form.quantity.data:
                             # Minus Quantity of Item
                             new_item_quantity = item_quantity - (Edit_Cart_Form.quantity.data - cart_item_quantity)
-                            print('minus')
-                            print(new_item_quantity)
                         else:
                             # Adds Quantity of Item
                             new_item_quantity = item_quantity + (cart_item_quantity - Edit_Cart_Form.quantity.data)
-                            print('add')
-                            print(new_item_quantity)
-                        print(new_item_quantity)
+
                         Items_Dict[str(request.form.get('uuid2'))].set_quantity(new_item_quantity)
                         Products_dict[str(request.form.get('uuid2'))].set_quantity(new_item_quantity)
                         Item_Database['ItemInfo'] = Items_Dict
@@ -883,9 +853,7 @@ def Edit_Shopping_Cart_Item():
                         # Set New Quantity Purchased Of Item Added to Cart
                         cart_item.set_qty_purchased(Edit_Cart_Form.quantity.data)
                         cart_item.set_total_cost(total)
-                        print("Cart items")
-                        print(Cart_Dict)
-                        print(Shopping_Cart_Database[str(current_user.id)])
+
                         Shopping_Cart_Database[str(current_user.id)] = Cart_Dict
                         flash(f"{cart_item.get_name()} Quantity Changed Successfully", category='success')
                         Item_Database.close()
@@ -908,7 +876,6 @@ def Edit_Shopping_Cart_Item():
                         LogsDatabase.close()
                         LogsCounter.close()
                     else:
-                        print(Edit_Cart_Form.quantity.data)
                         flash(f"{cart_item.get_name()} is out of stock", category='danger')
             else:
                 flash(f"Please Enter a Valid Quantity", category='danger')
@@ -1017,86 +984,11 @@ def remove_from_cart():
     return redirect(url_for('Shopping_Cart'))
 
 
-# @app.route('/removefromcart_edit', methods=['GET', 'POST'])
-# @login_required
-# @csp_header()
-# def remove_from_cart_edit():
-#     purchase_form = Purchase_Form()
-#     Cart_Dict = {}
-#     Items_Dict = {}
-#     Products = {}
-#     try:
-#         Shopping_Cart_Database = shelve.open('website/databases/shoppingcart/cart.db', 'w')
-#         Item_Database = shelve.open('website/databases/items/items.db', 'w')
-#         products_database = shelve.open('website/databases/products/products.db', 'w')
-#
-#         if str(request.form.get('uuid3')) in products_database:
-#             Products = products_database[str(request.form.get('uuid3'))]
-#         else:
-#             products_database[str(request.form.get('uuid3'))] = Products
-#
-#         if str(current_user.id) in Shopping_Cart_Database:
-#             Cart_Dict = Shopping_Cart_Database[str(current_user.id)]
-#             print(Shopping_Cart_Database[str(current_user.id)])
-#
-#         else:
-#             Shopping_Cart_Database[str(current_user.id)] = Cart_Dict
-#
-#         if 'ItemInfo' in Item_Database:
-#             Items_Dict = Item_Database['ItemInfo']
-#         else:
-#             Item_Database['ItemInfo'] = Items_Dict
-#
-#     except IOError:
-#         print("Unable to Read File")
-#
-#     except Exception as e:
-#         print(f"An unknown error has occurred,{e}")
-#
-#     else:
-#         UserID = User.query.filter_by(id=current_user.id).first()
-#         name = Cart_Dict[str(request.form.get('uuid'))].get_name()
-#         cart_qty = Cart_Dict[str(request.form.get('uuid'))].get_qty_purchased()
-#         new_qty = Items_Dict[str(request.form.get('uuid2'))].get_quantity() + cart_qty
-#         # remove item from cart
-#         del Cart_Dict[str(request.form.get('uuid'))]
-#         Shopping_Cart_Database[str(current_user.id)] = Cart_Dict
-#
-#         # Update Market base new Quantity
-#         Items_Dict[str(request.form.get('uuid2'))].set_quantity(new_qty)
-#         Item_Database['ItemInfo'] = Items_Dict
-#
-#         # Update Owner of Item new Quantity after removing from cart
-#         Products[str(request.form.get('uuid2'))].set_quantity(new_qty)
-#         products_database[str(request.form.get('uuid3'))] = Products
-#
-#         # update cart counter
-#         UserID.shoppingCartCount -= 1
-#         db.session.commit()
-#
-#         Shopping_Cart_Database.close()
-#         Item_Database.close()
-#         products_database.close()
-#         flash(f"{name} removed from cart", category='success')
-#     return redirect(url_for('Edit_Shopping_Cart'))
-
-# @app.route('/generate_qrcode', methods=['POST'])
-# @csp_header()
-# def generate_qrcode():
-#     buffer = BytesIO()
-#     data = request.form.get('data')
-#
-#     img = qrcode.make(data)
-#     img.save(buffer)
-#     buffer.seek(0)
-#
-#     response = send_file(buffer, mimetype='image/png')
-#     return response
-
 @app.route('/receipt', methods=['POST', 'GET'])
 @login_required
 @csp_header()
 def Receipt():
+    form = Reciept_form()
     def createQR(*args: Item):
         return qrcode.make('Receipt:\n{}\nTotal price:${}'.format('\n'.join(
             [i.get_name() + ',Qty: ' + str(i.get_qty_purchased()) + ',Cost: $' + str(i.get_total_cost()) for i in
@@ -1136,13 +1028,11 @@ def Receipt():
         total = 0
         for i in Cart_Dict:
             total += Cart_Dict[i].get_total_cost()
-    print("Checkout Cart")
-    print(Cart_Dict)
     order_date = datetime.now().strftime("%d/%m/%Y")
     current_day = datetime.now().strftime("%d")
     expected_delivery_date = datetime.now().strftime(f"{int(current_day) + 2}/%m/%Y")
 
-    return render_template('Receipt.html', cart_items=Cart_Dict, total=total, order_date=order_date,
+    return render_template('Receipt.html', cart_items=Cart_Dict, form=form, total=total, order_date=order_date,
                            expected_delivery_date=expected_delivery_date,
                            qr_code=toB64String((createQR(*Cart_Dict.values()))))
 
@@ -1349,9 +1239,6 @@ def wish():
         if request.method == 'POST':
             wish_item = Items_Dict[str(request.form.get('uuid'))]
             if str(request.form.get('uuid')) not in Wish_Dict:
-                print(Items_Dict)
-                print(request.form.get('uuid'))
-                print(Wish_Dict)
                 Wish_Dict[wish_item.get_id()] = wish_item
                 Wish_Database[str(current_user.id)] = Wish_Dict
                 flash(f"{wish_item.get_name()} Added to Wishlist", category='success')
@@ -1375,7 +1262,6 @@ def wish():
                 LogsDatabase.close()
                 LogsCounter.close()
             else:
-                print(Wish_Dict)
                 wish_item = Items_Dict[str(request.form.get('uuid'))]
                 flash(f"{wish_item.get_name()} is already in your wishlist", category='success')
 
@@ -1473,7 +1359,6 @@ def wish_list():
 
     except Exception as e:
         print(f"An unknown error has occurred,{e}")
-    print(Wish_Dict)
 
     return render_template('WishList.html', items=Wish_Dict)
 
@@ -1536,7 +1421,6 @@ def Add_Item():
                     Item_Database['ItemInfo'] = Items_Dict
                     Your_Products_Database[str(current_user.id)] = your_products_dict
                     flash('Item Added Successfully', category='success')
-                    print('Item added')
                     Item_Database.close()
                     Your_Products_Database.close()
                     break
@@ -1633,8 +1517,6 @@ def Purchase_Item():
 
     else:
         UserID = User.query.filter_by(id=current_user.id).first()
-        print("Cart Items")
-        print(Cart_Dict)
         total = 0
         for i in Cart_Dict:
             total += Cart_Dict[i].get_total_cost()
@@ -1660,12 +1542,9 @@ def Purchase_Item():
                 for i in Cart_Dict:
                     Cart_Dict[i].set_date_purchase(datetime.now().strftime("%d/%m/%Y"))
                     Cart_Item = Cart_Dict[i]
-                    print(Cart_Item)
                     Owned_Items_Dict[str(uuid4())] = Cart_Item
                 Owned_Items_Database[str(current_user.id)] = Owned_Items_Dict
-                print("Owned items")
-                print(Owned_Items_Dict)
-                print(Owned_Items_Database[str(current_user.id)])
+
                 flash(f"Purchased Made Successfully", category='success')
 
                 Item_Database.close()
@@ -1741,8 +1620,7 @@ def Purchase_Item():
 
                     except Exception as e:
                         print(f"An Unknown Error has occurred, {e}")
-                    print('error')
-                    print(seller_transaction_logs_count)
+
                     seller_logs_count += 1
                     seller_transaction_logs_count += 1
                     seller_sales_logs_count += 1
@@ -1858,19 +1736,11 @@ def Add_To_Cart():
         print(f"An unknown error has occurred,{e}")
 
     else:
-        print("Hello")
-        print(str(request.form.get('uuid2')))
-        print(str(request.form.get('uuid')))
-        print(str(current_user.id))
         UserID = User.query.filter_by(id=current_user.id).first()
-        print(UserID)
+
         if request.method == 'POST':
             cart_item = Items_Dict[str(request.form.get('uuid'))]
-            print(cart_item.get_quantity())
-            print(add_to_cart_form.quantity.data)
-            print(cart_item)
-            print("Seller dictionary")
-            print(Seller_Items_Dict)
+
             if add_to_cart_form.quantity.data != None:
                 if cart_item.get_quantity() > 0:
                     if add_to_cart_form.quantity.data <= cart_item.get_quantity():
@@ -1888,9 +1758,7 @@ def Add_To_Cart():
                         cart_item.set_qty_purchased(add_to_cart_form.quantity.data)
                         cart_item.set_total_cost(total)
                         Cart_Dict[str(uuid4())] = cart_item
-                        print("Cart items")
-                        print(Cart_Dict)
-                        print(Shopping_Cart_Database[str(current_user.id)])
+
                         Shopping_Cart_Database[str(current_user.id)] = Cart_Dict
                         flash(f"{cart_item.get_name()} Added to Cart", category='success')
                         Item_Database.close()
@@ -1953,7 +1821,6 @@ def partners_page():
 
 @app.route('/add_partners', methods=['GET', 'POST'])
 @login_required
-@csp_header()
 def add_partners_page():
     admincheckuserID = User.query.filter_by(id=current_user.id).first()
     if admincheckuserID.admin ==1:
@@ -2051,8 +1918,9 @@ def update_partner(id):
 @limiter.limit("1/second", override_defaults=False)
 @csp_header()
 def transfer_funds_page():
+    form = Ticket_History_Form()
     users = User.query.all()
-    return render_template('TransferFunds.html', users=users)
+    return render_template('TransferFunds.html', users=users, form=form)
 
 
 @app.route('/transfer_funds_user/<int:id>', methods=['POST'])
@@ -2336,10 +2204,7 @@ def notes():
             notes_database[str(current_user.id)] = user_notes
             notes_database.close()
             flash("New Note Added", category='success')
-            print(user_notes)
-            # for i in user_notes:
-            #     print(f"{user_notes[i].get_id()}")
-            # return redirect(url_for("notes"))
+
     return render_template("notes.html", form=add_notes_form, user_notes=user_notes)
 
 
@@ -2392,7 +2257,7 @@ def updateNotes():
             notes_database[str(current_user.id)] = user_notes
             flash('Note Updated', category='success')
             notes_database.close()
-        return redirect(url_for("notes"))
+        return redirect(url_for("notes", form=update_notes_form))
 
 
 # Ming Wei
@@ -2444,7 +2309,6 @@ def landing_page():
         else:
             sleep(uniform(2,2.5))
             flash("Username and Password are not matched! Please try again.", category='danger')
-
     return render_template('Landingbase.html', form=form)
 
 
@@ -2586,7 +2450,7 @@ def twofa_disable():
     return redirect(url_for('profile_page'))
 
 @app.route('/twofa_verify', methods=['POST', 'GET'])
-@csp_header()
+# csp_header()
 def twofa_verification():
     if request.method == "GET":
         form = twofa_verify()
@@ -2666,7 +2530,6 @@ def twofa_verification():
                     otp = user_to_reset.scramble_otp()
                     db_otp['otp'] = otp
                     db_otp.close()
-                    # print(f'OTP Scrambled! OTP now is, {otp}')
 
                     flash('Otp Successful!', category="success")
                     login_user(user_to_reset)
@@ -2725,18 +2588,6 @@ def forgot_password_page():
             msg.body = f"Your one time password is, {otp}"
             mail.send(msg)
 
-            # port_number = 1234
-            # msg = MIMEMultipart()
-            # mailserver = smtplib.SMTP_SSL('localhost',port_number)
-            # mailserver.login("RealSwissBot@protonmail.com", "Pi!12345")
-            # msg['From'] = 'RealSwissBot@protonmail.com'
-            # msg['To'] = user_to_reset.email_address
-            # msg['Subject'] = 'Swiss 2-Factor Authentication OTP'
-            # message = f"Your one time password is, {otp}"
-            # msg.attach(MIMEText(message))
-            # mailserver.sendmail('RealSwissBot@protonmail.com',user_to_reset.email_address,msg.as_string())
-            # mailserver.quit()
-
             flash('Successfully sent! Please check your inbox for a one time password.', category='success')
 
             return redirect(url_for('forgot_password_page_otp'))
@@ -2749,7 +2600,7 @@ def forgot_password_page():
 
 # Do need to add in routing validation where you cannot directly access the route
 @app.route('/forgot_password/otp', methods=['GET', 'POST'])
-@csp_header()
+# csp_header()
 def forgot_password_page_otp():
     form = password_reset()
 
@@ -2769,7 +2620,6 @@ def forgot_password_page_otp():
                     otp = user_to_reset.scramble_otp()
                     db_otp['otp'] = otp
                     db_otp.close()
-                    print(f'OTP Scrambled! OTP now is, {otp}')
 
                     flash('Otp Successful! Please enter your new password.', category="success")
                     return redirect(url_for('password_reset_page'))
@@ -2886,9 +2736,6 @@ def update_supplier(id):
             supplier_db = shelve.open('website/databases/supplier/supplier.db', 'c')
             supplier_dict = supplier_db["Suppliers"]
 
-            for key in supplier_dict:
-                print(supplier_dict[key])
-
             supplier = supplier_dict.get(id)
             supplier.set_supplier_name(form.company.data)
             supplier.set_supplier_remarks(form.remarks.data)
@@ -2980,10 +2827,11 @@ def supplier_page():
 @csp_header()
 #admin required
 def user_management():
+    form = Ticket_History_Form()
     admincheckuserID = User.query.filter_by(id=current_user.id).first()
     if admincheckuserID.admin == 1:
         users = User.query.all()
-        return render_template('User_Management.html', users=users)
+        return render_template('User_Management.html', users=users, form=form)
     else:
         return render_template('error404.html')
 
@@ -3013,7 +2861,6 @@ def user_management_update(id):
         if request.method == 'GET':
             return render_template('Update_User_Management.html', form=form, user=userID)
 
-        print(form.errors)
         return redirect(url_for('user_management'))
     else:
         return render_template('error404.html')
@@ -3120,8 +2967,7 @@ def deleteEvents():
         except Exception as e:
             flash(f"An Unknown Error has occurred, {e}")
         else:
-            print("event dictionary")
-            print(event_dict)
+
             del event_dict[str(request.form.get('uuid'))]
             event_database["EventInfo"] = event_dict
             event_database.close()
@@ -3292,6 +3138,7 @@ def ticket_requests_page():
 @login_required
 @csp_header()
 def ticket_history():
+    form = Ticket_History_Form()
     count = 0
     ticket_history = {}
     try:
@@ -3319,13 +3166,14 @@ def ticket_history():
     except Exception as e:
         print(f"An Unknown Error has occurred, {e}")
 
-    return render_template('TicketHistory.html', tickets=ticket_history)
+    return render_template('TicketHistory.html', tickets=ticket_history, form=form)
 
 
 @app.route('/delete_ticket_history/<int:id>', methods=['GET', 'POST'])
 @login_required
 @csp_header()
 def delete_ticket_history(id):
+    form = Ticket_History_Form()
     count = 0
     ticket_history = {}
     try:
@@ -3359,7 +3207,7 @@ def delete_ticket_history(id):
         flash('Ticket Deleted', category='success')
         ticket_history_database.close()
         ticket_database_uniqueID.close()
-    return redirect(url_for("ticket_history"))
+    return redirect(url_for("ticket_history", form=form))
 
 
 @app.route('/Booking', methods=['GET', 'POST'])
@@ -3402,7 +3250,7 @@ def Booking_Page():
             booking_database_uniqueID[str(current_user.id)] = count
             booking_database.close()
             booking_database_uniqueID.close()
-            print(bookings_dict)
+
             flash("Booking Made Successfully", category='success')
 
     return render_template("Booking.html", form=form)
@@ -3523,7 +3371,7 @@ def ticket_reply(id):
                 # Fix Set Pending Status issue in morning pls
                 ticket_response_database.close()
                 ticket_response_uniqueID.close()
-                print(tickets)
+
                 ticket_database['TicketInfo'] = tickets
                 ticket_database.close()
                 ticket_database_uniqueID.close()
@@ -3544,6 +3392,7 @@ def ticket_reply(id):
 @csp_header()
 def messages_page():
     userID = User.query.filter_by(id=current_user.id).first()
+    form = Message_form()
     tickets_response_dict = {}
     response_count = 0
     try:
@@ -3570,10 +3419,9 @@ def messages_page():
         print(f"An Unknown Error has occurred, {e}")
     userID.messages = len(tickets_response_dict)
     db.session.commit()
-    print(tickets_response_dict)
-    print(response_count)
 
-    return render_template('messages.html', tickets_response=tickets_response_dict)
+
+    return render_template('messages.html', tickets_response=tickets_response_dict, form=form)
 
 
 @app.route('/delete_messages/<int:id>', methods=['GET', 'POST'])
@@ -3652,8 +3500,7 @@ def Feedback_Page():
         feedback_dict[str(id)] = feedback
         feedback_database['feedbackinfo'] = feedback_dict
         feedback_database.close()
-        print("Feedback Dictionary")
-        print(feedback_dict)
+
         flash("Feedback Submitted, Thank you very much!", category='success')
 
     return render_template("feedbackform.html", form=feedback_form)
@@ -3697,6 +3544,7 @@ def Feedbacks():
         return render_template('feedback.html', feedback_dict=feedback_dict, star_average=star_average)
     else:
         return redirect(url_for('error404.html'))
+
 
 @app.route('/delete_feedback', methods=['GET', 'POST'])
 @login_required
