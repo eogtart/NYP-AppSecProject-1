@@ -30,8 +30,8 @@ app.config['RECAPTCHA_PRIVATE_KEY'] = '6LcAbWchAAAAACbre01_DW8CbZnP41SmCTS_u2jM'
 recaptcha = ReCaptcha(app)
 
 # csrf protection, Use only when HTTPS Enabled
-# csrf = CSRFProtect(app)
-# csrf.init_app(app)
+csrf = CSRFProtect(app)
+csrf.init_app(app)
 
 # User is marked as logged out automatically when existing session suddenly gets hijacked.
 # Prevents Session Hijacking.

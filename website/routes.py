@@ -40,33 +40,13 @@ app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_USE_TLS'] = False
 mail = Mail(app)
 
-# Do this instead.
-# app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
-# app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
-
 
 db_tempemail = shelve.open('website/databases/tempemail/tempemail.db', 'c')
 db_tempemail['email'] = None
 db_tempemail.close()
 
-login_free_pages = ['landing_page', 'register_page', 'forgot_password_page', 'twofa_verification', 'forgot_password_page_otp', 'password_reset_page']
-
-# def session_expired_warning(f):
-#    @wraps(f)
-#    def decorator(*args, **kwargs):
-#        if session.permanent != True:
-#            flash("Your session has expired, please login again.", category="danger")
-#        return f(*args, **kwargs)
-#    return decorator
-
 
 login_free_pages = ['landing_page', 'register_page', 'forgot_password_page', 'twofa_verification', 'forgot_password_page_otp', 'password_reset_page']
-
-
-@app.before_request
-def before_request():
-    if session.permanent != True and request.endpoint not in login_free_pages:
-        flash("Your session has expired, please login again.", category="danger")
 
 @app.after_request
 def set_secure_headers(response):
@@ -3639,115 +3619,118 @@ def delete_messages_page(id):
 @login_required
 @csp_header()
 def Feedback_Page():
+    feedback_form = Feedback_form()
+    feedback_dict = {}
+    feedback_database = shelve.open('website/databases/Feedbacks/Feedback.db', 'c')
+    # feedback_database_uniqueID = shelve.open('website/databases/Feedbacks/Feedback_uniqueID.db', 'c')
+    try:
+        if 'feedbackinfo' in feedback_database:
+            feedback_dict = feedback_database['feedbackinfo']
+        else:
+            feedback_database['feedbackinfo'] = feedback_dict
+
+    except IOError:
+        print("An Error Has Occurred Trying to Read The Database")
+    except Exception as e:
+        print(f"An Unknown Error has occurred, {e}")
+
+    if request.method == 'POST':
+        id = uuid4()
+        feedback = Feedback(
+            id=str(id),
+            description=feedback_form.description.data,
+            time_added=datetime.now().strftime("%d/%m/%y %I:%M:%S:%p"),
+            time_updated=datetime.now().strftime("%d/%m/%y %I:%M:%S:%p"),
+            rating=int(request.form.get('rate')),
+            favourite=feedback_form.favourite.data,
+            least_favourite=feedback_form.least_favourite.data,
+            improvement=feedback_form.improvement.data,
+            title=feedback_form.title.data,
+            sender=current_user.username,
+            sender_id=current_user.id
+        )
+        feedback_dict[str(id)] = feedback
+        feedback_database['feedbackinfo'] = feedback_dict
+        feedback_database.close()
+        print("Feedback Dictionary")
+        print(feedback_dict)
+        flash("Feedback Submitted, Thank you very much!", category='success')
+
+    return render_template("feedbackform.html", form=feedback_form)
+
+@app.route('/Feedback_Page', methods=['GET', 'POST'])
+@login_required
+@csp_header()
+def Feedbacks():
     userID = User.query.filter_by(id=current_user.id).first()
     if userID.admin == 1:
-        feedback_form = Feedback_form()
         feedback_dict = {}
-        feedback_database = shelve.open('website/databases/Feedbacks/Feedback.db', 'c')
-        # feedback_database_uniqueID = shelve.open('website/databases/Feedbacks/Feedback_uniqueID.db', 'c')
+        star_sum = 0
+        try:
+            feedback_database = shelve.open('website/databases/Feedbacks/Feedback.db', 'r')
+            # feedback_database_uniqueID = shelve.open('website/databases/Feedbacks/Feedback_uniqueID.db', 'r')
+            if 'feedbackinfo' in feedback_database:
+                feedback_dict = feedback_database['feedbackinfo']
+                feedback_database.close()
+            else:
+                feedback_database['feedbackinfo'] = feedback_dict
+                feedback_database.close()
+
+            # if 'feedbackinfo_ID' in feedback_database:
+            #     count = feedback_database_uniqueID['feedbackinfo_ID']
+            #     feedback_database_uniqueID.close()
+            # else:
+            #     feedback_database_uniqueID['feedbackinfo_ID'] = count
+            #     feedback_database_uniqueID.close()
+        except IOError:
+            print("An Error Has Occurred Trying to Read The Database")
+        except Exception as e:
+            print(f"An Unknown Error has occurred, {e}")
+        for i in feedback_dict:
+            star_sum += feedback_dict[i].get_rating()
+
+        if star_sum > 0:
+            star_average = round(star_sum / len(feedback_dict))
+        else:
+            star_average = 0
+
+        return render_template('feedback.html', feedback_dict=feedback_dict, star_average=star_average)
+    else:
+        return redirect(url_for('error404.html'))
+
+@app.route('/delete_feedback', methods=['GET', 'POST'])
+@login_required
+@csp_header()
+def delete_feedback():
+    userID = User.query.filter_by(id=current_user.id).first()
+    if userID.admin == 1:
+        feedback_database = shelve.open('website/databases/Feedbacks/Feedback.db', 'w')
+        # feedback_database_uniqueID = shelve.open('website/databases/Feedbacks/Feedback_uniqueID.db', 'w')
+        feedback_dict = {}
+        # count = 0
         try:
             if 'feedbackinfo' in feedback_database:
                 feedback_dict = feedback_database['feedbackinfo']
             else:
                 feedback_database['feedbackinfo'] = feedback_dict
 
+            # if 'feedbackinfo_ID' in feedback_database:
+            #     count = feedback_database_uniqueID['feedbackinfo_ID']
+            # else:
+            #     feedback_database_uniqueID['feedbackinfo_ID'] = count
+
         except IOError:
             print("An Error Has Occurred Trying to Read The Database")
         except Exception as e:
             print(f"An Unknown Error has occurred, {e}")
+        else:
+            if request.method == 'POST':
+                del feedback_dict[str(request.form.get('uuid'))]
+                feedback_database['feedbackinfo'] = feedback_dict
+                feedback_database.close()
+                # feedback_database_uniqueID.close()
+                flash('Feedback deleted successfully!', category='success')
 
-        if request.method == 'POST':
-            id = uuid4()
-            feedback = Feedback(
-                id=str(id),
-                description=feedback_form.description.data,
-                time_added=datetime.now().strftime("%d/%m/%y %I:%M:%S:%p"),
-                time_updated=datetime.now().strftime("%d/%m/%y %I:%M:%S:%p"),
-                rating=int(request.form.get('rate')),
-                favourite=feedback_form.favourite.data,
-                least_favourite=feedback_form.least_favourite.data,
-                improvement=feedback_form.improvement.data,
-                title=feedback_form.title.data,
-                sender=current_user.username,
-                sender_id=current_user.id
-            )
-            feedback_dict[str(id)] = feedback
-            feedback_database['feedbackinfo'] = feedback_dict
-            feedback_database.close()
-            print("Feedback Dictionary")
-            print(feedback_dict)
-            flash("Feedback Submitted, Thank you very much!", category='success')
-
-        return render_template("feedbackform.html", form=feedback_form)
+        return redirect(url_for('Feedbacks'))
     else:
         return redirect(url_for('error404.html'))
-
-@app.route('/Feedback_Page', methods=['GET', 'POST'])
-@login_required
-@csp_header()
-def Feedbacks():
-    feedback_dict = {}
-    star_sum = 0
-    try:
-        feedback_database = shelve.open('website/databases/Feedbacks/Feedback.db', 'r')
-        # feedback_database_uniqueID = shelve.open('website/databases/Feedbacks/Feedback_uniqueID.db', 'r')
-        if 'feedbackinfo' in feedback_database:
-            feedback_dict = feedback_database['feedbackinfo']
-            feedback_database.close()
-        else:
-            feedback_database['feedbackinfo'] = feedback_dict
-            feedback_database.close()
-
-        # if 'feedbackinfo_ID' in feedback_database:
-        #     count = feedback_database_uniqueID['feedbackinfo_ID']
-        #     feedback_database_uniqueID.close()
-        # else:
-        #     feedback_database_uniqueID['feedbackinfo_ID'] = count
-        #     feedback_database_uniqueID.close()
-    except IOError:
-        print("An Error Has Occurred Trying to Read The Database")
-    except Exception as e:
-        print(f"An Unknown Error has occurred, {e}")
-    for i in feedback_dict:
-        star_sum += feedback_dict[i].get_rating()
-
-    if star_sum > 0:
-        star_average = round(star_sum / len(feedback_dict))
-    else:
-        star_average = 0
-
-    return render_template('feedback.html', feedback_dict=feedback_dict, star_average=star_average)
-
-
-@app.route('/delete_feedback', methods=['GET', 'POST'])
-@login_required
-@csp_header()
-def delete_feedback():
-    feedback_database = shelve.open('website/databases/Feedbacks/Feedback.db', 'w')
-    # feedback_database_uniqueID = shelve.open('website/databases/Feedbacks/Feedback_uniqueID.db', 'w')
-    feedback_dict = {}
-    # count = 0
-    try:
-        if 'feedbackinfo' in feedback_database:
-            feedback_dict = feedback_database['feedbackinfo']
-        else:
-            feedback_database['feedbackinfo'] = feedback_dict
-
-        # if 'feedbackinfo_ID' in feedback_database:
-        #     count = feedback_database_uniqueID['feedbackinfo_ID']
-        # else:
-        #     feedback_database_uniqueID['feedbackinfo_ID'] = count
-
-    except IOError:
-        print("An Error Has Occurred Trying to Read The Database")
-    except Exception as e:
-        print(f"An Unknown Error has occurred, {e}")
-    else:
-        if request.method == 'POST':
-            del feedback_dict[str(request.form.get('uuid'))]
-            feedback_database['feedbackinfo'] = feedback_dict
-            feedback_database.close()
-            # feedback_database_uniqueID.close()
-            flash('Feedback deleted successfully!', category='success')
-
-    return redirect(url_for('Feedbacks'))

@@ -76,12 +76,14 @@ class LoginForm(FlaskForm):
 class DepositForm(FlaskForm):
     budget = IntegerField(label='Deposit:', validators=[DataRequired(), NumberRange(min=1, max=50000,
                                                                                     message='Please deposit and amount between 1 to 50000')])
+    recaptcha = RecaptchaField()
     submit = SubmitField(label="Confirm Transaction")
 
 
 class TransferFunds(FlaskForm):
     transfer = IntegerField(label='Transfer:', validators=[DataRequired(), NumberRange(min=1, max=50000,
                                                                                        message='Please transfer and amount between 1 to 50000')])
+    recaptcha = RecaptchaField()
     submit = SubmitField(label="Confirm Transaction")
 
 
