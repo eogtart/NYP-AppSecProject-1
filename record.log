@@ -1,434 +1,71 @@
-2022-08-11 12:31:57,155 WARNING flask-limiter Thread-6 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 12:31:59,090 WARNING flask-limiter Thread-49 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 12:31:59,672 WARNING flask-limiter Thread-55 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 12:32:01,278 WARNING flask-limiter Thread-84 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 12:32:05,049 WARNING flask-limiter Thread-114 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 12:32:11,808 WARNING flask-limiter Thread-141 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 12:35:46,906 INFO werkzeug MainThread :  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
-2022-08-11 12:35:50,353 INFO werkzeug Thread-3 : 127.0.0.1 - - [11/Aug/2022 12:35:50] "GET /home HTTP/1.1" 200 -
-2022-08-11 12:35:50,373 INFO werkzeug Thread-5 : 127.0.0.1 - - [11/Aug/2022 12:35:50] "GET /static/css/home.css HTTP/1.1" 200 -
-2022-08-11 12:35:50,373 INFO werkzeug Thread-6 : 127.0.0.1 - - [11/Aug/2022 12:35:50] "GET /static/css/main.css HTTP/1.1" 200 -
-2022-08-11 12:35:50,676 INFO werkzeug Thread-8 : 127.0.0.1 - - [11/Aug/2022 12:35:50] "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 -
-2022-08-11 12:35:50,683 INFO werkzeug Thread-9 : 127.0.0.1 - - [11/Aug/2022 12:35:50] "[36mGET /static/css/sb-admin-2.min.css HTTP/1.1[0m" 304 -
-2022-08-11 12:35:50,688 INFO werkzeug Thread-11 : 127.0.0.1 - - [11/Aug/2022 12:35:50] "GET /static/vendor/datatables/dataTables.bootstrap4.min.css HTTP/1.1" 200 -
-2022-08-11 12:35:50,693 INFO werkzeug Thread-7 : 127.0.0.1 - - [11/Aug/2022 12:35:50] "[33mGET /vendor/fontawesome-free/css/all.min.css HTTP/1.1[0m" 404 -
-2022-08-11 12:35:50,698 INFO werkzeug Thread-10 : 127.0.0.1 - - [11/Aug/2022 12:35:50] "[33mGET /vendor/datatables/dataTables.bootstrap4.min.css HTTP/1.1[0m" 404 -
-2022-08-11 12:35:51,001 INFO werkzeug Thread-12 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "[36mGET /static/img/undraw_profile.svg HTTP/1.1[0m" 304 -
-2022-08-11 12:35:51,006 INFO werkzeug Thread-13 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "[36mGET /static/img/Dashboard_Icon.png HTTP/1.1[0m" 304 -
-2022-08-11 12:35:51,010 INFO werkzeug Thread-15 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "[36mGET /static/img/Swiss_Logo.png HTTP/1.1[0m" 304 -
-2022-08-11 12:35:51,011 INFO werkzeug Thread-14 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "[36mGET /static/img/shopping_cart.png HTTP/1.1[0m" 304 -
-2022-08-11 12:35:51,015 INFO werkzeug Thread-16 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "[36mGET /static/vendor/jquery/jquery.slim.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:35:51,016 INFO werkzeug Thread-17 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "[36mGET /static/vendor/jquery/jquery.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:35:51,309 INFO werkzeug Thread-18 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "[36mGET /static/vendor/bootstrap/js/bootstrap.bundle.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:35:51,313 INFO werkzeug Thread-19 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "[36mGET /static/vendor/jquery-easing/jquery.easing.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:35:51,319 INFO werkzeug Thread-20 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "[36mGET /static/js/sb-admin-2.js HTTP/1.1[0m" 304 -
-2022-08-11 12:35:51,321 INFO werkzeug Thread-21 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "[36mGET /static/vendor/chart.js/Chart.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:35:51,324 INFO werkzeug Thread-22 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "[36mGET /static/js/demo/chart-area-demo.js HTTP/1.1[0m" 304 -
-2022-08-11 12:35:51,325 INFO werkzeug Thread-23 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "[36mGET /static/js/demo/chart-pie-demo.js HTTP/1.1[0m" 304 -
-2022-08-11 12:35:51,633 INFO werkzeug Thread-26 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "GET /data/pastorders HTTP/1.1" 200 -
-2022-08-11 12:35:51,638 INFO werkzeug Thread-28 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "[36mGET /static/js/demo/chart-bar-demo.js HTTP/1.1[0m" 304 -
-2022-08-11 12:35:51,644 INFO werkzeug Thread-29 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "[36mGET /static/vendor/datatables/dataTables.bootstrap4.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:35:51,646 INFO werkzeug Thread-24 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "GET /data/sales HTTP/1.1" 200 -
-2022-08-11 12:35:51,651 INFO werkzeug Thread-27 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "GET /data/spending-profit-balance HTTP/1.1" 200 -
-2022-08-11 12:35:51,652 INFO werkzeug Thread-31 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "[36mGET /static/vendor/datatables/jquery.dataTables.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:35:51,950 INFO werkzeug Thread-33 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "[36mGET /static/js/demo/datatables-demo.js HTTP/1.1[0m" 304 -
-2022-08-11 12:35:51,954 INFO werkzeug Thread-35 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "[36mGET /static/js/Additem.js HTTP/1.1[0m" 304 -
-2022-08-11 12:35:51,955 INFO werkzeug Thread-36 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "[36mGET /static/img/transaction_icon.png HTTP/1.1[0m" 304 -
-2022-08-11 12:35:51,959 INFO werkzeug Thread-37 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "[36mGET /static/img/profile_icon.png HTTP/1.1[0m" 304 -
-2022-08-11 12:35:51,960 INFO werkzeug Thread-38 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "[36mGET /static/BankingImages/flaticon-svg/svg/005-megaphone.svg HTTP/1.1[0m" 304 -
-2022-08-11 12:35:51,966 INFO werkzeug Thread-32 : 127.0.0.1 - - [11/Aug/2022 12:35:51] "GET /data/transactions HTTP/1.1" 200 -
-2022-08-11 12:35:52,342 INFO werkzeug Thread-39 : 127.0.0.1 - - [11/Aug/2022 12:35:52] "GET /static/images/letter-s.png HTTP/1.1" 200 -
-2022-08-11 12:35:58,229 INFO werkzeug Thread-40 : 127.0.0.1 - - [11/Aug/2022 12:35:58] "GET /home HTTP/1.1" 200 -
-2022-08-11 12:35:58,540 INFO werkzeug Thread-42 : 127.0.0.1 - - [11/Aug/2022 12:35:58] "GET /home HTTP/1.1" 200 -
-2022-08-11 12:35:58,682 INFO werkzeug Thread-44 : 127.0.0.1 - - [11/Aug/2022 12:35:58] "GET /home HTTP/1.1" 200 -
-2022-08-11 12:35:58,954 INFO werkzeug Thread-46 : 127.0.0.1 - - [11/Aug/2022 12:35:58] "GET /home HTTP/1.1" 200 -
-2022-08-11 12:35:59,084 INFO werkzeug Thread-48 : 127.0.0.1 - - [11/Aug/2022 12:35:59] "GET /home HTTP/1.1" 200 -
-2022-08-11 12:35:59,220 INFO werkzeug Thread-50 : 127.0.0.1 - - [11/Aug/2022 12:35:59] "GET /home HTTP/1.1" 200 -
-2022-08-11 12:35:59,237 INFO werkzeug Thread-52 : 127.0.0.1 - - [11/Aug/2022 12:35:59] "GET /static/css/home.css HTTP/1.1" 200 -
-2022-08-11 12:35:59,274 INFO werkzeug Thread-53 : 127.0.0.1 - - [11/Aug/2022 12:35:59] "GET /static/css/main.css HTTP/1.1" 200 -
-2022-08-11 12:35:59,553 INFO werkzeug Thread-55 : 127.0.0.1 - - [11/Aug/2022 12:35:59] "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 -
-2022-08-11 12:35:59,557 INFO werkzeug Thread-56 : 127.0.0.1 - - [11/Aug/2022 12:35:59] "[36mGET /static/css/sb-admin-2.min.css HTTP/1.1[0m" 304 -
-2022-08-11 12:35:59,562 INFO werkzeug Thread-58 : 127.0.0.1 - - [11/Aug/2022 12:35:59] "GET /static/vendor/datatables/dataTables.bootstrap4.min.css HTTP/1.1" 200 -
-2022-08-11 12:35:59,570 INFO werkzeug Thread-54 : 127.0.0.1 - - [11/Aug/2022 12:35:59] "[33mGET /vendor/fontawesome-free/css/all.min.css HTTP/1.1[0m" 404 -
-2022-08-11 12:35:59,573 INFO werkzeug Thread-57 : 127.0.0.1 - - [11/Aug/2022 12:35:59] "[33mGET /vendor/datatables/dataTables.bootstrap4.min.css HTTP/1.1[0m" 404 -
-2022-08-11 12:35:59,882 INFO werkzeug Thread-59 : 127.0.0.1 - - [11/Aug/2022 12:35:59] "[36mGET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1[0m" 304 -
-2022-08-11 12:35:59,883 INFO werkzeug Thread-60 : 127.0.0.1 - - [11/Aug/2022 12:35:59] "[36mGET /static/img/Swiss_Logo.png HTTP/1.1[0m" 304 -
-2022-08-11 12:35:59,889 INFO werkzeug Thread-61 : 127.0.0.1 - - [11/Aug/2022 12:35:59] "[36mGET /static/img/undraw_profile.svg HTTP/1.1[0m" 304 -
-2022-08-11 12:35:59,889 INFO werkzeug Thread-62 : 127.0.0.1 - - [11/Aug/2022 12:35:59] "[36mGET /static/img/Dashboard_Icon.png HTTP/1.1[0m" 304 -
-2022-08-11 12:35:59,893 INFO werkzeug Thread-63 : 127.0.0.1 - - [11/Aug/2022 12:35:59] "[36mGET /static/img/shopping_cart.png HTTP/1.1[0m" 304 -
-2022-08-11 12:35:59,895 INFO werkzeug Thread-64 : 127.0.0.1 - - [11/Aug/2022 12:35:59] "[36mGET /static/vendor/jquery/jquery.slim.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:00,203 INFO werkzeug Thread-67 : 127.0.0.1 - - [11/Aug/2022 12:36:00] "[36mGET /static/vendor/bootstrap/js/bootstrap.bundle.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:00,206 INFO werkzeug Thread-66 : 127.0.0.1 - - [11/Aug/2022 12:36:00] "[36mGET /static/vendor/jquery/jquery.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:00,207 INFO werkzeug Thread-68 : 127.0.0.1 - - [11/Aug/2022 12:36:00] "[36mGET /static/vendor/jquery-easing/jquery.easing.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:00,212 INFO werkzeug Thread-70 : 127.0.0.1 - - [11/Aug/2022 12:36:00] "[36mGET /static/js/sb-admin-2.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:00,215 INFO werkzeug Thread-71 : 127.0.0.1 - - [11/Aug/2022 12:36:00] "[36mGET /static/vendor/chart.js/Chart.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:00,453 INFO werkzeug Thread-65 : 127.0.0.1 - - [11/Aug/2022 12:36:00] "GET /home HTTP/1.1" 200 -
-2022-08-11 12:36:00,509 INFO werkzeug Thread-72 : 127.0.0.1 - - [11/Aug/2022 12:36:00] "[36mGET /static/css/home.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:00,513 INFO werkzeug Thread-73 : 127.0.0.1 - - [11/Aug/2022 12:36:00] "[36mGET /static/css/main.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:00,519 INFO werkzeug Thread-74 : 127.0.0.1 - - [11/Aug/2022 12:36:00] "[33mGET /vendor/fontawesome-free/css/all.min.css HTTP/1.1[0m" 404 -
-2022-08-11 12:36:00,522 INFO werkzeug Thread-75 : 127.0.0.1 - - [11/Aug/2022 12:36:00] "[36mGET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:00,523 INFO werkzeug Thread-76 : 127.0.0.1 - - [11/Aug/2022 12:36:00] "[36mGET /static/css/sb-admin-2.min.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:00,774 INFO werkzeug Thread-77 : 127.0.0.1 - - [11/Aug/2022 12:36:00] "[33mGET /vendor/datatables/dataTables.bootstrap4.min.css HTTP/1.1[0m" 404 -
-2022-08-11 12:36:00,828 INFO werkzeug Thread-78 : 127.0.0.1 - - [11/Aug/2022 12:36:00] "[36mGET /static/vendor/datatables/dataTables.bootstrap4.min.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:01,093 INFO werkzeug Thread-79 : 127.0.0.1 - - [11/Aug/2022 12:36:01] "[36mGET /static/img/Swiss_Logo.png HTTP/1.1[0m" 304 -
-2022-08-11 12:36:01,139 INFO werkzeug Thread-83 : 127.0.0.1 - - [11/Aug/2022 12:36:01] "[36mGET /static/img/Dashboard_Icon.png HTTP/1.1[0m" 304 -
-2022-08-11 12:36:01,140 INFO werkzeug Thread-82 : 127.0.0.1 - - [11/Aug/2022 12:36:01] "[36mGET /static/img/undraw_profile.svg HTTP/1.1[0m" 304 -
-2022-08-11 12:36:01,143 INFO werkzeug Thread-84 : 127.0.0.1 - - [11/Aug/2022 12:36:01] "[36mGET /static/img/shopping_cart.png HTTP/1.1[0m" 304 -
-2022-08-11 12:36:01,144 INFO werkzeug Thread-85 : 127.0.0.1 - - [11/Aug/2022 12:36:01] "[36mGET /static/vendor/jquery/jquery.slim.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:01,382 INFO werkzeug Thread-80 : 127.0.0.1 - - [11/Aug/2022 12:36:01] "GET /home HTTP/1.1" 200 -
-2022-08-11 12:36:01,400 INFO werkzeug Thread-86 : 127.0.0.1 - - [11/Aug/2022 12:36:01] "[36mGET /static/css/home.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:01,463 INFO werkzeug Thread-87 : 127.0.0.1 - - [11/Aug/2022 12:36:01] "[36mGET /static/css/main.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:01,465 INFO werkzeug Thread-89 : 127.0.0.1 - - [11/Aug/2022 12:36:01] "[36mGET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:01,468 INFO werkzeug Thread-90 : 127.0.0.1 - - [11/Aug/2022 12:36:01] "[36mGET /static/css/sb-admin-2.min.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:01,472 INFO werkzeug Thread-88 : 127.0.0.1 - - [11/Aug/2022 12:36:01] "[33mGET /vendor/fontawesome-free/css/all.min.css HTTP/1.1[0m" 404 -
-2022-08-11 12:36:01,700 INFO werkzeug Thread-91 : 127.0.0.1 - - [11/Aug/2022 12:36:01] "[33mGET /vendor/datatables/dataTables.bootstrap4.min.css HTTP/1.1[0m" 404 -
-2022-08-11 12:36:01,704 INFO werkzeug Thread-92 : 127.0.0.1 - - [11/Aug/2022 12:36:01] "[36mGET /static/vendor/datatables/dataTables.bootstrap4.min.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:02,011 INFO werkzeug Thread-95 : 127.0.0.1 - - [11/Aug/2022 12:36:02] "[36mGET /static/img/Swiss_Logo.png HTTP/1.1[0m" 304 -
-2022-08-11 12:36:02,016 INFO werkzeug Thread-97 : 127.0.0.1 - - [11/Aug/2022 12:36:02] "[36mGET /static/img/Dashboard_Icon.png HTTP/1.1[0m" 304 -
-2022-08-11 12:36:02,017 INFO werkzeug Thread-96 : 127.0.0.1 - - [11/Aug/2022 12:36:02] "[36mGET /static/img/undraw_profile.svg HTTP/1.1[0m" 304 -
-2022-08-11 12:36:02,018 INFO werkzeug Thread-98 : 127.0.0.1 - - [11/Aug/2022 12:36:02] "[36mGET /static/img/shopping_cart.png HTTP/1.1[0m" 304 -
-2022-08-11 12:36:02,020 INFO werkzeug Thread-99 : 127.0.0.1 - - [11/Aug/2022 12:36:02] "[36mGET /static/vendor/jquery/jquery.slim.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:02,246 INFO werkzeug Thread-93 : 127.0.0.1 - - [11/Aug/2022 12:36:02] "GET /home HTTP/1.1" 200 -
-2022-08-11 12:36:02,328 INFO werkzeug Thread-100 : 127.0.0.1 - - [11/Aug/2022 12:36:02] "[36mGET /static/css/home.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:02,334 INFO werkzeug Thread-101 : 127.0.0.1 - - [11/Aug/2022 12:36:02] "[36mGET /static/css/main.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:02,339 INFO werkzeug Thread-103 : 127.0.0.1 - - [11/Aug/2022 12:36:02] "[36mGET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:02,340 INFO werkzeug Thread-104 : 127.0.0.1 - - [11/Aug/2022 12:36:02] "[36mGET /static/css/sb-admin-2.min.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:02,347 INFO werkzeug Thread-102 : 127.0.0.1 - - [11/Aug/2022 12:36:02] "[33mGET /vendor/fontawesome-free/css/all.min.css HTTP/1.1[0m" 404 -
-2022-08-11 12:36:02,572 INFO werkzeug Thread-105 : 127.0.0.1 - - [11/Aug/2022 12:36:02] "[33mGET /vendor/datatables/dataTables.bootstrap4.min.css HTTP/1.1[0m" 404 -
-2022-08-11 12:36:02,638 INFO werkzeug Thread-106 : 127.0.0.1 - - [11/Aug/2022 12:36:02] "[36mGET /static/vendor/datatables/dataTables.bootstrap4.min.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:02,944 INFO werkzeug Thread-109 : 127.0.0.1 - - [11/Aug/2022 12:36:02] "[36mGET /static/img/Swiss_Logo.png HTTP/1.1[0m" 304 -
-2022-08-11 12:36:02,951 INFO werkzeug Thread-112 : 127.0.0.1 - - [11/Aug/2022 12:36:02] "[36mGET /static/img/Dashboard_Icon.png HTTP/1.1[0m" 304 -
-2022-08-11 12:36:02,952 INFO werkzeug Thread-111 : 127.0.0.1 - - [11/Aug/2022 12:36:02] "[36mGET /static/img/shopping_cart.png HTTP/1.1[0m" 304 -
-2022-08-11 12:36:02,953 INFO werkzeug Thread-110 : 127.0.0.1 - - [11/Aug/2022 12:36:02] "[36mGET /static/img/undraw_profile.svg HTTP/1.1[0m" 304 -
-2022-08-11 12:36:02,954 INFO werkzeug Thread-113 : 127.0.0.1 - - [11/Aug/2022 12:36:02] "[36mGET /static/vendor/jquery/jquery.slim.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:03,121 INFO werkzeug Thread-107 : 127.0.0.1 - - [11/Aug/2022 12:36:03] "GET /home HTTP/1.1" 200 -
-2022-08-11 12:36:03,253 INFO werkzeug Thread-114 : 127.0.0.1 - - [11/Aug/2022 12:36:03] "[36mGET /static/css/home.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:03,256 INFO werkzeug Thread-115 : 127.0.0.1 - - [11/Aug/2022 12:36:03] "[36mGET /static/css/main.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:03,260 INFO werkzeug Thread-117 : 127.0.0.1 - - [11/Aug/2022 12:36:03] "[36mGET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:03,264 INFO werkzeug Thread-118 : 127.0.0.1 - - [11/Aug/2022 12:36:03] "[36mGET /static/css/sb-admin-2.min.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:03,270 INFO werkzeug Thread-116 : 127.0.0.1 - - [11/Aug/2022 12:36:03] "[33mGET /vendor/fontawesome-free/css/all.min.css HTTP/1.1[0m" 404 -
-2022-08-11 12:36:03,440 INFO werkzeug Thread-119 : 127.0.0.1 - - [11/Aug/2022 12:36:03] "[33mGET /vendor/datatables/dataTables.bootstrap4.min.css HTTP/1.1[0m" 404 -
-2022-08-11 12:36:03,567 INFO werkzeug Thread-120 : 127.0.0.1 - - [11/Aug/2022 12:36:03] "[36mGET /static/vendor/datatables/dataTables.bootstrap4.min.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:03,752 INFO werkzeug Thread-123 : 127.0.0.1 - - [11/Aug/2022 12:36:03] "[36mGET /static/img/Swiss_Logo.png HTTP/1.1[0m" 304 -
-2022-08-11 12:36:03,876 INFO werkzeug Thread-125 : 127.0.0.1 - - [11/Aug/2022 12:36:03] "[36mGET /static/img/Dashboard_Icon.png HTTP/1.1[0m" 304 -
-2022-08-11 12:36:03,879 INFO werkzeug Thread-126 : 127.0.0.1 - - [11/Aug/2022 12:36:03] "[36mGET /static/img/shopping_cart.png HTTP/1.1[0m" 304 -
-2022-08-11 12:36:03,879 INFO werkzeug Thread-124 : 127.0.0.1 - - [11/Aug/2022 12:36:03] "[36mGET /static/img/undraw_profile.svg HTTP/1.1[0m" 304 -
-2022-08-11 12:36:03,881 INFO werkzeug Thread-127 : 127.0.0.1 - - [11/Aug/2022 12:36:03] "[36mGET /static/vendor/jquery/jquery.slim.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:03,988 INFO werkzeug Thread-121 : 127.0.0.1 - - [11/Aug/2022 12:36:03] "GET /home HTTP/1.1" 200 -
-2022-08-11 12:36:04,190 INFO werkzeug Thread-130 : 127.0.0.1 - - [11/Aug/2022 12:36:04] "GET /static/vendor/jquery/jquery.min.js HTTP/1.1" 200 -
-2022-08-11 12:36:04,194 INFO werkzeug Thread-132 : 127.0.0.1 - - [11/Aug/2022 12:36:04] "GET /static/vendor/jquery-easing/jquery.easing.min.js HTTP/1.1" 200 -
-2022-08-11 12:36:04,195 INFO werkzeug Thread-131 : 127.0.0.1 - - [11/Aug/2022 12:36:04] "GET /static/vendor/bootstrap/js/bootstrap.bundle.min.js HTTP/1.1" 200 -
-2022-08-11 12:36:04,197 INFO werkzeug Thread-133 : 127.0.0.1 - - [11/Aug/2022 12:36:04] "GET /static/js/sb-admin-2.js HTTP/1.1" 200 -
-2022-08-11 12:36:04,217 INFO werkzeug Thread-134 : 127.0.0.1 - - [11/Aug/2022 12:36:04] "GET /static/vendor/chart.js/Chart.min.js HTTP/1.1" 200 -
-2022-08-11 12:36:04,301 INFO werkzeug Thread-128 : 127.0.0.1 - - [11/Aug/2022 12:36:04] "GET /home HTTP/1.1" 200 -
-2022-08-11 12:36:04,518 INFO werkzeug Thread-137 : 127.0.0.1 - - [11/Aug/2022 12:36:04] "GET /static/js/demo/chart-area-demo.js HTTP/1.1" 200 -
-2022-08-11 12:36:04,518 INFO werkzeug Thread-138 : 127.0.0.1 - - [11/Aug/2022 12:36:04] "GET /static/js/demo/chart-pie-demo.js HTTP/1.1" 200 -
-2022-08-11 12:36:04,520 INFO werkzeug Thread-139 : 127.0.0.1 - - [11/Aug/2022 12:36:04] "GET /static/js/demo/chart-bar-demo.js HTTP/1.1" 200 -
-2022-08-11 12:36:04,523 INFO werkzeug Thread-140 : 127.0.0.1 - - [11/Aug/2022 12:36:04] "GET /static/vendor/datatables/jquery.dataTables.min.js HTTP/1.1" 200 -
-2022-08-11 12:36:04,615 INFO werkzeug Thread-141 : 127.0.0.1 - - [11/Aug/2022 12:36:04] "GET /data/sales HTTP/1.1" 200 -
-2022-08-11 12:36:04,753 INFO werkzeug Thread-135 : 127.0.0.1 - - [11/Aug/2022 12:36:04] "GET /home HTTP/1.1" 200 -
-2022-08-11 12:36:04,829 INFO werkzeug Thread-143 : 127.0.0.1 - - [11/Aug/2022 12:36:04] "[36mGET /static/css/home.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:04,835 INFO werkzeug Thread-144 : 127.0.0.1 - - [11/Aug/2022 12:36:04] "[36mGET /static/css/main.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:04,837 INFO werkzeug Thread-146 : 127.0.0.1 - - [11/Aug/2022 12:36:04] "[36mGET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:04,842 INFO werkzeug Thread-145 : 127.0.0.1 - - [11/Aug/2022 12:36:04] "[33mGET /vendor/fontawesome-free/css/all.min.css HTTP/1.1[0m" 404 -
-2022-08-11 12:36:04,921 INFO werkzeug Thread-147 : 127.0.0.1 - - [11/Aug/2022 12:36:04] "[36mGET /static/css/sb-admin-2.min.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:05,072 INFO werkzeug Thread-148 : 127.0.0.1 - - [11/Aug/2022 12:36:05] "[33mGET /vendor/datatables/dataTables.bootstrap4.min.css HTTP/1.1[0m" 404 -
-2022-08-11 12:36:05,139 INFO werkzeug Thread-149 : 127.0.0.1 - - [11/Aug/2022 12:36:05] "[36mGET /static/vendor/datatables/dataTables.bootstrap4.min.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:05,387 INFO werkzeug Thread-150 : 127.0.0.1 - - [11/Aug/2022 12:36:05] "[36mGET /static/img/Swiss_Logo.png HTTP/1.1[0m" 304 -
-2022-08-11 12:36:05,445 INFO werkzeug Thread-151 : 127.0.0.1 - - [11/Aug/2022 12:36:05] "[36mGET /static/img/undraw_profile.svg HTTP/1.1[0m" 304 -
-2022-08-11 12:36:05,450 INFO werkzeug Thread-152 : 127.0.0.1 - - [11/Aug/2022 12:36:05] "[36mGET /static/img/Dashboard_Icon.png HTTP/1.1[0m" 304 -
-2022-08-11 12:36:05,453 INFO werkzeug Thread-153 : 127.0.0.1 - - [11/Aug/2022 12:36:05] "[36mGET /static/img/shopping_cart.png HTTP/1.1[0m" 304 -
-2022-08-11 12:36:05,455 INFO werkzeug Thread-154 : 127.0.0.1 - - [11/Aug/2022 12:36:05] "[36mGET /static/vendor/jquery/jquery.slim.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:05,456 INFO werkzeug Thread-155 : 127.0.0.1 - - [11/Aug/2022 12:36:05] "[36mGET /static/vendor/jquery/jquery.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:05,696 INFO werkzeug Thread-156 : 127.0.0.1 - - [11/Aug/2022 12:36:05] "[36mGET /static/vendor/bootstrap/js/bootstrap.bundle.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:05,760 INFO werkzeug Thread-158 : 127.0.0.1 - - [11/Aug/2022 12:36:05] "[36mGET /static/js/sb-admin-2.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:05,762 INFO werkzeug Thread-157 : 127.0.0.1 - - [11/Aug/2022 12:36:05] "[36mGET /static/vendor/jquery-easing/jquery.easing.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:05,763 INFO werkzeug Thread-159 : 127.0.0.1 - - [11/Aug/2022 12:36:05] "[36mGET /static/vendor/chart.js/Chart.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:05,765 INFO werkzeug Thread-160 : 127.0.0.1 - - [11/Aug/2022 12:36:05] "[36mGET /static/js/demo/chart-area-demo.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:05,767 INFO werkzeug Thread-161 : 127.0.0.1 - - [11/Aug/2022 12:36:05] "[36mGET /static/js/demo/chart-pie-demo.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:06,011 INFO werkzeug Thread-162 : 127.0.0.1 - - [11/Aug/2022 12:36:06] "GET /data/sales HTTP/1.1" 200 -
-2022-08-11 12:36:06,071 INFO werkzeug Thread-165 : 127.0.0.1 - - [11/Aug/2022 12:36:06] "GET /data/spending-profit-balance HTTP/1.1" 200 -
-2022-08-11 12:36:06,076 INFO werkzeug Thread-164 : 127.0.0.1 - - [11/Aug/2022 12:36:06] "GET /data/pastorders HTTP/1.1" 200 -
-2022-08-11 12:36:06,078 INFO werkzeug Thread-167 : 127.0.0.1 - - [11/Aug/2022 12:36:06] "[36mGET /static/js/demo/chart-bar-demo.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:06,080 INFO werkzeug Thread-168 : 127.0.0.1 - - [11/Aug/2022 12:36:06] "[36mGET /static/vendor/datatables/jquery.dataTables.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:06,082 INFO werkzeug Thread-169 : 127.0.0.1 - - [11/Aug/2022 12:36:06] "GET /static/vendor/datatables/dataTables.bootstrap4.min.js HTTP/1.1" 200 -
-2022-08-11 12:36:06,324 INFO werkzeug Thread-170 : 127.0.0.1 - - [11/Aug/2022 12:36:06] "GET /data/transactions HTTP/1.1" 200 -
-2022-08-11 12:36:06,383 INFO werkzeug Thread-172 : 127.0.0.1 - - [11/Aug/2022 12:36:06] "GET /static/js/demo/datatables-demo.js HTTP/1.1" 200 -
-2022-08-11 12:36:06,386 INFO werkzeug Thread-173 : 127.0.0.1 - - [11/Aug/2022 12:36:06] "GET /static/js/Additem.js HTTP/1.1" 200 -
-2022-08-11 12:36:06,388 INFO werkzeug Thread-174 : 127.0.0.1 - - [11/Aug/2022 12:36:06] "GET /static/img/transaction_icon.png HTTP/1.1" 200 -
-2022-08-11 12:36:06,389 INFO werkzeug Thread-175 : 127.0.0.1 - - [11/Aug/2022 12:36:06] "GET /static/img/profile_icon.png HTTP/1.1" 200 -
-2022-08-11 12:36:06,391 INFO werkzeug Thread-176 : 127.0.0.1 - - [11/Aug/2022 12:36:06] "GET /static/BankingImages/flaticon-svg/svg/005-megaphone.svg HTTP/1.1" 200 -
-2022-08-11 12:36:06,864 INFO werkzeug Thread-177 : 127.0.0.1 - - [11/Aug/2022 12:36:06] "GET /static/images/letter-s.png HTTP/1.1" 200 -
-2022-08-11 12:36:10,572 INFO werkzeug Thread-178 : 127.0.0.1 - - [11/Aug/2022 12:36:10] "[32mGET /logout HTTP/1.1[0m" 302 -
-2022-08-11 12:36:11,112 INFO werkzeug Thread-180 : 127.0.0.1 - - [11/Aug/2022 12:36:11] "GET /landing HTTP/1.1" 200 -
-2022-08-11 12:36:11,441 INFO werkzeug Thread-183 : 127.0.0.1 - - [11/Aug/2022 12:36:11] "GET /static/css/navbar.css HTTP/1.1" 200 -
-2022-08-11 12:36:11,444 INFO werkzeug Thread-182 : 127.0.0.1 - - [11/Aug/2022 12:36:11] "GET /static/css/Landingbase.css HTTP/1.1" 200 -
-2022-08-11 12:36:11,445 INFO werkzeug Thread-184 : 127.0.0.1 - - [11/Aug/2022 12:36:11] "[36mGET /static/img/Swiss_Logo.png HTTP/1.1[0m" 304 -
-2022-08-11 12:36:11,448 INFO werkzeug Thread-185 : 127.0.0.1 - - [11/Aug/2022 12:36:11] "GET /static/css/form.css HTTP/1.1" 200 -
-2022-08-11 12:36:11,450 INFO werkzeug Thread-186 : 127.0.0.1 - - [11/Aug/2022 12:36:11] "[36mGET /static/vendor/jquery/jquery.slim.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:11,451 INFO werkzeug Thread-187 : 127.0.0.1 - - [11/Aug/2022 12:36:11] "[36mGET /static/vendor/jquery/jquery.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:11,751 INFO werkzeug Thread-188 : 127.0.0.1 - - [11/Aug/2022 12:36:11] "GET /static/img/city-street.png HTTP/1.1" 200 -
-2022-08-11 12:36:11,752 INFO werkzeug Thread-189 : 127.0.0.1 - - [11/Aug/2022 12:36:11] "[36mGET /static/vendor/bootstrap/js/bootstrap.bundle.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:11,755 INFO werkzeug Thread-190 : 127.0.0.1 - - [11/Aug/2022 12:36:11] "[36mGET /static/vendor/jquery-easing/jquery.easing.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:11,757 INFO werkzeug Thread-191 : 127.0.0.1 - - [11/Aug/2022 12:36:11] "[36mGET /static/js/sb-admin-2.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:11,759 INFO werkzeug Thread-192 : 127.0.0.1 - - [11/Aug/2022 12:36:11] "[36mGET /static/vendor/chart.js/Chart.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:11,760 INFO werkzeug Thread-193 : 127.0.0.1 - - [11/Aug/2022 12:36:11] "[36mGET /static/js/demo/chart-area-demo.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:12,066 INFO werkzeug Thread-194 : 127.0.0.1 - - [11/Aug/2022 12:36:12] "[32mGET /data/sales HTTP/1.1[0m" 302 -
-2022-08-11 12:36:12,069 INFO werkzeug Thread-197 : 127.0.0.1 - - [11/Aug/2022 12:36:12] "[36mGET /static/js/demo/chart-pie-demo.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:12,071 INFO werkzeug Thread-198 : 127.0.0.1 - - [11/Aug/2022 12:36:12] "[36mGET /static/js/demo/chart-bar-demo.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:12,076 INFO werkzeug Thread-199 : 127.0.0.1 - - [11/Aug/2022 12:36:12] "[36mGET /static/vendor/datatables/jquery.dataTables.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:12,077 INFO werkzeug Thread-196 : 127.0.0.1 - - [11/Aug/2022 12:36:12] "GET /data/pastorders HTTP/1.1" 200 -
-2022-08-11 12:36:12,078 INFO werkzeug Thread-200 : 127.0.0.1 - - [11/Aug/2022 12:36:12] "[36mGET /static/vendor/datatables/dataTables.bootstrap4.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:12,376 WARNING flask-limiter Thread-201 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 12:36:12,385 INFO werkzeug Thread-201 : 127.0.0.1 - - [11/Aug/2022 12:36:12] "[31m[1mGET /landing HTTP/1.1[0m" 429 -
-2022-08-11 12:36:12,390 INFO werkzeug Thread-205 : 127.0.0.1 - - [11/Aug/2022 12:36:12] "[32mGET /data/transactions HTTP/1.1[0m" 302 -
-2022-08-11 12:36:12,392 INFO werkzeug Thread-206 : 127.0.0.1 - - [11/Aug/2022 12:36:12] "[36mGET /static/js/demo/datatables-demo.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:12,410 INFO werkzeug Thread-204 : 127.0.0.1 - - [11/Aug/2022 12:36:12] "[35m[1mGET /data/spending-profit-balance HTTP/1.1[0m" 500 -
-2022-08-11 12:36:12,615 INFO werkzeug Thread-202 : 127.0.0.1 - - [11/Aug/2022 12:36:12] "GET /landing?next=%2Fdata%2Fsales HTTP/1.1" 200 -
-2022-08-11 12:36:12,646 INFO werkzeug Thread-207 : 127.0.0.1 - - [11/Aug/2022 12:36:12] "[36mGET /static/css/Landingbase.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:12,709 INFO werkzeug Thread-209 : 127.0.0.1 - - [11/Aug/2022 12:36:12] "[36mGET /static/css/main.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:12,710 INFO werkzeug Thread-208 : 127.0.0.1 - - [11/Aug/2022 12:36:12] "[36mGET /static/css/home.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:12,716 INFO werkzeug Thread-211 : 127.0.0.1 - - [11/Aug/2022 12:36:12] "[36mGET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:12,717 INFO werkzeug Thread-212 : 127.0.0.1 - - [11/Aug/2022 12:36:12] "[36mGET /static/css/sb-admin-2.min.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:12,721 INFO werkzeug Thread-210 : 127.0.0.1 - - [11/Aug/2022 12:36:12] "[33mGET /vendor/fontawesome-free/css/all.min.css HTTP/1.1[0m" 404 -
-2022-08-11 12:36:12,953 INFO werkzeug Thread-213 : 127.0.0.1 - - [11/Aug/2022 12:36:12] "[36mGET /static/css/navbar.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:13,033 WARNING flask-limiter Thread-214 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 12:36:13,035 INFO werkzeug Thread-215 : 127.0.0.1 - - [11/Aug/2022 12:36:13] "[36mGET /static/img/Swiss_Logo.png HTTP/1.1[0m" 304 -
-2022-08-11 12:36:13,038 INFO werkzeug Thread-218 : 127.0.0.1 - - [11/Aug/2022 12:36:13] "[36mGET /static/vendor/jquery/jquery.slim.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:13,038 INFO werkzeug Thread-217 : 127.0.0.1 - - [11/Aug/2022 12:36:13] "[36mGET /static/img/city-street.png HTTP/1.1[0m" 304 -
-2022-08-11 12:36:13,040 INFO werkzeug Thread-219 : 127.0.0.1 - - [11/Aug/2022 12:36:13] "[36mGET /static/vendor/jquery/jquery.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:13,042 INFO werkzeug Thread-214 : 127.0.0.1 - - [11/Aug/2022 12:36:13] "[31m[1mGET /landing HTTP/1.1[0m" 429 -
-2022-08-11 12:36:13,265 INFO werkzeug Thread-220 : 127.0.0.1 - - [11/Aug/2022 12:36:13] "[36mGET /static/css/Landingbase.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:13,360 INFO werkzeug Thread-221 : 127.0.0.1 - - [11/Aug/2022 12:36:13] "[36mGET /static/css/home.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:13,363 INFO werkzeug Thread-222 : 127.0.0.1 - - [11/Aug/2022 12:36:13] "[36mGET /static/css/main.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:13,369 INFO werkzeug Thread-225 : 127.0.0.1 - - [11/Aug/2022 12:36:13] "[36mGET /static/css/sb-admin-2.min.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:13,370 INFO werkzeug Thread-224 : 127.0.0.1 - - [11/Aug/2022 12:36:13] "[36mGET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:13,373 INFO werkzeug Thread-223 : 127.0.0.1 - - [11/Aug/2022 12:36:13] "[33mGET /vendor/fontawesome-free/css/all.min.css HTTP/1.1[0m" 404 -
-2022-08-11 12:36:13,575 INFO werkzeug Thread-226 : 127.0.0.1 - - [11/Aug/2022 12:36:13] "[36mGET /static/css/navbar.css HTTP/1.1[0m" 304 -
-2022-08-11 12:36:13,682 INFO werkzeug Thread-227 : 127.0.0.1 - - [11/Aug/2022 12:36:13] "[36mGET /static/img/Swiss_Logo.png HTTP/1.1[0m" 304 -
-2022-08-11 12:36:13,686 INFO werkzeug Thread-228 : 127.0.0.1 - - [11/Aug/2022 12:36:13] "[36mGET /static/img/city-street.png HTTP/1.1[0m" 304 -
-2022-08-11 12:36:13,688 INFO werkzeug Thread-230 : 127.0.0.1 - - [11/Aug/2022 12:36:13] "[36mGET /static/vendor/jquery/jquery.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:13,689 INFO werkzeug Thread-229 : 127.0.0.1 - - [11/Aug/2022 12:36:13] "[36mGET /static/vendor/jquery/jquery.slim.min.js HTTP/1.1[0m" 304 -
-2022-08-11 12:36:13,690 INFO werkzeug Thread-231 : 127.0.0.1 - - [11/Aug/2022 12:36:13] "GET /static/vendor/bootstrap/js/bootstrap.bundle.min.js HTTP/1.1" 200 -
-2022-08-11 12:36:13,883 INFO werkzeug Thread-232 : 127.0.0.1 - - [11/Aug/2022 12:36:13] "GET /static/vendor/jquery-easing/jquery.easing.min.js HTTP/1.1" 200 -
-2022-08-11 12:36:13,991 INFO werkzeug Thread-233 : 127.0.0.1 - - [11/Aug/2022 12:36:13] "GET /static/js/sb-admin-2.js HTTP/1.1" 200 -
-2022-08-11 12:36:13,995 INFO werkzeug Thread-234 : 127.0.0.1 - - [11/Aug/2022 12:36:13] "GET /static/vendor/chart.js/Chart.min.js HTTP/1.1" 200 -
-2022-08-11 12:36:13,999 INFO werkzeug Thread-235 : 127.0.0.1 - - [11/Aug/2022 12:36:13] "GET /static/js/demo/chart-area-demo.js HTTP/1.1" 200 -
-2022-08-11 12:36:14,000 INFO werkzeug Thread-237 : 127.0.0.1 - - [11/Aug/2022 12:36:14] "GET /static/js/demo/chart-bar-demo.js HTTP/1.1" 200 -
-2022-08-11 12:36:14,002 INFO werkzeug Thread-236 : 127.0.0.1 - - [11/Aug/2022 12:36:14] "GET /static/js/demo/chart-pie-demo.js HTTP/1.1" 200 -
-2022-08-11 12:36:14,204 INFO werkzeug Thread-238 : 127.0.0.1 - - [11/Aug/2022 12:36:14] "[32mGET /data/sales HTTP/1.1[0m" 302 -
-2022-08-11 12:36:14,332 INFO werkzeug Thread-240 : 127.0.0.1 - - [11/Aug/2022 12:36:14] "GET /static/vendor/datatables/jquery.dataTables.min.js HTTP/1.1" 200 -
-2022-08-11 12:36:14,334 INFO werkzeug Thread-242 : 127.0.0.1 - - [11/Aug/2022 12:36:14] "[32mGET /data/transactions HTTP/1.1[0m" 302 -
-2022-08-11 12:36:14,350 INFO werkzeug Thread-245 : 127.0.0.1 - - [11/Aug/2022 12:36:14] "GET /data/pastorders HTTP/1.1" 200 -
-2022-08-11 12:36:14,359 INFO werkzeug Thread-244 : 127.0.0.1 - - [11/Aug/2022 12:36:14] "[35m[1mGET /data/spending-profit-balance HTTP/1.1[0m" 500 -
-2022-08-11 12:36:14,524 WARNING flask-limiter Thread-246 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 12:36:14,529 INFO werkzeug Thread-246 : 127.0.0.1 - - [11/Aug/2022 12:36:14] "[31m[1mGET /landing?next=%2Fdata%2Ftransactions HTTP/1.1[0m" 429 -
-2022-08-11 12:36:14,647 INFO werkzeug Thread-241 : 127.0.0.1 - - [11/Aug/2022 12:36:14] "GET /landing?next=%2Fdata%2Fsales HTTP/1.1" 200 -
-2022-08-11 12:36:14,654 INFO werkzeug Thread-248 : 127.0.0.1 - - [11/Aug/2022 12:36:14] "GET /static/vendor/datatables/dataTables.bootstrap4.min.js HTTP/1.1" 200 -
-2022-08-11 12:36:14,656 INFO werkzeug Thread-249 : 127.0.0.1 - - [11/Aug/2022 12:36:14] "GET /static/js/demo/datatables-demo.js HTTP/1.1" 200 -
-2022-08-11 12:36:14,658 INFO werkzeug Thread-250 : 127.0.0.1 - - [11/Aug/2022 12:36:14] "GET /static/js/Additem.js HTTP/1.1" 200 -
-2022-08-11 12:36:14,979 INFO werkzeug Thread-251 : 127.0.0.1 - - [11/Aug/2022 12:36:14] "GET /static/images/letter-s.png HTTP/1.1" 200 -
-2022-08-11 12:37:28,010 WARNING flask-limiter Thread-26 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 12:37:33,518 WARNING flask-limiter Thread-56 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 12:37:38,456 WARNING flask-limiter Thread-86 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 12:37:46,288 WARNING flask-limiter Thread-114 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 12:37:50,960 WARNING flask-limiter Thread-144 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 12:37:56,519 WARNING flask-limiter Thread-170 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 12:51:46,826 DEBUG urllib3.connectionpool Thread-4 : Starting new HTTPS connection (1): www.google.com:443
-2022-08-11 12:51:46,883 DEBUG urllib3.connectionpool Thread-4 : https://www.google.com:443 "GET /recaptcha/api/siteverify?secret=6LdeS2chAAAAANeYclsOhuJuerBwqpN-nkS0YgH-&remoteip=127.0.0.1 HTTP/1.1" 200 None
-2022-08-11 12:51:48,103 DEBUG urllib3.connectionpool Thread-25 : Starting new HTTPS connection (1): www.google.com:443
-2022-08-11 12:51:48,143 DEBUG urllib3.connectionpool Thread-25 : https://www.google.com:443 "GET /recaptcha/api/siteverify?secret=6LdeS2chAAAAANeYclsOhuJuerBwqpN-nkS0YgH-&remoteip=127.0.0.1 HTTP/1.1" 200 None
-2022-08-11 12:51:48,169 WARNING flask-limiter Thread-28 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 12:51:56,760 DEBUG urllib3.connectionpool Thread-33 : Starting new HTTPS connection (1): www.google.com:443
-2022-08-11 12:51:56,794 DEBUG urllib3.connectionpool Thread-33 : https://www.google.com:443 "GET /recaptcha/api/siteverify?secret=6LdeS2chAAAAANeYclsOhuJuerBwqpN-nkS0YgH-&remoteip=127.0.0.1 HTTP/1.1" 200 None
-2022-08-11 12:51:57,998 DEBUG urllib3.connectionpool Thread-52 : Starting new HTTPS connection (1): www.google.com:443
-2022-08-11 12:51:58,038 DEBUG urllib3.connectionpool Thread-52 : https://www.google.com:443 "GET /recaptcha/api/siteverify?secret=6LdeS2chAAAAANeYclsOhuJuerBwqpN-nkS0YgH-&remoteip=127.0.0.1 HTTP/1.1" 200 None
-2022-08-11 12:51:58,074 WARNING flask-limiter Thread-58 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 12:52:30,664 DEBUG urllib3.connectionpool Thread-61 : Starting new HTTPS connection (1): www.google.com:443
-2022-08-11 12:52:30,764 DEBUG urllib3.connectionpool Thread-61 : https://www.google.com:443 "GET /recaptcha/api/siteverify?secret=6LdeS2chAAAAANeYclsOhuJuerBwqpN-nkS0YgH-&remoteip=127.0.0.1 HTTP/1.1" 200 None
-2022-08-11 12:52:32,031 WARNING flask-limiter Thread-86 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 12:52:32,278 DEBUG urllib3.connectionpool Thread-84 : Starting new HTTPS connection (1): www.google.com:443
-2022-08-11 12:52:32,322 DEBUG urllib3.connectionpool Thread-84 : https://www.google.com:443 "GET /recaptcha/api/siteverify?secret=6LdeS2chAAAAANeYclsOhuJuerBwqpN-nkS0YgH-&remoteip=127.0.0.1 HTTP/1.1" 200 None
-2022-08-11 12:55:03,222 DEBUG urllib3.connectionpool Thread-95 : Starting new HTTPS connection (1): www.google.com:443
-2022-08-11 12:55:03,266 DEBUG urllib3.connectionpool Thread-95 : https://www.google.com:443 "GET /recaptcha/api/siteverify?secret=6LdeS2chAAAAANeYclsOhuJuerBwqpN-nkS0YgH-&remoteip=127.0.0.1 HTTP/1.1" 200 None
-2022-08-11 12:55:04,261 WARNING flask-limiter Thread-117 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 12:55:04,495 DEBUG urllib3.connectionpool Thread-116 : Starting new HTTPS connection (1): www.google.com:443
-2022-08-11 12:55:04,535 DEBUG urllib3.connectionpool Thread-116 : https://www.google.com:443 "GET /recaptcha/api/siteverify?secret=6LdeS2chAAAAANeYclsOhuJuerBwqpN-nkS0YgH-&remoteip=127.0.0.1 HTTP/1.1" 200 None
-2022-08-11 12:56:46,038 DEBUG urllib3.connectionpool Thread-126 : Starting new HTTPS connection (1): www.google.com:443
-2022-08-11 12:56:46,073 DEBUG urllib3.connectionpool Thread-126 : https://www.google.com:443 "GET /recaptcha/api/siteverify?secret=6LdeS2chAAAAANeYclsOhuJuerBwqpN-nkS0YgH-&remoteip=127.0.0.1 HTTP/1.1" 200 None
-2022-08-11 12:56:47,306 DEBUG urllib3.connectionpool Thread-147 : Starting new HTTPS connection (1): www.google.com:443
-2022-08-11 12:56:47,344 DEBUG urllib3.connectionpool Thread-147 : https://www.google.com:443 "GET /recaptcha/api/siteverify?secret=6LdeS2chAAAAANeYclsOhuJuerBwqpN-nkS0YgH-&remoteip=127.0.0.1 HTTP/1.1" 200 None
-2022-08-11 12:56:47,372 WARNING flask-limiter Thread-149 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:25:30,115 INFO flask_wtf.csrf Thread-3 : The CSRF tokens do not match.
-2022-08-11 13:25:31,444 WARNING flask-limiter Thread-28 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:25:36,062 WARNING flask-limiter Thread-56 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:26:19,675 WARNING flask-limiter Thread-93 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:26:48,677 WARNING flask-limiter Thread-117 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:31:04,201 WARNING flask-limiter Thread-26 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:31:32,578 ERROR werkzeug Thread-3 : 127.0.0.1 - - [11/Aug/2022 13:31:32] code 400, message Bad request version ('jj\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93ÊÊ\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:32,579 ERROR werkzeug Thread-4 : 127.0.0.1 - - [11/Aug/2022 13:31:32] code 400, message Bad request version ('jj\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93zz\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:32,579 ERROR werkzeug Thread-6 : 127.0.0.1 - - [11/Aug/2022 13:31:32] code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x02\x00\x01\x00\x01ü\x03\x03Ó}-\x93Ð´Gý»«aû\x13×°V×º\x89\x80\x00\x86)ÓÆ\x08ªcJPÊµ')
-2022-08-11 13:31:32,580 ERROR werkzeug Thread-7 : 127.0.0.1 - - [11/Aug/2022 13:31:32] code 400, message Bad request version ('\x1a\x1a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93ÊÊ\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:33,838 ERROR werkzeug Thread-8 : 127.0.0.1 - - [11/Aug/2022 13:31:33] code 400, message Bad request version ('êê\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93ZZ\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:33,839 ERROR werkzeug Thread-9 : 127.0.0.1 - - [11/Aug/2022 13:31:33] code 400, message Bad request version ('jj\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93ZZ\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:33,841 ERROR werkzeug Thread-10 : 127.0.0.1 - - [11/Aug/2022 13:31:33] code 400, message Bad request version ('jj\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93ÚÚ\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:33,841 ERROR werkzeug Thread-11 : 127.0.0.1 - - [11/Aug/2022 13:31:33] code 400, message Bad request version ('**\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93\x1a\x1a\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:33,842 ERROR werkzeug Thread-12 : 127.0.0.1 - - [11/Aug/2022 13:31:33] code 400, message Bad request version ('\x9a\x9a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93jj\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:33,843 ERROR werkzeug Thread-13 : 127.0.0.1 - - [11/Aug/2022 13:31:33] code 400, message Bad request version ('\x8a\x8a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93\x9a\x9a\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:34,341 ERROR werkzeug Thread-14 : 127.0.0.1 - - [11/Aug/2022 13:31:34] code 400, message Bad request version ('ZZ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93ÊÊ\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:34,342 ERROR werkzeug Thread-15 : 127.0.0.1 - - [11/Aug/2022 13:31:34] code 400, message Bad request version ('úú\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93JJ\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:34,342 ERROR werkzeug Thread-16 : 127.0.0.1 - - [11/Aug/2022 13:31:34] code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x02\x00\x01\x00\x01ü\x03\x03o?')
-2022-08-11 13:31:34,343 ERROR werkzeug Thread-17 : 127.0.0.1 - - [11/Aug/2022 13:31:34] code 400, message Bad request version ('úú\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93êê\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:34,345 ERROR werkzeug Thread-18 : 127.0.0.1 - - [11/Aug/2022 13:31:34] code 400, message Bad request version ('¶KÖÞ\x9f`Z¨ìÜf')
-2022-08-11 13:31:34,347 ERROR werkzeug Thread-19 : 127.0.0.1 - - [11/Aug/2022 13:31:34] code 400, message Bad request version ('\x9a\x9a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93\x9a\x9a\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:34,713 ERROR werkzeug Thread-20 : 127.0.0.1 - - [11/Aug/2022 13:31:34] code 400, message Bad request version ('JJ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93::\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:34,714 ERROR werkzeug Thread-21 : 127.0.0.1 - - [11/Aug/2022 13:31:34] code 400, message Bad request version ("Í#¨\x18ÒÎó\x07êÖ'\x13þi")
-2022-08-11 13:31:34,714 ERROR werkzeug Thread-22 : 127.0.0.1 - - [11/Aug/2022 13:31:34] code 400, message Bad request version ('zz\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93\x8a\x8a\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:34,714 ERROR werkzeug Thread-23 : 127.0.0.1 - - [11/Aug/2022 13:31:34] code 400, message Bad request version ('\x8a\x8a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93zz\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:34,717 ERROR werkzeug Thread-24 : 127.0.0.1 - - [11/Aug/2022 13:31:34] code 400, message Bad request version ('úú\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93\x9a\x9a\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:34,718 ERROR werkzeug Thread-25 : 127.0.0.1 - - [11/Aug/2022 13:31:34] code 400, message Bad request version ('ºº\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93ZZ\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:34,884 ERROR werkzeug Thread-26 : 127.0.0.1 - - [11/Aug/2022 13:31:34] code 400, message Bad request version ('zz\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93zz\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:34,884 ERROR werkzeug Thread-27 : 127.0.0.1 - - [11/Aug/2022 13:31:34] code 400, message Bad request version ('\x87\x91õ¹\x02ÂÝ\x8b\x93¬aËtE:ÿ\x803\x9dµ\x16Rìãû\x00')
-2022-08-11 13:31:34,885 ERROR werkzeug Thread-28 : 127.0.0.1 - - [11/Aug/2022 13:31:34] code 400, message Bad request version ('JJ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93')
-2022-08-11 13:31:34,885 ERROR werkzeug Thread-29 : 127.0.0.1 - - [11/Aug/2022 13:31:34] code 400, message Bad request version ('Ð&\x9d')
-2022-08-11 13:31:35,064 ERROR werkzeug Thread-30 : 127.0.0.1 - - [11/Aug/2022 13:31:35] code 400, message Bad request version ('ºº\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93ZZ\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:35,065 ERROR werkzeug Thread-31 : 127.0.0.1 - - [11/Aug/2022 13:31:35] code 400, message Bad request version ('**\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93êê\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:35,066 ERROR werkzeug Thread-32 : 127.0.0.1 - - [11/Aug/2022 13:31:35] code 400, message Bad request version ('ªª\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93úú\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:35,066 ERROR werkzeug Thread-33 : 127.0.0.1 - - [11/Aug/2022 13:31:35] code 400, message Bad request version ('::\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93ªª\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:35,224 ERROR werkzeug Thread-34 : 127.0.0.1 - - [11/Aug/2022 13:31:35] code 400, message Bad request version ('¿°RÏñÓ\x0fVá\x94Båæw!!$¯¦]¶«\x95Hü¾ù\x05>¡\x83\x16\x00')
-2022-08-11 13:31:35,225 ERROR werkzeug Thread-35 : 127.0.0.1 - - [11/Aug/2022 13:31:35] code 400, message Bad request version ('zz\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93êê\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:35,226 ERROR werkzeug Thread-36 : 127.0.0.1 - - [11/Aug/2022 13:31:35] code 400, message Bad request syntax ('\x16\x03\x01\x02\x00\x01\x00\x01ü\x03\x03jÜ\x0eBß23\x7fk)\x95s\x8cêQ\x11¾')
-2022-08-11 13:31:35,226 ERROR werkzeug Thread-37 : 127.0.0.1 - - [11/Aug/2022 13:31:35] code 400, message Bad request version ('JJ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93jj\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:35,228 ERROR werkzeug Thread-38 : 127.0.0.1 - - [11/Aug/2022 13:31:35] code 400, message Bad request version ('\x1a\x1a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93ªª\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:35,229 ERROR werkzeug Thread-39 : 127.0.0.1 - - [11/Aug/2022 13:31:35] code 400, message Bad request syntax ('\x16\x03\x01\x02\x00\x01\x00\x01ü\x03\x03[\x00ò¦V³\x84Ë\x82Dü\x8fM0\x90ÁtÎ')
-2022-08-11 13:31:35,382 ERROR werkzeug Thread-40 : 127.0.0.1 - - [11/Aug/2022 13:31:35] code 400, message Bad request version ('::\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93ÚÚ\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:35,383 ERROR werkzeug Thread-41 : 127.0.0.1 - - [11/Aug/2022 13:31:35] code 400, message Bad request version ('ÊÊ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93\x8a\x8a\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:35,383 ERROR werkzeug Thread-42 : 127.0.0.1 - - [11/Aug/2022 13:31:35] code 400, message Bad request version ('jj\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93')
-2022-08-11 13:31:35,384 ERROR werkzeug Thread-43 : 127.0.0.1 - - [11/Aug/2022 13:31:35] code 400, message Bad request version ('**\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93jj\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:35,386 ERROR werkzeug Thread-44 : 127.0.0.1 - - [11/Aug/2022 13:31:35] code 400, message Bad request version ('úú\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93úú\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:35,386 ERROR werkzeug Thread-45 : 127.0.0.1 - - [11/Aug/2022 13:31:35] code 400, message Bad request version ('ÚÚ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93**\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:35,530 ERROR werkzeug Thread-46 : 127.0.0.1 - - [11/Aug/2022 13:31:35] code 400, message Bad request version ('\x96\x95\x7f³\x9e*C\x96£')
-2022-08-11 13:31:35,530 ERROR werkzeug Thread-47 : 127.0.0.1 - - [11/Aug/2022 13:31:35] code 400, message Bad request version ('JJ\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93êê\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:35,531 ERROR werkzeug Thread-48 : 127.0.0.1 - - [11/Aug/2022 13:31:35] code 400, message Bad request version ('g/Î\x0f«^¥¿rµ¼¼\x04Ñl\x97\x00')
-2022-08-11 13:31:35,531 ERROR werkzeug Thread-49 : 127.0.0.1 - - [11/Aug/2022 13:31:35] code 400, message Bad request version ('zz\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93::\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:35,532 ERROR werkzeug Thread-50 : 127.0.0.1 - - [11/Aug/2022 13:31:35] code 400, message Bad request version ('\x1a\x1a\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93::\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:35,533 ERROR werkzeug Thread-51 : 127.0.0.1 - - [11/Aug/2022 13:31:35] code 400, message Bad request version ('zz\x13\x01\x13\x02\x13\x03À+À/À,À0Ì©Ì¨À\x13À\x14\x00\x9c\x00\x9d\x00/\x005\x01\x00\x01\x93ºº\x00\x00\x00\x17\x00\x00ÿ\x01\x00\x01\x00\x00')
-2022-08-11 13:31:44,579 WARNING flask-limiter Thread-78 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:31:44,617 WARNING flask-limiter Thread-80 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:34:36,703 WARNING flask-limiter Thread-109 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:34:36,705 WARNING flask-limiter Thread-111 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:35:07,634 WARNING flask-limiter Thread-139 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:35:07,656 WARNING flask-limiter Thread-141 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:36:12,682 WARNING flask-limiter Thread-169 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:36:12,683 WARNING flask-limiter Thread-171 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:36:34,449 WARNING flask-limiter Thread-199 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:36:34,482 WARNING flask-limiter Thread-200 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:38:54,894 WARNING flask-limiter Thread-30 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:38:54,895 WARNING flask-limiter Thread-29 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:39:02,772 WARNING flask-limiter Thread-59 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:39:02,784 WARNING flask-limiter Thread-61 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:39:09,514 WARNING flask-limiter Thread-88 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:39:09,516 WARNING flask-limiter Thread-89 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:39:14,793 WARNING flask-limiter Thread-116 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:39:14,827 WARNING flask-limiter Thread-117 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:40:31,750 WARNING flask-limiter Thread-146 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:40:31,779 WARNING flask-limiter Thread-147 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:40:37,610 WARNING flask-limiter Thread-175 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:40:37,612 WARNING flask-limiter Thread-176 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:41:32,795 WARNING flask-limiter Thread-203 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:41:32,797 WARNING flask-limiter Thread-205 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:41:37,284 WARNING flask-limiter Thread-232 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:41:37,290 WARNING flask-limiter Thread-233 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:42:11,071 WARNING flask-limiter Thread-35 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:45:43,060 WARNING flask-limiter Thread-29 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:45:43,071 WARNING flask-limiter Thread-31 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:46:06,149 WARNING flask-limiter Thread-57 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:46:06,167 WARNING flask-limiter Thread-58 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:46:28,188 WARNING flask-limiter Thread-86 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:46:28,197 WARNING flask-limiter Thread-87 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:46:45,761 WARNING flask-limiter Thread-114 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:46:45,763 WARNING flask-limiter Thread-115 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:47:37,096 WARNING flask-limiter Thread-142 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:47:37,103 WARNING flask-limiter Thread-143 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:48:01,357 WARNING flask-limiter Thread-170 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:48:01,367 WARNING flask-limiter Thread-171 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:48:14,936 WARNING flask-limiter Thread-199 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:48:14,940 WARNING flask-limiter Thread-200 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:49:34,827 WARNING flask-limiter Thread-227 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:49:34,831 WARNING flask-limiter Thread-228 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:49:40,897 WARNING flask-limiter Thread-256 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:49:40,898 WARNING flask-limiter Thread-258 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:50:24,531 WARNING flask-limiter Thread-36 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:52:11,995 WARNING flask-limiter Thread-28 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:52:11,997 WARNING flask-limiter Thread-29 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:52:16,944 WARNING flask-limiter Thread-56 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:52:16,952 WARNING flask-limiter Thread-57 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:52:22,829 WARNING flask-limiter Thread-84 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:52:22,837 WARNING flask-limiter Thread-86 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:53:08,365 WARNING flask-limiter Thread-112 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:53:08,367 WARNING flask-limiter Thread-114 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:53:10,756 WARNING flask-limiter Thread-141 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:53:10,759 WARNING flask-limiter Thread-142 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:53:41,448 WARNING flask-limiter Thread-168 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:53:41,455 WARNING flask-limiter Thread-169 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:53:41,998 WARNING flask-limiter Thread-171 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:53:42,206 WARNING flask-limiter Thread-202 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:53:51,824 WARNING flask-limiter Thread-28 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:53:51,825 WARNING flask-limiter Thread-29 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:53:53,431 WARNING flask-limiter Thread-56 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:53:53,437 WARNING flask-limiter Thread-57 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:55:39,352 WARNING flask-limiter Thread-90 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:55:39,353 WARNING flask-limiter Thread-92 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:55:50,435 WARNING flask-limiter Thread-29 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:55:50,438 WARNING flask-limiter Thread-30 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:55:52,833 WARNING flask-limiter Thread-58 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:55:52,837 WARNING flask-limiter Thread-59 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:55:54,353 WARNING flask-limiter Thread-88 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:55:54,353 WARNING flask-limiter Thread-89 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:55:59,781 WARNING flask-limiter Thread-118 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:55:59,785 WARNING flask-limiter Thread-120 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:56:03,042 WARNING flask-limiter Thread-147 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:56:03,048 WARNING flask-limiter Thread-148 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:57:50,961 WARNING flask-limiter Thread-30 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:57:50,962 WARNING flask-limiter Thread-29 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:57:56,887 WARNING flask-limiter Thread-59 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 13:57:56,894 WARNING flask-limiter Thread-60 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:05:16,398 INFO flask_wtf.csrf Thread-61 : The CSRF tokens do not match.
-2022-08-11 14:05:16,555 WARNING flask-limiter Thread-87 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:05:16,559 WARNING flask-limiter Thread-88 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:05:19,787 WARNING flask-limiter Thread-117 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:05:19,789 WARNING flask-limiter Thread-119 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:05:39,292 WARNING flask-limiter Thread-146 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:05:39,293 WARNING flask-limiter Thread-148 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:05:42,585 WARNING flask-limiter Thread-177 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:05:42,586 WARNING flask-limiter Thread-178 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:07:08,343 WARNING flask-limiter Thread-29 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:07:08,346 WARNING flask-limiter Thread-31 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:07:11,249 WARNING flask-limiter Thread-59 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:07:11,251 WARNING flask-limiter Thread-60 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:07:15,825 WARNING flask-limiter Thread-87 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:07:15,851 WARNING flask-limiter Thread-88 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:07:21,491 WARNING flask-limiter Thread-128 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:07:56,785 WARNING flask-limiter Thread-194 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:07:56,789 WARNING flask-limiter Thread-195 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:08:02,117 WARNING flask-limiter Thread-224 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:08:02,119 WARNING flask-limiter Thread-225 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:08:07,519 WARNING flask-limiter Thread-252 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:08:07,553 WARNING flask-limiter Thread-254 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:21:49,956 INFO flask_wtf.csrf Thread-3 : The CSRF tokens do not match.
-2022-08-11 14:21:50,119 WARNING flask-limiter Thread-29 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:21:50,121 WARNING flask-limiter Thread-31 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:21:57,508 WARNING flask-limiter Thread-60 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:21:57,508 WARNING flask-limiter Thread-59 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:22:12,671 WARNING flask-limiter Thread-88 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:22:12,674 WARNING flask-limiter Thread-89 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:22:48,024 WARNING flask-limiter Thread-191 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:22:48,027 WARNING flask-limiter Thread-192 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:22:53,469 WARNING flask-limiter Thread-219 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:22:53,471 WARNING flask-limiter Thread-221 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:24:22,721 WARNING flask-limiter Thread-248 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:24:22,727 WARNING flask-limiter Thread-249 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:24:30,014 WARNING flask-limiter Thread-280 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:24:30,017 WARNING flask-limiter Thread-281 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:24:49,435 WARNING flask-limiter Thread-384 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
-2022-08-11 14:24:49,438 WARNING flask-limiter Thread-385 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
+2022-08-14 14:01:46,186 WARNING flask-limiter Thread-14 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
+2022-08-14 14:01:46,836 WARNING flask-limiter Thread-23 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
+2022-08-14 14:02:25,360 WARNING flask-limiter Thread-7 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
+2022-08-14 18:11:50,159 WARNING flask-limiter Thread-14: ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
+2022-08-14 18:11:50,802 WARNING flask-limiter Thread-23: ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
+2022-08-14 18:11:51,440 WARNING flask-limiter Thread-35: ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
+2022-08-14 18:12:59,311 WARNING flask-limiter Thread-13 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
+2022-08-14 18:13:00,010 WARNING flask-limiter Thread-23 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
+2022-08-14 18:13:09,896 WARNING flask-limiter Thread-42 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
+2022-08-14 18:13:10,903 WARNING flask-limiter Thread-60 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
+2022-08-14 18:13:11,522 WARNING flask-limiter Thread-70 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
+2022-08-14 18:41:18,394 WARNING flask-limiter Thread-13 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
+2022-08-14 18:41:19,077 WARNING flask-limiter Thread-23 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
+2022-08-14 18:41:50,808 INFO werkzeug MainThread :  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2022-08-14 18:43:40,911 INFO werkzeug Thread-3 : 127.0.0.1 - - [14/Aug/2022 18:43:40] "GET / HTTP/1.1" 200 -
+2022-08-14 18:43:40,931 INFO werkzeug Thread-5 : 127.0.0.1 - - [14/Aug/2022 18:43:40] "GET /static/css/Landingbase.css HTTP/1.1" 200 -
+2022-08-14 18:43:40,931 INFO werkzeug Thread-6 : 127.0.0.1 - - [14/Aug/2022 18:43:40] "GET /static/css/navbar.css HTTP/1.1" 200 -
+2022-08-14 18:43:41,241 INFO werkzeug Thread-7 : 127.0.0.1 - - [14/Aug/2022 18:43:41] "GET /static/css/form.css HTTP/1.1" 200 -
+2022-08-14 18:43:41,243 INFO werkzeug Thread-8 : 127.0.0.1 - - [14/Aug/2022 18:43:41] "GET /static/img/Swiss_Logo.png HTTP/1.1" 200 -
+2022-08-14 18:43:41,245 INFO werkzeug Thread-9 : 127.0.0.1 - - [14/Aug/2022 18:43:41] "GET /static/img/city-street.png HTTP/1.1" 200 -
+2022-08-14 18:43:41,556 INFO werkzeug Thread-10 : 127.0.0.1 - - [14/Aug/2022 18:43:41] "GET /static/css/Landingbase.css HTTP/1.1" 200 -
+2022-08-14 18:43:42,052 INFO werkzeug Thread-13 : 127.0.0.1 - - [14/Aug/2022 18:43:42] "GET /static/images/letter-s.png HTTP/1.1" 200 -
+2022-08-14 18:43:42,232 INFO werkzeug Thread-11 : 127.0.0.1 - - [14/Aug/2022 18:43:42] "GET / HTTP/1.1" 200 -
+2022-08-14 18:43:42,241 WARNING flask-limiter Thread-14 : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
+2022-08-14 18:43:42,245 INFO werkzeug Thread-14 : 127.0.0.1 - - [14/Aug/2022 18:43:42] "[31m[1mGET / HTTP/1.1[0m" 429 -
+2022-08-14 18:43:42,365 INFO werkzeug Thread-16 : 127.0.0.1 - - [14/Aug/2022 18:43:42] "GET /static/css/Landingbase.css HTTP/1.1" 200 -
+2022-08-14 18:43:42,566 INFO werkzeug Thread-17 : 127.0.0.1 - - [14/Aug/2022 18:43:42] "GET /static/css/home.css HTTP/1.1" 200 -
+2022-08-14 18:43:42,568 INFO werkzeug Thread-18 : 127.0.0.1 - - [14/Aug/2022 18:43:42] "GET /static/css/main.css HTTP/1.1" 200 -
+2022-08-14 18:43:42,575 INFO werkzeug Thread-20 : 127.0.0.1 - - [14/Aug/2022 18:43:42] "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 -
+2022-08-14 18:43:42,577 INFO werkzeug Thread-21 : 127.0.0.1 - - [14/Aug/2022 18:43:42] "GET /static/css/sb-admin-2.min.css HTTP/1.1" 200 -
+2022-08-14 18:43:42,608 INFO werkzeug Thread-19 : 127.0.0.1 - - [14/Aug/2022 18:43:42] "[33mGET /vendor/fontawesome-free/css/all.min.css HTTP/1.1[0m" 404 -
+2022-08-14 18:43:42,675 INFO werkzeug Thread-22 : 127.0.0.1 - - [14/Aug/2022 18:43:42] "GET /static/css/navbar.css HTTP/1.1" 200 -
+2022-08-14 18:43:42,928 INFO werkzeug Thread-23 : 127.0.0.1 - - [14/Aug/2022 18:43:42] "GET /static/css/sb-admin-2.min.css HTTP/1.1" 200 -
+2022-08-14 18:43:42,928 INFO werkzeug Thread-24 : 127.0.0.1 - - [14/Aug/2022 18:43:42] "GET /static/img/Swiss_Logo.png HTTP/1.1" 200 -
+2022-08-14 18:43:43,252 INFO werkzeug Thread-25 : 127.0.0.1 - - [14/Aug/2022 18:43:43] "GET /static/img/city-street.png HTTP/1.1" 200 -
+2022-08-14 18:48:26,229 INFO werkzeug Thread-27 : 127.0.0.1 - - [14/Aug/2022 18:48:26] "GET / HTTP/1.1" 200 -
+2022-08-14 18:48:26,243 INFO werkzeug Thread-29 : 127.0.0.1 - - [14/Aug/2022 18:48:26] "GET /static/css/Landingbase.css HTTP/1.1" 200 -
+2022-08-14 18:48:26,252 INFO werkzeug Thread-30 : 127.0.0.1 - - [14/Aug/2022 18:48:26] "GET /static/css/navbar.css HTTP/1.1" 200 -
+2022-08-14 18:48:26,546 INFO werkzeug Thread-32 : 127.0.0.1 - - [14/Aug/2022 18:48:26] "GET /static/img/Swiss_Logo.png HTTP/1.1" 200 -
+2022-08-14 18:48:26,547 INFO werkzeug Thread-31 : 127.0.0.1 - - [14/Aug/2022 18:48:26] "GET /static/css/form.css HTTP/1.1" 200 -
+2022-08-14 18:48:26,549 INFO werkzeug Thread-33 : 127.0.0.1 - - [14/Aug/2022 18:48:26] "GET /static/img/city-street.png HTTP/1.1" 200 -
+2022-08-14 18:48:26,856 INFO werkzeug Thread-34 : 127.0.0.1 - - [14/Aug/2022 18:48:26] "GET /static/css/Landingbase.css HTTP/1.1" 200 -
+2022-08-14 18:48:27,120 INFO werkzeug Thread-35 : 127.0.0.1 - - [14/Aug/2022 18:48:27] "GET /static/images/letter-s.png HTTP/1.1" 200 -
+2022-08-14 18:48:35,357 INFO werkzeug Thread-36 : 127.0.0.1 - - [14/Aug/2022 18:48:35] "GET / HTTP/1.1" 200 -
+2022-08-14 18:48:35,393 INFO werkzeug Thread-38 : 127.0.0.1 - - [14/Aug/2022 18:48:35] "GET /static/css/Landingbase.css HTTP/1.1" 200 -
+2022-08-14 18:48:35,689 INFO werkzeug Thread-39 : 127.0.0.1 - - [14/Aug/2022 18:48:35] "GET /static/css/navbar.css HTTP/1.1" 200 -
+2022-08-14 18:48:35,692 INFO werkzeug Thread-41 : 127.0.0.1 - - [14/Aug/2022 18:48:35] "GET /static/img/Swiss_Logo.png HTTP/1.1" 200 -
+2022-08-14 18:48:35,693 INFO werkzeug Thread-40 : 127.0.0.1 - - [14/Aug/2022 18:48:35] "GET /static/css/form.css HTTP/1.1" 200 -
+2022-08-14 18:48:35,694 INFO werkzeug Thread-42 : 127.0.0.1 - - [14/Aug/2022 18:48:35] "GET /static/img/city-street.png HTTP/1.1" 200 -
+2022-08-14 18:48:36,014 INFO werkzeug Thread-43 : 127.0.0.1 - - [14/Aug/2022 18:48:36] "GET /static/css/Landingbase.css HTTP/1.1" 200 -
+2022-08-14 18:48:36,264 INFO werkzeug Thread-44 : 127.0.0.1 - - [14/Aug/2022 18:48:36] "GET /static/images/letter-s.png HTTP/1.1" 200 -
+2022-08-14 18:52:20,254 INFO werkzeug Thread-46 : 127.0.0.1 - - [14/Aug/2022 18:52:20] "POST / HTTP/1.1" 200 -
+2022-08-14 18:52:20,271 INFO werkzeug Thread-49 : 127.0.0.1 - - [14/Aug/2022 18:52:20] "GET /static/css/navbar.css HTTP/1.1" 200 -
+2022-08-14 18:52:20,271 INFO werkzeug Thread-47 : 127.0.0.1 - - [14/Aug/2022 18:52:20] "GET /static/css/Landingbase.css HTTP/1.1" 200 -
+2022-08-14 18:52:20,585 INFO werkzeug Thread-51 : 127.0.0.1 - - [14/Aug/2022 18:52:20] "GET /static/img/Swiss_Logo.png HTTP/1.1" 200 -
+2022-08-14 18:52:20,587 INFO werkzeug Thread-52 : 127.0.0.1 - - [14/Aug/2022 18:52:20] "GET /static/img/city-street.png HTTP/1.1" 200 -
+2022-08-14 18:52:20,587 INFO werkzeug Thread-50 : 127.0.0.1 - - [14/Aug/2022 18:52:20] "GET /static/css/form.css HTTP/1.1" 200 -
+2022-08-14 18:52:20,896 INFO werkzeug Thread-53 : 127.0.0.1 - - [14/Aug/2022 18:52:20] "GET /static/css/Landingbase.css HTTP/1.1" 200 -
+2022-08-14 18:54:54,168 INFO root Thread-76 : ip: 127.0.0.1
+2022-08-14 19:43:52,316 INFO flask_wtf.csrf Thread-3 : The CSRF session token is missing.
+2022-08-14 19:52:14,608 INFO flask_wtf.csrf Thread-3 request.remote_addr : The CSRF session token is missing.
+2022-08-14 19:53:19,893 WARNING flask-limiter Thread-30 (request.remote_addr) : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
+2022-08-14 19:53:20,593 WARNING flask-limiter Thread-40 (request.remote_addr) : ratelimit 1 per 1 second (127.0.0.1) exceeded at endpoint: landing_page
+2022-08-14 21:22:14,268 WARNING werkzeug MainThread :  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-08-14 21:26:23,556 WARNING werkzeug MainThread :  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-08-14 21:27:41,431 WARNING werkzeug MainThread :  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-08-14 21:28:28,610 ERROR root Thread-14 : ACCOUNT: idiot  
+ NEW IP: 127.0.0.1

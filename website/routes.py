@@ -27,7 +27,7 @@ from werkzeug.utils import secure_filename
 from functools import wraps
 import secure
 from flask_csp.csp import csp_header
-import os
+import logging
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
@@ -2143,7 +2143,9 @@ def register_page():
     if form.validate_on_submit():
         user_to_create = User(username=form.username.data,
                               email_address=form.email_address.data,
-                              password=form.password1.data)
+                              password=form.password1.data,
+                              originIP=request.remote_addr
+                              )
         # 'password' = form.password1.data this is entering the hashed
         # version of the password. Check models.py,
         # @password.setter hashes the passwords
@@ -2270,8 +2272,6 @@ def landing_page():
     admin_user()
 
     db.create_all()
-    # warning very funny error when logging in if passwords are not hashed(check SQlite) it will crash
-    # giving an error of Invalid salt Value error
     form = LoginForm()
     if form.validate_on_submit():
         attempted_user = User.query.filter_by(username=form.username.data).first()
@@ -2282,6 +2282,8 @@ def landing_page():
                         if attempted_user.account_2factor(attempted_user.twofa) == False:
                             login_user(attempted_user)
                             session.permanent = True
+                            if attempted_user.check_ip(attempted_user.originIP, request.remote_addr) == False:
+                                logging.error(f"ACCOUNT: {attempted_user.username}  \n NEW IP: {request.remote_addr}")
                             flash(f"Success! You are logged in as: {attempted_user.username}", category='success')
                             return redirect(url_for('twofa_recommend_page'))
                         elif attempted_user.account_2factor(attempted_user.twofa) == True:
@@ -2296,6 +2298,7 @@ def landing_page():
                     else:
                         attempted_user.status = 'Disabled'
                         db.session.commit()
+                        logging.info(f"ACCOUNT: {attempted_user.username}  \nLOCKED AT IP: {request.remote_addr}")
                         flash(f"{attempted_user.username} account has been disabled!"
                         f" Please contact Customer Support for more information.", category='danger')
                 else:
