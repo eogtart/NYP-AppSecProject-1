@@ -147,6 +147,7 @@ def csp_report():
 
 @app.route('/moneymanagement')
 @login_required
+@limiter.limit("1/second", override_defaults=False)
 @csp_header()
 def money_management():
     return render_template('trans_or_dep.html')
@@ -154,6 +155,7 @@ def money_management():
 
 @app.route('/home', methods=['GET', 'POST'])
 @login_required
+@limiter.limit("1/second", override_defaults=False)
 def home_page():
     userID = User.query.filter_by(id=current_user.id).first()
     admin_user()
@@ -162,6 +164,7 @@ def home_page():
 
 @app.route('/profile', methods=['GET', 'POST'])
 @login_required
+@limiter.limit("1/second", override_defaults=False)
 @csp_header()
 def profile_page():
     Owned_Items_Dict = {}
@@ -249,6 +252,7 @@ def profile_page():
 
 @app.route('/deleteProfile')
 @login_required
+@limiter.limit("1/second", override_defaults=False)
 @csp_header()
 def delete_profile():
     db.create_all()
@@ -262,6 +266,7 @@ def delete_profile():
 
 @app.route("/updateUser", methods=['GET', 'POST'])
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def update_user():
     update_user_form = Update_User()
     if request.method == 'POST' and update_user_form.validate_on_submit():
@@ -289,6 +294,7 @@ def update_user():
 
 @app.route("/updateUsername", methods=['GET', 'POST'])
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def update_username():
     update_username_form = Update_Username()
     if request.method == 'POST' and update_username_form.validate_on_submit():
@@ -308,6 +314,7 @@ def update_username():
 
 @app.route("/updateEmail", methods=['GET', 'POST'])
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def update_email():
     update_email_form = Update_Email()
     if request.method == 'POST' and update_email_form.validate_on_submit():
@@ -327,6 +334,7 @@ def update_email():
 
 @app.route("/updateGender", methods=['GET', 'POST'])
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def update_gender():
     update_gender_form = Update_Gender()
     if request.method == 'POST' and update_gender_form.validate_on_submit():
@@ -346,6 +354,7 @@ def update_gender():
 
 @app.route("/updatePassword", methods=['GET', 'POST'])
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def update_password():
     update_password_form = Update_Password()
     userID = User.query.filter_by(id=current_user.id).first()
@@ -372,6 +381,7 @@ def update_password():
 
 @app.route('/PastOrders')
 @login_required
+@limiter.limit("1/second", override_defaults=False)
 @csp_header()
 def past_orders():
     Owned_Items_Dict = {}
@@ -396,6 +406,7 @@ def past_orders():
 
 @app.route('/data/pastorders')
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def past_orders_data():
     Owned_Items_Dict = {}
     dates = []
@@ -434,6 +445,7 @@ def past_orders_data():
 @app.route('/data/sales')
 @login_required
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def sales_data():
     dates = []
     transactions = []
@@ -525,6 +537,7 @@ def transaction_data():
 @app.route('/Appointment')
 @login_required
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def appointment():
     appt_form = Appointment_Form()
     bookings_dict = {}
@@ -553,6 +566,7 @@ def appointment():
 @app.route('/Delete_Appointment/<int:id>', methods=['POST'])
 @login_required
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def delete_appointment(id):
     bookings_dict = {}
     count = 0
@@ -587,6 +601,7 @@ def delete_appointment(id):
 @app.route('/markets', methods=['POST', "GET"])
 @login_required
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def market_page():
     purchase_form = Purchase_Form()
     Items_Dict = {}
@@ -649,6 +664,7 @@ def market_page():
 
 @app.route('/image/<int:id>')
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def get_img(id):
     img = Img.query.filter_by(id=id).first()
     if not img:
@@ -660,6 +676,7 @@ def get_img(id):
 @app.route('/shopping_cart', methods=['GET', 'POST'])
 @login_required
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def Shopping_Cart():
     purchase_form = Purchase_Form()
     Cart_Dict = {}
@@ -691,6 +708,7 @@ def Shopping_Cart():
 @app.route('/edit_shopping_cart', methods=['GET', 'POST'])
 @login_required
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def Edit_Shopping_Cart():
     # uuid is Cart_Dict Key
     # uuid2 is Shopping Cart Item ID
@@ -727,6 +745,7 @@ def Edit_Shopping_Cart():
 @app.route('/edit_shopping_cart_item', methods=['GET', 'POST'])
 @login_required
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def Edit_Shopping_Cart_Item():
     # uuid is Cart_Dict Key
     # uuid2 is Shopping Cart Item ID
@@ -889,6 +908,7 @@ def Edit_Shopping_Cart_Item():
 @app.route('/removefromcart', methods=['GET', 'POST'])
 @login_required
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def remove_from_cart():
     purchase_form = Purchase_Form()
     Cart_Dict = {}
@@ -991,6 +1011,7 @@ def remove_from_cart():
 @app.route('/receipt', methods=['POST', 'GET'])
 @login_required
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def Receipt():
     form = Reciept_form()
     def createQR(*args: Item):
@@ -1044,6 +1065,7 @@ def Receipt():
 @app.route('/InventoryManagement', methods=['GET', 'POST'])
 @login_required
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def Inventory_Management():
     Restock_Form = Restock_Item_Form()
     Products = {}
@@ -1074,6 +1096,7 @@ def Inventory_Management():
 @app.route('/RestockItem', methods=['GET', 'POST'])
 @login_required
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def Restock_Item():
     Restock_Form = Restock_Item_Form()
     Products = {}
@@ -1116,6 +1139,7 @@ def Restock_Item():
 @app.route('/DisableProduct', methods=['GET', 'POST'])
 @login_required
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def Disable_Product():
     DisabledProducts_Dict = {}
     Items_Dict = {}
@@ -1156,6 +1180,7 @@ def Disable_Product():
 @app.route('/EnableProduct', methods=['GET', 'POST'])
 @login_required
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def Enable_Product():
     DisabledProducts_Dict = {}
     Items_Dict = {}
@@ -1194,6 +1219,7 @@ def Enable_Product():
 @app.route('/Wish', methods=['GET', 'POST'])
 @login_required
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def wish():
     wish_form = Wish_Form()
     Items_Dict = {}
@@ -1275,6 +1301,7 @@ def wish():
 @app.route('/DeleteWish', methods=['GET', 'POST'])
 @login_required
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def delete_wish():
     wish_form = Wish_Form()
     Wish_Dict = {}
@@ -1339,6 +1366,7 @@ def delete_wish():
 @app.route('/WishList')
 @login_required
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def wish_list():
     Items_Dict = {}
     Wish_Dict = {}
@@ -1370,6 +1398,7 @@ def wish_list():
 @app.route('/AddItemForm', methods=['POST', 'GET'])
 @login_required
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def Add_Item():
     add_item_form = Add_Item_Form()
     your_products_dict = {}
@@ -1437,6 +1466,7 @@ def Add_Item():
 @app.route('/UpdateItemForm', methods=['POST', 'GET'])
 @login_required
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def Update_Item_Form():
     add_item_form = Add_Item_Form()
     return render_template('UpdateItem.html', add_item_form=add_item_form)
@@ -1445,6 +1475,7 @@ def Update_Item_Form():
 @app.route('/PurchaseItem', methods=['POST', 'GET'])
 @login_required
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def Purchase_Item():
     purchase_item_form = Purchase_Form()
     Items_Dict = {}
@@ -1684,6 +1715,7 @@ def Purchase_Item():
 @app.route('/AddToCart', methods=['POST', 'GET'])
 @login_required
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def Add_To_Cart():
     # uuid is Item ID
     # uuid2 is Seller ID
@@ -2141,6 +2173,7 @@ def deposit():
 
 @app.route('/register', methods=['GET', 'POST'])
 @csp_header()
+@limiter.limit("1/second", override_defaults=False)
 def register_page():
     db.create_all()
     form = RegisterForm()
@@ -2184,6 +2217,7 @@ def logout_page():
 
 @app.route("/notes", methods=["GET", "POST"])
 @login_required
+@limiter.limit("1/second", override_defaults=False)
 @csp_header()
 def notes():
     add_notes_form = Add_Notes()
@@ -2216,6 +2250,7 @@ def notes():
 
 @app.route("/deleteNotes", methods=["GET", "POST"])
 @login_required
+@limiter.limit("1/second", override_defaults=False)
 @csp_header()
 def deleteNotes():
     if request.method == "POST":
@@ -2240,6 +2275,7 @@ def deleteNotes():
 
 @app.route('/updateNotes', methods=["GET", "POST"])
 @login_required
+@limiter.limit("1/second", override_defaults=False)
 @csp_header()
 def updateNotes():
     if request.method == 'POST':
