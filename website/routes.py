@@ -67,6 +67,10 @@ def page_not_found(e):
 def exceedratelimit(e):
     return render_template('error429.html'), 429
 
+@app.errorhandler(405)
+def page_not_found(e):
+    return render_template('error405.html'), 405
+
 @app.context_processor
 def cart_database():
     Cart_Dict = {}
