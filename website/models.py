@@ -44,6 +44,7 @@ class User(db.Model, UserMixin):
     status = db.Column(db.String(), nullable=False, default='Enabled')
     twofa = db.Column(db.String(), nullable=False, default='Disabled')
     loginAttempt = db.Column(db.Integer(), nullable=False, default=0)
+    originIP = db.Column(db.String(), nullable=False, default='0')
 
     @property
     def prettier_budget(self):
@@ -77,6 +78,12 @@ class User(db.Model, UserMixin):
     def account_availability(self, status):
         if status == "Disabled":
             return 0
+
+    def check_ip(self, Originip, Currentip):
+        if Originip == Currentip:
+            return True
+        else:
+            return False
     
     # Defines 
 

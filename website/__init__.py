@@ -1,5 +1,5 @@
 from datetime import timedelta
-from flask import Flask
+from flask import Flask, request
 from flask_wtf.csrf import CSRFProtect
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -20,7 +20,7 @@ def create_database(app):
 
 # Some logging I guess
 logging.getLogger("werkzeug").setLevel('WARNING')
-logging.basicConfig(filename='record.log', level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
+logging.basicConfig(filename='record.log', level=logging.INFO, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
 
 
 app = Flask(__name__)
@@ -66,7 +66,7 @@ def admin_user():
     from website.models import User
     db.create_all()
     with app.app_context():
-        admin = User(admin=1, username='admin', password='admin123',email_address='admin@example.com', gender='rather not say', twofa="Disabled")
+        admin = User(admin=1, username='admin', password='admin123',email_address='swissoffical@gmail.com', gender='rather not say', twofa="Enabled")
         #query.filter_by avoids coding in raw sql, making sql injection impossible for the attacker
         if not User.query.filter_by(admin = admin.id).first() and not User.query.filter_by(email_address = admin.email_address).first() and not User.query.filter_by(username = admin.username).first():
             db.session.add(admin)
