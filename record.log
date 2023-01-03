@@ -69,3 +69,7 @@
    WARNING: This is a development server. Do not use it in a production deployment.
 2022-08-14 21:28:28,610 ERROR root Thread-14 : ACCOUNT: idiot  
  NEW IP: 127.0.0.1
+2023-01-03 11:56:02,801 WARNING werkzeug MainThread :  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2023-01-03 12:05:23,000 WARNING werkzeug MainThread :  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
